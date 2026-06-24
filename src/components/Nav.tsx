@@ -1,36 +1,37 @@
-import { useState, useEffect } from 'react'
-import { ArrowRight, Clock, Menu, X } from 'lucide-react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useState, useEffect } from "react";
+
+import { ArrowRight, Clock, Menu, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 function useLocalTime() {
-  const [time, setTime] = useState('')
+  const [time, setTime] = useState("");
   useEffect(() => {
     function update() {
-      const t = new Date().toLocaleTimeString('en-GB', {
-        timeZone: 'Asia/Kolkata',
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false,
-      })
-      setTime(t)
+      const t = new Date().toLocaleTimeString("en-IN", {
+        timeZone: "Asia/Kolkata",
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true,
+      });
+      setTime(t);
     }
-    update()
-    const id = setInterval(update, 1000)
-    return () => clearInterval(id)
-  }, [])
-  return time
+    update();
+    const id = setInterval(update, 1000);
+    return () => clearInterval(id);
+  }, []);
+  return time;
 }
 
 const navLinks = [
-  { label: 'Work', href: '#work' },
-  { label: 'Studio', href: '#studio' },
-  { label: 'Services', href: '#services' },
-  { label: 'Contact', href: '#contact' },
-]
+  { label: "Work", href: "#work" },
+  { label: "Studio", href: "#studio" },
+  { label: "Services", href: "#services" },
+  { label: "Contact", href: "#contact" },
+];
 
 export default function Nav() {
-  const [menuOpen, setMenuOpen] = useState(false)
-  const localTime = useLocalTime()
+  const [menuOpen, setMenuOpen] = useState(false);
+  const localTime = useLocalTime();
 
   return (
     <>
@@ -46,10 +47,14 @@ export default function Nav() {
             <div className="flex items-center gap-6">
               <a
                 href="#top"
-                className="w-9 h-9 sm:w-10 sm:h-10 bg-gray-900 rounded-full flex items-center justify-center shrink-0"
+                className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center shrink-0"
                 aria-label="Kuber Tech Solutions, back to top"
               >
-                <span className="text-white font-bold tracking-tight" style={{ fontSize: '10px' }}>KT</span>
+                <img
+                  src="/logos/KuberTechLogo.png"
+                  alt="Kuber Tech Solutions"
+                  className="w-full h-full object-contain"
+                />
               </a>
               <ul className="hidden md:flex items-center gap-6">
                 {navLinks.map(({ label, href }, i) => (
@@ -79,7 +84,7 @@ export default function Nav() {
                 transition={{ delay: 0.5, duration: 0.4 }}
               >
                 <Clock size={14} className="text-gray-600" />
-                <span className="text-[13px] text-gray-600">{localTime} IST</span>
+                <span className="text-[13px] text-gray-600">{localTime}</span>
               </motion.div>
               <motion.a
                 href="#contact"
@@ -91,16 +96,27 @@ export default function Nav() {
                 whileTap={{ scale: 0.98 }}
               >
                 <div className="overflow-hidden h-[20px]">
-                  <div className="flex flex-col transition-transform duration-500 group-hover:-translate-y-1/2" style={{ transitionTimingFunction: 'cubic-bezier(0.25,0.1,0.25,1)' }}>
-                    <span className="h-[20px] flex items-center">Book a strategy call</span>
-                    <span className="h-[20px] flex items-center">Book a strategy call</span>
+                  <div
+                    className="flex flex-col transition-transform duration-500 group-hover:-translate-y-1/2"
+                    style={{
+                      transitionTimingFunction: "cubic-bezier(0.25,0.1,0.25,1)",
+                    }}
+                  >
+                    <span className="h-[20px] flex items-center">
+                      Book a strategy call
+                    </span>
+                    <span className="h-[20px] flex items-center">
+                      Book a strategy call
+                    </span>
                   </div>
                 </div>
                 <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center shrink-0">
                   <ArrowRight
                     size={12}
                     className="text-gray-900 transition-transform duration-500 group-hover:-rotate-45"
-                    style={{ transitionTimingFunction: 'cubic-bezier(0.25,0.1,0.25,1)' }}
+                    style={{
+                      transitionTimingFunction: "cubic-bezier(0.25,0.1,0.25,1)",
+                    }}
                   />
                 </div>
               </motion.a>
@@ -110,10 +126,10 @@ export default function Nav() {
             <button
               className="md:hidden flex items-center gap-2 bg-gray-900 text-white text-[13px] font-medium rounded-full px-4 py-2 mr-1"
               onClick={() => setMenuOpen(!menuOpen)}
-              aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
             >
               {menuOpen ? <X size={16} /> : <Menu size={16} />}
-              <span>{menuOpen ? 'Close' : 'Menu'}</span>
+              <span>{menuOpen ? "Close" : "Menu"}</span>
             </button>
           </nav>
         </div>
@@ -140,9 +156,9 @@ export default function Nav() {
         {menuOpen && (
           <motion.div
             className="fixed inset-x-0 bottom-0 z-50 md:hidden mx-3 mb-3"
-            initial={{ y: '100%' }}
+            initial={{ y: "100%" }}
             animate={{ y: 0 }}
-            exit={{ y: '100%' }}
+            exit={{ y: "100%" }}
             transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
           >
             <div className="bg-white rounded-2xl p-6 space-y-6">
@@ -183,5 +199,5 @@ export default function Nav() {
         )}
       </AnimatePresence>
     </>
-  )
+  );
 }

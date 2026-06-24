@@ -1,13 +1,13 @@
-import ScrollReveal from './ScrollReveal'
+import ScrollReveal from "./ScrollReveal";
 
 const clients = [
-  { name: 'Marks and Spencer', src: null, label: 'M&S' },
-  { name: 'Siemens', src: '/logos/siemens.png' },
-  { name: 'Tarana', src: '/logos/tarana.png' },
-  { name: 'Jiffy', src: '/logos/jiffy.png' },
-  { name: 'Cigora', src: '/logos/cigora.png' },
-  { name: 'Samyati Holidays', src: '/logos/samyati.png' },
-]
+  { name: "Marks and Spencer", src: null, label: "M&S" },
+  { name: "Siemens", src: "/logos/siemens.png" },
+  { name: "Tarana", src: "/logos/tarana.png" },
+  { name: "Jiffy", src: "/logos/jiffy.png" },
+  { name: "Cigora", src: "/logos/cigora.png" },
+  { name: "Samyati Holidays", src: "/logos/samyati.png" },
+];
 
 export default function ClientsSection() {
   return (
@@ -15,7 +15,7 @@ export default function ClientsSection() {
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12">
         <ScrollReveal>
           <p className="text-center text-[12px] sm:text-[13px] uppercase tracking-[0.18em] text-gray-400 mb-9 sm:mb-12">
-            Companies our team has worked with
+            Work that has shaped products at
           </p>
         </ScrollReveal>
 
@@ -43,5 +43,5 @@ export default function ClientsSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }
