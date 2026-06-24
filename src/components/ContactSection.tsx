@@ -1,0 +1,195 @@
+import { useState } from 'react'
+import { ArrowRight } from 'lucide-react'
+import ScrollReveal from './ScrollReveal'
+
+type FormState = 'idle' | 'submitting' | 'success' | 'error'
+
+export default function ContactSection() {
+  const [state, setState] = useState<FormState>('idle')
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    setState('submitting')
+
+    const form = e.currentTarget
+    const data = new FormData(form)
+
+    try {
+      // Wire Formspree later: replace REPLACE_WITH_FORM_ID with your endpoint
+      const res = await fetch('https://formspree.io/f/REPLACE_WITH_FORM_ID', {
+        method: 'POST',
+        body: data,
+        headers: { Accept: 'application/json' },
+      })
+      if (res.ok) {
+        setState('success')
+        form.reset()
+      } else {
+        setState('error')
+      }
+    } catch {
+      setState('error')
+    }
+  }
+
+  return (
+    <section id="contact" className="bg-[#0c0c0c] pt-16 sm:pt-20 lg:pt-28 pb-14 sm:pb-16 lg:pb-20 scroll-mt-4">
+      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12">
+        {/* Badge row */}
+        <ScrollReveal className="flex items-center gap-3 mb-6 sm:mb-8" delay={0}>
+          <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white flex items-center justify-center shrink-0">
+            <span className="text-gray-900 font-semibold" style={{ fontSize: '11px' }}>4</span>
+          </div>
+          <span className="text-[12px] sm:text-[13px] font-medium border border-white/20 rounded-full px-3 sm:px-4 py-1 sm:py-1.5 text-white/70">
+            Start a project
+          </span>
+        </ScrollReveal>
+
+        <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-16 items-start">
+          {/* Left: heading + direct contact */}
+          <ScrollReveal delay={0.1}>
+            <h2
+              className="font-medium leading-[1.1] tracking-[-0.02em] text-white"
+              style={{ fontSize: 'clamp(1.75rem, 4.5vw, 3.4rem)' }}
+            >
+              Tell us what you
+              <br className="hidden sm:block" />
+              <span className="sm:hidden"> </span>
+              are building.
+            </h2>
+            <p className="text-[15px] sm:text-[16px] text-white/60 leading-[1.6] mt-5 max-w-md">
+              We scope it properly before quoting, and we move quickly. Frontend,
+              backend, or the cloud infrastructure behind it.
+            </p>
+
+            <div className="mt-8 space-y-4">
+              <div>
+                <p className="text-[12px] uppercase tracking-wider text-white/40 mb-1">Email</p>
+                <a
+                  href="mailto:hello@kubertech.example"
+                  className="text-[15px] text-white hover:text-[#F26522] transition-colors duration-200"
+                >
+                  hello@kubertech.example
+                </a>
+              </div>
+              <div>
+                <p className="text-[12px] uppercase tracking-wider text-white/40 mb-1">Hours</p>
+                <p className="text-[15px] text-white/80">Mon to Fri, India Standard Time</p>
+              </div>
+            </div>
+          </ScrollReveal>
+
+          {/* Right: form */}
+          <ScrollReveal delay={0.15}>
+            {state === 'success' ? (
+              <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-8 text-center">
+                <p className="text-[#F26522] font-medium mb-2">Message sent.</p>
+                <p className="text-sm text-white/60">
+                  We will get back to you within one business day.
+                </p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} noValidate className="space-y-4">
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="name" className="block text-[13px] text-white/60 mb-1.5">
+                      Name
+                    </label>
+                    <input
+                      id="name"
+                      name="name"
+                      type="text"
+                      required
+                      autoComplete="name"
+                      placeholder="Your name"
+                      className="w-full bg-white/[0.04] border border-white/10 rounded-lg px-4 py-3 text-[14px] text-white placeholder-white/30 focus:border-[#F26522] focus:outline-none transition-colors duration-200"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="email" className="block text-[13px] text-white/60 mb-1.5">
+                      Email
+                    </label>
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      required
+                      autoComplete="email"
+                      placeholder="you@company.com"
+                      className="w-full bg-white/[0.04] border border-white/10 rounded-lg px-4 py-3 text-[14px] text-white placeholder-white/30 focus:border-[#F26522] focus:outline-none transition-colors duration-200"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label htmlFor="project-type" className="block text-[13px] text-white/60 mb-1.5">
+                    What do you need?
+                  </label>
+                  <select
+                    id="project-type"
+                    name="project-type"
+                    required
+                    defaultValue=""
+                    className="w-full bg-white/[0.04] border border-white/10 rounded-lg px-4 py-3 text-[14px] text-white focus:border-[#F26522] focus:outline-none transition-colors duration-200 appearance-none"
+                  >
+                    <option value="" disabled className="bg-[#0c0c0c]">Select one</option>
+                    <option value="frontend" className="bg-[#0c0c0c]">Frontend / web product</option>
+                    <option value="backend" className="bg-[#0c0c0c]">Backend / API</option>
+                    <option value="cloud" className="bg-[#0c0c0c]">Cloud / DevOps</option>
+                    <option value="fullstack" className="bg-[#0c0c0c]">Full-stack product</option>
+                    <option value="other" className="bg-[#0c0c0c]">Something else</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label htmlFor="message" className="block text-[13px] text-white/60 mb-1.5">
+                    About the project
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    required
+                    rows={4}
+                    placeholder="What are you building, and what does done look like?"
+                    className="w-full bg-white/[0.04] border border-white/10 rounded-lg px-4 py-3 text-[14px] text-white placeholder-white/30 focus:border-[#F26522] focus:outline-none transition-colors duration-200 resize-none"
+                  />
+                </div>
+
+                {state === 'error' && (
+                  <p className="text-[13px] text-red-400">
+                    Something went wrong. Email us directly at hello@kubertech.example.
+                  </p>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={state === 'submitting'}
+                  className="group flex items-center gap-2 bg-[#F26522] hover:bg-[#e05a1a] text-white text-[14px] font-medium rounded-full pl-6 pr-2 py-2.5 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+                >
+                  <span>{state === 'submitting' ? 'Sending...' : 'Send message'}</span>
+                  <div className="w-7 h-7 bg-white rounded-full flex items-center justify-center shrink-0">
+                    <ArrowRight
+                      size={12}
+                      className="text-[#F26522] transition-transform duration-500 group-hover:-rotate-45"
+                      style={{ transitionTimingFunction: 'cubic-bezier(0.25,0.1,0.25,1)' }}
+                    />
+                  </div>
+                </button>
+              </form>
+            )}
+          </ScrollReveal>
+        </div>
+
+        {/* Footer line */}
+        <div className="mt-16 sm:mt-20 pt-6 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <p className="text-[13px] text-white/40">
+            &copy; {new Date().getFullYear()} Kuber Tech Solutions
+          </p>
+          <p className="text-[13px] text-white/40">
+            Fast, conversion-focused web products and the infrastructure behind them.
+          </p>
+        </div>
+      </div>
+    </section>
+  )
+}
