@@ -23,17 +23,17 @@ export default function ClientsSection() {
           {clients.map((c, i) => (
             <ScrollReveal key={c.name} delay={0.06 * i} y={20}>
               <div
-                className="group h-28 sm:h-32 lg:h-36 rounded-xl bg-white border border-gray-200/70 flex items-center justify-center p-3 sm:p-4 hover:border-gray-300 hover:shadow-[0_4px_20px_rgba(0,0,0,0.05)] transition-all duration-300"
+                className="group h-28 sm:h-36 lg:h-40 rounded-xl bg-white border border-gray-200/70 flex items-center justify-center p-2 sm:p-3 hover:border-gray-300 hover:shadow-[0_4px_20px_rgba(0,0,0,0.05)] transition-all duration-300"
                 title={c.name}
               >
                 {c.src ? (
                   <img
                     src={c.src}
                     alt={c.name}
-                    className="max-h-full max-w-full object-contain grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
+                    className="max-h-[88%] max-w-[88%] object-contain grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
                   />
                 ) : (
-                  <span className="text-[28px] sm:text-[34px] font-semibold tracking-tight text-gray-400 group-hover:text-gray-700 transition-colors duration-300">
+                  <span className="text-[30px] sm:text-[40px] font-semibold tracking-tight text-gray-400 group-hover:text-gray-700 transition-colors duration-300">
                     {c.label}
                   </span>
                 )}

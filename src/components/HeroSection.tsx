@@ -1,4 +1,4 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronDown } from "lucide-react";
 import {
   Shader,
   Swirl,
@@ -24,7 +24,7 @@ export default function HeroSection() {
   return (
     <section
       id="top"
-      className="relative min-h-screen bg-[#EFEFEF] flex flex-col"
+      className="relative min-h-[86svh] md:min-h-screen bg-[#EFEFEF] flex flex-col"
     >
       {/* Full-screen shader overlay */}
       <div className="absolute inset-0 z-10 pointer-events-none">
@@ -144,6 +144,17 @@ export default function HeroSection() {
           </motion.a>
         </motion.div>
       </div>
+
+      {/* Mobile-only scroll cue */}
+      <motion.a
+        href="#studio"
+        aria-label="Scroll to next section"
+        className="md:hidden absolute bottom-4 left-1/2 -translate-x-1/2 z-20 text-gray-500"
+        animate={{ y: [0, 7, 0] }}
+        transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <ChevronDown size={24} strokeWidth={1.75} />
+      </motion.a>
     </section>
   );
 }

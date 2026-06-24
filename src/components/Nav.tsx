@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 
 import { ArrowRight, Clock, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -32,6 +33,13 @@ const navLinks = [
 export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
   const localTime = useLocalTime();
+
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
 
   return (
     <>
@@ -135,8 +143,10 @@ export default function Nav() {
         </div>
       </motion.div>
 
-      {/* Mobile backdrop */}
-      <AnimatePresence>
+      {/* Mobile menu, portaled to body so its z-50 escapes the hero stacking context */}
+      {createPortal(
+        <>
+          <AnimatePresence>
         {menuOpen && (
           <motion.div
             className="fixed inset-0 z-50 md:hidden"
@@ -197,7 +207,10 @@ export default function Nav() {
             </div>
           </motion.div>
         )}
-      </AnimatePresence>
+          </AnimatePresence>
+        </>,
+        document.body,
+      )}
     </>
   );
 }
