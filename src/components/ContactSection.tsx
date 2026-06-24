@@ -99,15 +99,6 @@ export default function ContactSection() {
                   Let's talk
                 </a>
               </div>
-
-              <div>
-                <p className="text-[12px] uppercase tracking-wider text-white/40 mb-1">
-                  Hours
-                </p>
-                <p className="text-[15px] text-white/80">
-                  Mon to Fri, India Standard Time
-                </p>
-              </div>
             </div>
           </ScrollReveal>
 
