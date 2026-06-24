@@ -6,7 +6,7 @@ import {
   FlutedGlass,
   FilmGrain,
 } from "shaders/react";
-import { motion, type Variants } from "framer-motion";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
 import Nav from "./Nav";
 
 const easeOut = [0.25, 0.1, 0.25, 1] as const;
@@ -21,6 +21,7 @@ const fadeUp: Variants = {
 };
 
 export default function HeroSection() {
+  const reduceMotion = useReducedMotion();
   return (
     <section
       id="top"
@@ -150,8 +151,12 @@ export default function HeroSection() {
         href="#studio"
         aria-label="Scroll to next section"
         className="md:hidden absolute bottom-4 left-1/2 -translate-x-1/2 z-20 text-gray-500"
-        animate={{ y: [0, 7, 0] }}
-        transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+        animate={reduceMotion ? undefined : { y: [0, 7, 0] }}
+        transition={
+          reduceMotion
+            ? undefined
+            : { duration: 1.6, repeat: Infinity, ease: "easeInOut" }
+        }
       >
         <ChevronDown size={24} strokeWidth={1.75} />
       </motion.a>

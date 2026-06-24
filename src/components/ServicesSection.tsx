@@ -53,7 +53,7 @@ const services: Service[] = [
 
 export default function ServicesSection() {
   return (
-    <section id="services" className="bg-white pt-16 sm:pt-20 lg:pt-28 pb-16 sm:pb-20 lg:pb-28 scroll-mt-4">
+    <section id="services" className="bg-white pt-8 sm:pt-12 lg:pt-16 pb-16 sm:pb-20 lg:pb-28 scroll-mt-4">
       <div className="max-w-[1440px] mx-auto">
         {/* Badge row */}
         <ScrollReveal className="px-5 sm:px-8 lg:px-12 flex items-center gap-3 mb-6 sm:mb-8" delay={0}>

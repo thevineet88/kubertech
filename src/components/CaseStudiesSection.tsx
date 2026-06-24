@@ -1,4 +1,4 @@
-import type { ComponentType } from 'react'
+import { useState, type ComponentType } from 'react'
 import { ArrowRight } from 'lucide-react'
 import { motion } from 'framer-motion'
 import {
@@ -160,8 +160,9 @@ const moreWork: Project[] = [
 ]
 
 export default function CaseStudiesSection() {
+  const [expanded, setExpanded] = useState(false)
   return (
-    <section id="work" className="bg-[#F5F5F5] pt-16 sm:pt-20 lg:pt-28 pb-16 sm:pb-20 lg:pb-28 scroll-mt-4">
+    <section id="work" className="bg-[#F5F5F5] pt-8 sm:pt-12 lg:pt-16 pb-10 sm:pb-14 lg:pb-16 scroll-mt-4">
       <div className="max-w-[1440px] mx-auto">
         {/* Badge row */}
         <ScrollReveal className="px-5 sm:px-8 lg:px-12 flex items-center gap-3 mb-6 sm:mb-8" delay={0}>
@@ -174,7 +175,7 @@ export default function CaseStudiesSection() {
         </ScrollReveal>
 
         {/* Heading */}
-        <ScrollReveal className="px-5 sm:px-8 lg:px-12 mb-10 sm:mb-14 lg:mb-16" delay={0.1}>
+        <ScrollReveal className="px-5 sm:px-8 lg:px-12 mb-8 sm:mb-14 lg:mb-16" delay={0.1}>
           <h2
             className="font-medium leading-[1.08] tracking-[-0.03em] text-gray-900"
             style={{ fontSize: 'clamp(1.75rem, 7vw, 4.2rem)' }}
@@ -187,7 +188,7 @@ export default function CaseStudiesSection() {
         </ScrollReveal>
 
         {/* Featured */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 lg:gap-7 px-5 sm:px-8 lg:px-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-7 px-5 sm:px-8 lg:px-12">
           {featured.map((p, i) => (
             <ScrollReveal key={p.title} delay={0.15 + i * 0.1} y={32}>
               <motion.div
@@ -227,7 +228,7 @@ export default function CaseStudiesSection() {
         </div>
 
         {/* More work */}
-        <ScrollReveal className="px-5 sm:px-8 lg:px-12 mt-16 sm:mt-20 lg:mt-24 mb-8 sm:mb-10" delay={0}>
+        <ScrollReveal className="px-5 sm:px-8 lg:px-12 mt-12 sm:mt-20 lg:mt-24 mb-6 sm:mb-10" delay={0}>
           <h3 className="text-[18px] sm:text-[20px] font-semibold text-gray-900">
             More from the studio
           </h3>
@@ -236,9 +237,14 @@ export default function CaseStudiesSection() {
           </p>
         </ScrollReveal>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 px-5 sm:px-8 lg:px-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 px-5 sm:px-8 lg:px-12">
           {moreWork.map((p, i) => (
-            <ScrollReveal key={p.title} delay={0.1 + i * 0.06} y={28}>
+            <ScrollReveal
+              key={p.title}
+              delay={0.1 + i * 0.06}
+              y={28}
+              className={i >= 2 && !expanded ? 'hidden sm:block' : undefined}
+            >
               <motion.div
                 className="group relative overflow-hidden rounded-2xl p-5 flex flex-col justify-between min-h-[200px]"
                 style={{ background: p.gradient }}
@@ -267,6 +273,20 @@ export default function CaseStudiesSection() {
             </ScrollReveal>
           ))}
         </div>
+
+        {/* Mobile-only expand/collapse */}
+        {moreWork.length > 2 && (
+          <div className="sm:hidden px-5 mt-6">
+            <button
+              type="button"
+              onClick={() => setExpanded((v) => !v)}
+              aria-expanded={expanded}
+              className="w-full rounded-full border border-gray-300 text-gray-700 text-[14px] font-medium py-3 hover:border-gray-400 transition-colors duration-200"
+            >
+              {expanded ? 'Show less' : `Show ${moreWork.length - 2} more`}
+            </button>
+          </div>
+        )}
       </div>
     </section>
   )

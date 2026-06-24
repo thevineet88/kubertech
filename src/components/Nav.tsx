@@ -55,13 +55,13 @@ export default function Nav() {
             <div className="flex items-center gap-6">
               <a
                 href="#top"
-                className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center shrink-0"
+                className="w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center shrink-0 overflow-hidden rounded-l-full"
                 aria-label="Kuber Tech Solutions, back to top"
               >
                 <img
                   src="/logos/KuberTechLogo.png"
                   alt="Kuber Tech Solutions"
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-cover rounded-l-full"
                 />
               </a>
               <ul className="hidden md:flex items-center gap-6">
