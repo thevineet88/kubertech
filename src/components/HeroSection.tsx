@@ -107,10 +107,11 @@ export default function HeroSection() {
           animate="show"
           custom={0.45}
         >
-          For founders and product leaders whose site is too slow, leaks revenue
-          at checkout, or has to be built right the first time. We engineer React
-          and Next.js products that load fast and turn visitors into customers,
-          and we run the cloud that keeps them that way in production.
+          For founders and product leaders who can't afford slow products,
+          unreliable systems, or costly rebuilds. We engineer high-performance
+          full-stack applications and cloud infrastructure that help businesses
+          launch faster, scale confidently, and turn more visitors into
+          customers.
         </motion.p>
 
         {/* CTA row */}
