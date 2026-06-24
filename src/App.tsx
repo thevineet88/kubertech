@@ -1,8 +1,9 @@
 import HeroSection from './components/HeroSection'
-import AboutSection from './components/AboutSection'
-import ClientsSection from './components/ClientsSection'
-import CaseStudiesSection from './components/CaseStudiesSection'
+import ProofBar from './components/ProofBar'
 import ServicesSection from './components/ServicesSection'
+import AboutSection from './components/AboutSection'
+import CaseStudiesSection from './components/CaseStudiesSection'
+import ClientsSection from './components/ClientsSection'
 import ContactSection from './components/ContactSection'
 
 function App() {
@@ -10,10 +11,16 @@ function App() {
     <div className="w-full">
       {/* Hero owns the full viewport; Nav is rendered inside it at z-20 */}
       <HeroSection />
-      <AboutSection />
-      <ClientsSection />
-      <CaseStudiesSection />
+      {/* Proof bar: metrics above the fold */}
+      <ProofBar />
+      {/* What we do: two named offerings */}
       <ServicesSection />
+      {/* How we work */}
+      <AboutSection />
+      {/* Case study / selected work */}
+      <CaseStudiesSection />
+      <ClientsSection />
+      {/* Closing CTA */}
       <ContactSection />
     </div>
   )

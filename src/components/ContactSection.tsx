@@ -52,7 +52,7 @@ export default function ContactSection() {
             </span>
           </div>
           <span className="text-[12px] sm:text-[13px] font-medium border border-white/20 rounded-full px-3 sm:px-4 py-1 sm:py-1.5 text-white/70">
-            Start a project
+            Book a 15-minute call
           </span>
         </ScrollReveal>
 
@@ -63,14 +63,14 @@ export default function ContactSection() {
               className="font-medium leading-[1.1] tracking-[-0.02em] text-white"
               style={{ fontSize: "clamp(1.75rem, 4.5vw, 3.4rem)" }}
             >
-              Tell us what you
+              Tell us what is slow,
               <br className="hidden sm:block" />
               <span className="sm:hidden"> </span>
-              are building.
+              or what you need built.
             </h2>
             <p className="text-[15px] sm:text-[16px] text-white/60 leading-[1.6] mt-5 max-w-md">
-              We scope it properly before quoting, and we move quickly.
-              Frontend, backend, or the cloud infrastructure behind it.
+              A 15-minute call is enough to know if we can move your load time and
+              your conversion. We scope it properly before we quote.
             </p>
 
             <div className="mt-8 space-y-4">
@@ -215,7 +215,7 @@ export default function ContactSection() {
                   className="group flex items-center gap-2 bg-[#F26522] hover:bg-[#e05a1a] text-white text-[14px] font-medium rounded-full pl-6 pr-2 py-2.5 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
                 >
                   <span>
-                    {state === "submitting" ? "Sending..." : "Send message"}
+                    {state === "submitting" ? "Sending..." : "Book a 15-minute call"}
                   </span>
                   <div className="w-7 h-7 bg-white rounded-full flex items-center justify-center shrink-0">
                     <ArrowRight

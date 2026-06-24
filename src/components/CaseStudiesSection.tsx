@@ -167,7 +167,7 @@ export default function CaseStudiesSection() {
         {/* Badge row */}
         <ScrollReveal className="px-5 sm:px-8 lg:px-12 flex items-center gap-3 mb-6 sm:mb-8" delay={0}>
           <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-gray-900 flex items-center justify-center shrink-0">
-            <span className="text-white font-semibold" style={{ fontSize: '11px' }}>2</span>
+            <span className="text-white font-semibold" style={{ fontSize: '11px' }}>3</span>
           </div>
           <span className="text-[12px] sm:text-[13px] font-medium border border-gray-300 rounded-full px-3 sm:px-4 py-1 sm:py-1.5 text-gray-700">
             Selected work

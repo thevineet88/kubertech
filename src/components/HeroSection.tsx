@@ -87,20 +87,31 @@ export default function HeroSection() {
           custom={0.35}
         >
           <span className="sm:hidden">
-            We build fast, high-quality web products for brands that need to win
-            online.
+            Make your web product fast enough to convert.
           </span>
           <span
             className="hidden sm:block"
             style={{ fontSize: "clamp(2.5rem, 5vw, 4.2rem)" }}
           >
-            We build fast, high-quality web products
+            Make your web product
             <br />
-            for brands that need to move quickly
-            <br />
-            and win their category online.
+            fast enough to convert.
           </span>
         </motion.h1>
+
+        {/* Subhead */}
+        <motion.p
+          className="text-[15px] sm:text-[18px] text-gray-600 leading-[1.55] max-w-2xl -mt-2 sm:-mt-4 mb-8 sm:mb-12"
+          variants={fadeUp}
+          initial="hidden"
+          animate="show"
+          custom={0.45}
+        >
+          For founders and product leaders whose site is too slow, leaks revenue
+          at checkout, or has to be built right the first time. We engineer React
+          and Next.js products that load fast and turn visitors into customers,
+          and we run the cloud that keeps them that way in production.
+        </motion.p>
 
         {/* CTA row */}
         <motion.div
@@ -126,10 +137,10 @@ export default function HeroSection() {
                 }}
               >
                 <span className="h-[20px] flex items-center">
-                  Start a project
+                  Book a 15-minute call
                 </span>
                 <span className="h-[20px] flex items-center">
-                  Start a project
+                  Book a 15-minute call
                 </span>
               </div>
             </div>

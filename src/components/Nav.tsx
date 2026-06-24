@@ -25,7 +25,7 @@ function useLocalTime() {
 
 const navLinks = [
   { label: "Work", href: "#work" },
-  { label: "Studio", href: "#studio" },
+  { label: "Process", href: "#studio" },
   { label: "Services", href: "#services" },
   { label: "Contact", href: "#contact" },
 ];
@@ -111,10 +111,10 @@ export default function Nav() {
                     }}
                   >
                     <span className="h-[20px] flex items-center">
-                      Book a strategy call
+                      Book a 15-minute call
                     </span>
                     <span className="h-[20px] flex items-center">
-                      Book a strategy call
+                      Book a 15-minute call
                     </span>
                   </div>
                 </div>
@@ -199,7 +199,7 @@ export default function Nav() {
                 onClick={() => setMenuOpen(false)}
                 className="group flex items-center gap-2 bg-[#F26522] text-white text-[13px] font-medium rounded-full pl-5 pr-2 py-2 w-full justify-between"
               >
-                <span>Start a project</span>
+                <span>Book a 15-minute call</span>
                 <div className="w-7 h-7 bg-white rounded-full flex items-center justify-center shrink-0">
                   <ArrowRight size={12} className="text-[#F26522]" />
                 </div>
