@@ -1,4 +1,5 @@
 import { Analytics } from '@vercel/analytics/react'
+import Nav from './components/Nav'
 import HeroSection from './components/HeroSection'
 import TestimonialsSection from './components/TestimonialsSection'
 import ProofBar from './components/ProofBar'
@@ -12,7 +13,7 @@ import BookingModal from './components/BookingModal'
 function App() {
   return (
     <div className="w-full">
-      {/* Hero owns the full viewport; Nav is rendered inside it at z-20 */}
+      <Nav />
       <HeroSection />
       {/* Proof bar: metrics above the fold */}
       <ProofBar />

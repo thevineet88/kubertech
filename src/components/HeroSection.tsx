@@ -8,7 +8,6 @@ import {
   FilmGrain,
 } from "shaders/react";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
-import Nav from "./Nav";
 
 const easeOut = [0.25, 0.1, 0.25, 1] as const;
 
@@ -57,13 +56,8 @@ export default function HeroSection() {
         </Shader>
       </div>
 
-      {/* Nav */}
-      <div className="relative z-20">
-        <Nav />
-      </div>
-
-      {/* Spacer */}
-      <div className="flex-1 relative z-20" />
+      {/* Spacer pushes content to bottom */}
+      <div className="flex-1" />
 
       {/* Hero content */}
       <div className="relative z-20 max-w-[1440px] mx-auto w-full px-5 sm:px-8 lg:px-12 pb-14 sm:pb-16 lg:pb-20">
