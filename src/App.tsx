@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react'
 import HeroSection from './components/HeroSection'
 import ProofBar from './components/ProofBar'
 import ServicesSection from './components/ServicesSection'
@@ -25,6 +26,7 @@ function App() {
       <ContactSection />
       {/* Cal.com booking modal, opens on any "Book a 30-minute call" CTA */}
       <BookingModal />
+      <Analytics />
     </div>
   )
 }
