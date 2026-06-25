@@ -1,6 +1,7 @@
 import { ArrowRight } from 'lucide-react'
 import { motion } from 'framer-motion'
 import ScrollReveal from './ScrollReveal'
+import { openBooking } from '../booking'
 
 const steps = [
   {
@@ -22,7 +23,7 @@ const steps = [
 
 export default function AboutSection() {
   return (
-    <section id="studio" className="bg-[#FAFAFA] border-t border-gray-100 pt-12 sm:pt-16 lg:pt-24 pb-12 sm:pb-16 lg:pb-24 scroll-mt-4">
+    <section id="studio" className="bg-[#FAFAFA] border-t border-gray-100 pt-12 sm:pt-16 lg:pt-24 pb-12 sm:pb-16 lg:pb-24 scroll-mt-4 md:scroll-mt-24">
       <div className="max-w-[1440px] mx-auto">
         {/* Badge row */}
         <ScrollReveal className="px-5 sm:px-8 lg:px-12 flex items-center gap-3 mb-6 sm:mb-8" delay={0}>
@@ -84,12 +85,16 @@ export default function AboutSection() {
         <ScrollReveal className="px-5 sm:px-8 lg:px-12 mt-10 sm:mt-12" delay={0.1}>
           <motion.a
             href="#contact"
+            onClick={(e) => {
+              e.preventDefault()
+              openBooking()
+            }}
             className="group inline-flex items-center gap-2 bg-[#F26522] text-white text-[14px] font-medium rounded-full pl-6 pr-2 py-2.5"
             whileHover={{ scale: 1.03, backgroundColor: '#e05a1a' }}
             whileTap={{ scale: 0.97 }}
             transition={{ duration: 0.2 }}
           >
-            <span>Book a 15-minute call</span>
+            <span>Book a 30-minute call</span>
             <div className="w-7 h-7 bg-white rounded-full flex items-center justify-center shrink-0">
               <ArrowRight
                 size={12}

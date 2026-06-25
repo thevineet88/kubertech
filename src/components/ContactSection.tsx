@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
+import { openBooking } from "../booking";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 
@@ -35,7 +36,7 @@ export default function ContactSection() {
   return (
     <section
       id="contact"
-      className="bg-[#0c0c0c] pt-16 sm:pt-20 lg:pt-28 pb-14 sm:pb-16 lg:pb-20 scroll-mt-4"
+      className="bg-[#0c0c0c] pt-16 sm:pt-20 lg:pt-28 pb-14 sm:pb-16 lg:pb-20 scroll-mt-4 md:scroll-mt-24"
     >
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12">
         {/* Badge row */}
@@ -52,7 +53,7 @@ export default function ContactSection() {
             </span>
           </div>
           <span className="text-[12px] sm:text-[13px] font-medium border border-white/20 rounded-full px-3 sm:px-4 py-1 sm:py-1.5 text-white/70">
-            Book a 15-minute call
+            Contact Us
           </span>
         </ScrollReveal>
 
@@ -69,8 +70,8 @@ export default function ContactSection() {
               or what you need built.
             </h2>
             <p className="text-[15px] sm:text-[16px] text-white/60 leading-[1.6] mt-5 max-w-md">
-              A 15-minute call is enough to know if we can move your load time and
-              your conversion. We scope it properly before we quote.
+              A 30-minute call is enough to know if we can move your load time
+              and your conversion. We scope it properly before we quote.
             </p>
 
             <div className="mt-8 space-y-4">
@@ -100,9 +101,26 @@ export default function ContactSection() {
                 </a>
               </div>
             </div>
+
+            <button
+              type="button"
+              onClick={openBooking}
+              className="group mt-8 inline-flex items-center gap-2 bg-[#F26522] hover:bg-[#e05a1a] text-white text-[14px] font-medium rounded-full pl-6 pr-2 py-2.5 transition-colors duration-200"
+            >
+              <span>Book a 30-minute call</span>
+              <div className="w-7 h-7 bg-white rounded-full flex items-center justify-center shrink-0">
+                <ArrowRight
+                  size={12}
+                  className="text-[#F26522] transition-transform duration-500 group-hover:-rotate-45"
+                  style={{
+                    transitionTimingFunction: "cubic-bezier(0.25,0.1,0.25,1)",
+                  }}
+                />
+              </div>
+            </button>
           </ScrollReveal>
 
-          {/* Right: form */}
+          {/* Right: message form */}
           <ScrollReveal delay={0.15}>
             {state === "success" ? (
               <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-8 text-center">
@@ -215,7 +233,7 @@ export default function ContactSection() {
                   className="group flex items-center gap-2 bg-[#F26522] hover:bg-[#e05a1a] text-white text-[14px] font-medium rounded-full pl-6 pr-2 py-2.5 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
                 >
                   <span>
-                    {state === "submitting" ? "Sending..." : "Book a 15-minute call"}
+                    {state === "submitting" ? "Sending..." : "Send message"}
                   </span>
                   <div className="w-7 h-7 bg-white rounded-full flex items-center justify-center shrink-0">
                     <ArrowRight

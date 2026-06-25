@@ -1,27 +1,9 @@
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 
-import { ArrowRight, Clock, Menu, X } from "lucide-react";
+import { ArrowRight, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-
-function useLocalTime() {
-  const [time, setTime] = useState("");
-  useEffect(() => {
-    function update() {
-      const t = new Date().toLocaleTimeString("en-IN", {
-        timeZone: "Asia/Kolkata",
-        hour: "numeric",
-        minute: "2-digit",
-        hour12: true,
-      });
-      setTime(t);
-    }
-    update();
-    const id = setInterval(update, 1000);
-    return () => clearInterval(id);
-  }, []);
-  return time;
-}
+import { openBooking } from "../booking";
 
 const navLinks = [
   { label: "Work", href: "#work" },
@@ -32,7 +14,7 @@ const navLinks = [
 
 export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const localTime = useLocalTime();
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
@@ -41,94 +23,65 @@ export default function Nav() {
     };
   }, [menuOpen]);
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
     <>
       <motion.div
-        className="relative z-20 w-full"
+        className="relative z-20 w-full md:fixed md:top-0 md:left-0 md:right-0 md:z-50"
         initial={{ opacity: 0, y: -16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
       >
         <div className="max-w-[1440px] mx-auto p-2 sm:p-3">
-          <nav className="bg-white rounded-full px-[5px] py-[5px] flex items-center justify-between">
-            {/* Left */}
-            <div className="flex items-center gap-6">
-              <a
-                href="#top"
-                className="w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center shrink-0 overflow-hidden rounded-l-full"
-                aria-label="Kuber Tech Solutions, back to top"
-              >
+          <nav
+            className={`rounded-full px-[5px] py-[5px] flex items-center justify-between transition-all duration-300 ${
+              scrolled
+                ? "bg-white/60 backdrop-blur-md shadow-[0_4px_24px_rgba(0,0,0,0.12)]"
+                : "bg-transparent"
+            }`}
+          >
+            {/* Left: logo */}
+            <a
+              href="#top"
+              className="flex items-center gap-2.5 shrink-0"
+              aria-label="Kuber Tech Solutions, back to top"
+            >
+              <span className="w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center shrink-0 overflow-hidden rounded-l-full">
                 <img
                   src="/logos/KuberTechLogo.png"
                   alt="Kuber Tech Solutions"
                   className="w-full h-full object-cover rounded-l-full"
                 />
-              </a>
-              <ul className="hidden md:flex items-center gap-6">
-                {navLinks.map(({ label, href }, i) => (
-                  <motion.li
-                    key={label}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.3 + i * 0.07, duration: 0.4 }}
-                  >
-                    <a
-                      href={href}
-                      className="text-[14px] text-gray-900 hover:text-gray-500 transition-colors duration-300"
-                    >
-                      {label}
-                    </a>
-                  </motion.li>
-                ))}
-              </ul>
-            </div>
+              </span>
+              <span className="hidden md:inline text-[15px] font-semibold tracking-tight text-gray-900">
+                Kuber Tech Solutions
+              </span>
+            </a>
 
-            {/* Right */}
-            <div className="hidden md:flex items-center gap-4 pr-1">
-              <motion.div
-                className="flex items-center gap-1.5"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.5, duration: 0.4 }}
-              >
-                <Clock size={14} className="text-gray-600" />
-                <span className="text-[13px] text-gray-600">{localTime}</span>
-              </motion.div>
-              <motion.a
-                href="#contact"
-                className="group flex items-center gap-2 bg-gray-900 text-white text-[13px] font-medium rounded-full pl-5 pr-2 py-2"
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.6, duration: 0.4 }}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <div className="overflow-hidden h-[20px]">
-                  <div
-                    className="flex flex-col transition-transform duration-500 group-hover:-translate-y-1/2"
-                    style={{
-                      transitionTimingFunction: "cubic-bezier(0.25,0.1,0.25,1)",
-                    }}
+            {/* Right: spread nav links */}
+            <ul className="hidden md:flex items-center gap-10 lg:gap-14 pr-3">
+              {navLinks.map(({ label, href }, i) => (
+                <motion.li
+                  key={label}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.3 + i * 0.07, duration: 0.4 }}
+                >
+                  <a
+                    href={href}
+                    className="text-[14px] text-gray-900 hover:text-gray-500 transition-colors duration-300"
                   >
-                    <span className="h-[20px] flex items-center">
-                      Book a 15-minute call
-                    </span>
-                    <span className="h-[20px] flex items-center">
-                      Book a 15-minute call
-                    </span>
-                  </div>
-                </div>
-                <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center shrink-0">
-                  <ArrowRight
-                    size={12}
-                    className="text-gray-900 transition-transform duration-500 group-hover:-rotate-45"
-                    style={{
-                      transitionTimingFunction: "cubic-bezier(0.25,0.1,0.25,1)",
-                    }}
-                  />
-                </div>
-              </motion.a>
-            </div>
+                    {label}
+                  </a>
+                </motion.li>
+              ))}
+            </ul>
 
             {/* Mobile toggle */}
             <button
@@ -172,10 +125,6 @@ export default function Nav() {
             transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
           >
             <div className="bg-white rounded-2xl p-6 space-y-6">
-              <div className="flex items-center gap-1.5 text-[13px] text-gray-600">
-                <Clock size={13} />
-                <span>{localTime} IST</span>
-              </div>
               <ul className="space-y-4">
                 {navLinks.map(({ label, href }, i) => (
                   <motion.li
@@ -196,10 +145,14 @@ export default function Nav() {
               </ul>
               <a
                 href="#contact"
-                onClick={() => setMenuOpen(false)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setMenuOpen(false);
+                  openBooking();
+                }}
                 className="group flex items-center gap-2 bg-[#F26522] text-white text-[13px] font-medium rounded-full pl-5 pr-2 py-2 w-full justify-between"
               >
-                <span>Book a 15-minute call</span>
+                <span>Book a 30-minute call</span>
                 <div className="w-7 h-7 bg-white rounded-full flex items-center justify-center shrink-0">
                   <ArrowRight size={12} className="text-[#F26522]" />
                 </div>

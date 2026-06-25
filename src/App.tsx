@@ -5,6 +5,7 @@ import AboutSection from './components/AboutSection'
 import CaseStudiesSection from './components/CaseStudiesSection'
 import ClientsSection from './components/ClientsSection'
 import ContactSection from './components/ContactSection'
+import BookingModal from './components/BookingModal'
 
 function App() {
   return (
@@ -22,6 +23,8 @@ function App() {
       <ClientsSection />
       {/* Closing CTA */}
       <ContactSection />
+      {/* Cal.com booking modal, opens on any "Book a 30-minute call" CTA */}
+      <BookingModal />
     </div>
   )
 }

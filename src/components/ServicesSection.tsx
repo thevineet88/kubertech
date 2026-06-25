@@ -3,12 +3,12 @@ import {
   SiReact,
   SiNextdotjs,
   SiTypescript,
-  SiTailwindcss,
   SiNodedotjs,
   SiGraphql,
   SiTerraform,
   SiKubernetes,
   SiDocker,
+  SiTailwindcss,
 } from 'react-icons/si'
 import { FaAws } from 'react-icons/fa'
 import ScrollReveal from './ScrollReveal'
@@ -25,28 +25,37 @@ interface Offering {
 
 const offerings: Offering[] = [
   {
-    buyer: 'Performance rescue',
-    title: 'For e-commerce and high-traffic web products',
+    buyer: 'Full-cycle development',
+    title: 'For teams who need it built right, end to end',
     outcome:
-      'Your product is live and slow, and slow is costing you orders. We cut load times and lift Core Web Vitals under real production traffic, then prove the conversion lift.',
+      'From first wireframe to live in production. We design, build, and ship complete web products, and stay accountable for how they run, not just how they look in a demo.',
     stack:
-      'React, Next.js, TypeScript, rendering strategy per surface (SSR, SSG, ISR), image and asset optimization, render-blocking removal, Core Web Vitals tuning, A/B validation.',
-    logos: [SiNextdotjs, SiReact, SiTypescript, SiTailwindcss],
+      'Full-stack web development end to end: product and UI, design systems, APIs and data layers, and the pipeline that puts it live. We reach for React, Next.js, TypeScript and Node, and pick the stack that fits the job.',
+    logos: [SiReact, SiNextdotjs, SiTypescript, SiNodedotjs, SiGraphql, SiTailwindcss],
   },
   {
-    buyer: 'Full-cycle product builds',
-    title: 'For funded startups',
+    buyer: 'Cloud and infrastructure',
+    title: 'For products that have to stay up and scale',
     outcome:
-      'You need a web product built right the first time, from design to deploy, by people who own it end to end. We take it from blank repo to production, fast in the browser and reliable on the infrastructure.',
+      'Most teams build the app and outsource the cloud. We own both. Production-grade hosting, CI/CD, and the operations behind a product that has to stay reliable under real traffic.',
     stack:
-      'Product and UI in React and Next.js, design systems and component libraries, conversion-focused flows, cloud infrastructure, CI/CD, production hosting and the ops to keep it up.',
-    logos: [FaAws, SiTerraform, SiKubernetes, SiDocker, SiNodedotjs, SiGraphql],
+      'AWS, Terraform, Kubernetes, Docker, CI/CD pipelines, observability, autoscaling, and cost-optimised infrastructure as code.',
+    logos: [FaAws, SiTerraform, SiKubernetes, SiDocker],
+  },
+  {
+    buyer: 'Performance and conversion',
+    title: 'For high-traffic products that load too slowly',
+    outcome:
+      'Slow products lose orders. We cut load times and fix Core Web Vitals under real production traffic, then turn that speed into measurable conversion.',
+    stack:
+      'Rendering strategy per surface, image and asset optimization, render-blocking removal, Core Web Vitals tuning, and A/B validation.',
+    logos: [SiReact, SiNextdotjs, SiTypescript],
   },
 ]
 
 export default function ServicesSection() {
   return (
-    <section id="services" className="bg-white pt-12 sm:pt-16 lg:pt-24 pb-16 sm:pb-20 lg:pb-28 scroll-mt-4">
+    <section id="services" className="bg-white pt-12 sm:pt-16 lg:pt-24 pb-12 sm:pb-16 lg:pb-24 scroll-mt-4 md:scroll-mt-24">
       <div className="max-w-[1440px] mx-auto">
         {/* Badge row */}
         <ScrollReveal className="px-5 sm:px-8 lg:px-12 flex items-center gap-3 mb-6 sm:mb-8" delay={0}>
@@ -59,29 +68,29 @@ export default function ServicesSection() {
         </ScrollReveal>
 
         {/* Heading */}
-        <ScrollReveal className="px-5 sm:px-8 lg:px-12 mb-3 sm:mb-4" delay={0.1}>
+        <ScrollReveal className="px-5 sm:px-8 lg:px-12 mb-2 sm:mb-3" delay={0.1}>
           <h2
             className="font-medium leading-[1.12] tracking-[-0.02em] text-gray-900"
             style={{ fontSize: 'clamp(1.5rem, 4vw, 3.2rem)' }}
           >
-            Two ways we get hired.
+            Three ways we get hired.
           </h2>
         </ScrollReveal>
-        <ScrollReveal className="px-5 sm:px-8 lg:px-12 mb-10 sm:mb-14 lg:mb-16" delay={0.15}>
+        <ScrollReveal className="px-5 sm:px-8 lg:px-12 mb-8 sm:mb-12" delay={0.15}>
           <p className="text-[15px] sm:text-[17px] text-gray-600">
-            Both measured in load time and conversion.
+            Build it, run it, or make it fast. Often all three.
           </p>
         </ScrollReveal>
 
         {/* Offering cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5 px-5 sm:px-8 lg:px-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-5 px-5 sm:px-8 lg:px-12">
           {offerings.map((o, i) => (
             <ScrollReveal key={o.buyer} delay={0.1 + i * 0.08} y={28}>
-              <div className="h-full rounded-2xl border border-gray-200 p-6 sm:p-8 hover:border-gray-300 transition-colors duration-300 flex flex-col">
+              <div className="h-full rounded-2xl border border-gray-200 p-6 sm:p-7 hover:border-gray-300 transition-colors duration-300 flex flex-col">
                 <p className="text-[12px] sm:text-[13px] font-semibold uppercase tracking-wider text-[#F26522] mb-1.5">
                   {o.buyer}
                 </p>
-                <h3 className="text-[19px] sm:text-[22px] font-semibold text-gray-900 mb-4 leading-snug">
+                <h3 className="text-[18px] sm:text-[20px] font-semibold text-gray-900 mb-3 leading-snug">
                   {o.title}
                 </h3>
                 <p className="text-[14px] sm:text-[15px] text-gray-700 leading-[1.6] mb-6">

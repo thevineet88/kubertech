@@ -1,4 +1,4 @@
-import { ArrowRight, ChevronDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import {
   Shader,
   Swirl,
@@ -113,49 +113,6 @@ export default function HeroSection() {
           launch faster, scale confidently, and turn more visitors into
           customers.
         </motion.p>
-
-        {/* CTA row */}
-        <motion.div
-          className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-5"
-          variants={fadeUp}
-          initial="hidden"
-          animate="show"
-          custom={0.55}
-        >
-          {/* Orange CTA */}
-          <motion.a
-            href="#contact"
-            className="group flex items-center gap-2 bg-[#F26522] text-white text-[13px] sm:text-[14px] font-medium rounded-full pl-5 sm:pl-6 pr-2 py-2"
-            whileHover={{ scale: 1.03, backgroundColor: "#e05a1a" }}
-            whileTap={{ scale: 0.97 }}
-            transition={{ duration: 0.2 }}
-          >
-            <div className="overflow-hidden h-[20px]">
-              <div
-                className="flex flex-col transition-transform duration-500 group-hover:-translate-y-1/2"
-                style={{
-                  transitionTimingFunction: "cubic-bezier(0.25,0.1,0.25,1)",
-                }}
-              >
-                <span className="h-[20px] flex items-center">
-                  Book a 15-minute call
-                </span>
-                <span className="h-[20px] flex items-center">
-                  Book a 15-minute call
-                </span>
-              </div>
-            </div>
-            <div className="w-7 h-7 sm:w-8 sm:h-8 bg-white rounded-full flex items-center justify-center shrink-0">
-              <ArrowRight
-                size={12}
-                className="text-[#F26522] transition-transform duration-500 group-hover:-rotate-45"
-                style={{
-                  transitionTimingFunction: "cubic-bezier(0.25,0.1,0.25,1)",
-                }}
-              />
-            </div>
-          </motion.a>
-        </motion.div>
       </div>
 
       {/* Mobile-only scroll cue */}

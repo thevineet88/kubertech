@@ -162,7 +162,7 @@ const moreWork: Project[] = [
 export default function CaseStudiesSection() {
   const [expanded, setExpanded] = useState(false)
   return (
-    <section id="work" className="bg-[#F5F5F5] pt-8 sm:pt-12 lg:pt-16 pb-10 sm:pb-14 lg:pb-16 scroll-mt-4">
+    <section id="work" className="bg-[#F5F5F5] pt-8 sm:pt-12 lg:pt-16 pb-10 sm:pb-14 lg:pb-16 scroll-mt-4 md:scroll-mt-24">
       <div className="max-w-[1440px] mx-auto">
         {/* Badge row */}
         <ScrollReveal className="px-5 sm:px-8 lg:px-12 flex items-center gap-3 mb-6 sm:mb-8" delay={0}>
