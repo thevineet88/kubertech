@@ -23,7 +23,7 @@ const steps = [
 
 export default function AboutSection() {
   return (
-    <section id="studio" className="bg-[#FAFAFA] border-t border-gray-100 pt-12 sm:pt-16 lg:pt-24 pb-12 sm:pb-16 lg:pb-24 scroll-mt-4 md:scroll-mt-24">
+    <section id="studio" className="bg-[#FAFAFA] border-t border-gray-100 pt-10 sm:pt-14 lg:pt-18 pb-10 sm:pb-14 lg:pb-18 scroll-mt-4 md:scroll-mt-24">
       <div className="max-w-[1440px] mx-auto">
         {/* Badge row */}
         <ScrollReveal className="px-5 sm:px-8 lg:px-12 flex items-center gap-3 mb-6 sm:mb-8" delay={0}>
