@@ -1,4 +1,5 @@
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, ArrowRight } from "lucide-react";
+import { openBooking } from "../booking";
 import {
   Shader,
   Swirl,
@@ -101,25 +102,37 @@ export default function HeroSection() {
 
         {/* Subhead */}
         <motion.p
-          className="text-[15px] sm:text-[18px] text-gray-600 leading-[1.55] max-w-2xl -mt-2 sm:-mt-4 mb-8 sm:mb-12"
+          className="text-[15px] sm:text-[17px] text-gray-600 leading-[1.55] max-w-xl -mt-2 sm:-mt-4 mb-8 sm:mb-10"
           variants={fadeUp}
           initial="hidden"
           animate="show"
           custom={0.45}
         >
-          For founders and product leaders who can't afford slow products,
-          unreliable systems, or costly rebuilds. We engineer high-performance
-          full-stack applications and cloud infrastructure that help businesses
-          launch faster, scale confidently, and turn more visitors into
-          customers.
+          We engineer full-stack applications and cloud infrastructure that help businesses launch faster, scale confidently, and convert more.
         </motion.p>
+
+        {/* CTA */}
+        <motion.button
+          type="button"
+          onClick={openBooking}
+          className="group inline-flex items-center gap-2 bg-gray-900 hover:bg-[#F26522] text-white text-[14px] font-medium rounded-full pl-6 pr-2 py-2.5 transition-colors duration-300"
+          variants={fadeUp}
+          initial="hidden"
+          animate="show"
+          custom={0.55}
+        >
+          <span>Book a free 30-min call</span>
+          <div className="w-7 h-7 bg-white rounded-full flex items-center justify-center shrink-0">
+            <ArrowRight size={12} className="text-gray-900 transition-transform duration-500 group-hover:-rotate-45" style={{ transitionTimingFunction: "cubic-bezier(0.25,0.1,0.25,1)" }} />
+          </div>
+        </motion.button>
       </div>
 
-      {/* Mobile-only scroll cue */}
+      {/* Scroll cue */}
       <motion.a
         href="#studio"
         aria-label="Scroll to next section"
-        className="md:hidden absolute bottom-4 left-1/2 -translate-x-1/2 z-20 text-gray-500"
+        className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 text-gray-500"
         animate={reduceMotion ? undefined : { y: [0, 7, 0] }}
         transition={
           reduceMotion

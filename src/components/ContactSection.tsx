@@ -133,39 +133,29 @@ export default function ContactSection() {
               <form onSubmit={handleSubmit} noValidate className="space-y-4">
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <label
-                      htmlFor="name"
-                      className="block text-[13px] text-white/60 mb-1.5"
-                    >
-                      Name
-                    </label>
+                    <label htmlFor="name" className="block text-[13px] text-white/60 mb-1.5">Name</label>
                     <input
-                      id="name"
-                      name="name"
-                      type="text"
-                      required
-                      autoComplete="name"
+                      id="name" name="name" type="text" required autoComplete="name"
                       placeholder="Your name"
                       className="w-full bg-white/[0.04] border border-white/10 rounded-lg px-4 py-3 text-[14px] text-white placeholder-white/30 focus:border-[#F26522] focus:outline-none transition-colors duration-200"
                     />
                   </div>
                   <div>
-                    <label
-                      htmlFor="email"
-                      className="block text-[13px] text-white/60 mb-1.5"
-                    >
-                      Email
-                    </label>
+                    <label htmlFor="email" className="block text-[13px] text-white/60 mb-1.5">Email</label>
                     <input
-                      id="email"
-                      name="email"
-                      type="email"
-                      required
-                      autoComplete="email"
+                      id="email" name="email" type="email" required autoComplete="email"
                       placeholder="you@company.com"
                       className="w-full bg-white/[0.04] border border-white/10 rounded-lg px-4 py-3 text-[14px] text-white placeholder-white/30 focus:border-[#F26522] focus:outline-none transition-colors duration-200"
                     />
                   </div>
+                </div>
+                <div>
+                  <label htmlFor="phone" className="block text-[13px] text-white/60 mb-1.5">Phone <span className="text-white/30">(optional)</span></label>
+                  <input
+                    id="phone" name="phone" type="tel" autoComplete="tel"
+                    placeholder="+91 98765 43210"
+                    className="w-full bg-white/[0.04] border border-white/10 rounded-lg px-4 py-3 text-[14px] text-white placeholder-white/30 focus:border-[#F26522] focus:outline-none transition-colors duration-200"
+                  />
                 </div>
 
                 <div>

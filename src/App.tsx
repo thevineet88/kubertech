@@ -1,5 +1,6 @@
 import { Analytics } from '@vercel/analytics/react'
 import HeroSection from './components/HeroSection'
+import TestimonialsSection from './components/TestimonialsSection'
 import ProofBar from './components/ProofBar'
 import ServicesSection from './components/ServicesSection'
 import AboutSection from './components/AboutSection'
@@ -22,6 +23,7 @@ function App() {
       {/* Case study / selected work */}
       <CaseStudiesSection />
       <ClientsSection />
+      <TestimonialsSection />
       {/* Closing CTA */}
       <ContactSection />
       {/* Cal.com booking modal, opens on any "Book a 30-minute call" CTA */}

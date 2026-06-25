@@ -230,7 +230,7 @@ export default function CaseStudiesSection() {
         {/* More work */}
         <ScrollReveal className="px-5 sm:px-8 lg:px-12 mt-12 sm:mt-20 lg:mt-24 mb-6 sm:mb-10" delay={0}>
           <h3 className="text-[18px] sm:text-[20px] font-semibold text-gray-900">
-            More from the studio
+            More projects
           </h3>
           <p className="text-[13px] sm:text-[14px] text-gray-600 mt-1">
             Full-stack products and cloud platforms, frontend to infrastructure.
