@@ -239,7 +239,7 @@ export default function ContactSection() {
                 {state === "error" && (
                   <p className="text-[13px] text-red-400">
                     Something went wrong. Email us directly at
-                    kubertechsolutions@gmail.com.
+                    vinit@kubertechsolutions.in
                   </p>
                 )}
 
