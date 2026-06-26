@@ -1,12 +1,12 @@
 import ScrollReveal from "./ScrollReveal";
 
 const clients = [
+  { name: "Rivian", src: "/logos/Rivian.png" },
   { name: "Marks and Spencer", src: null, label: "M&S" },
   { name: "Siemens", src: "/logos/siemens.png" },
   { name: "Tarana", src: "/logos/tarana.png" },
   { name: "Jiffy", src: "/logos/jiffy.png" },
   { name: "Cigora", src: "/logos/cigora.png" },
-  { name: "Samyati Holidays", src: "/logos/samyati.png" },
 ];
 
 export default function ClientsSection() {
