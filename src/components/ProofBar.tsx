@@ -3,8 +3,8 @@ import ScrollReveal from './ScrollReveal'
 const stats = [
   { value: '8+ yrs', label: 'Full-cycle product delivery, design to deploy' },
   { value: '2M+', label: 'Users served on products we have built and run' },
+  { value: '500k+', label: 'Documents indexed in a production RAG system we shipped' },
   { value: '99.9%', label: 'Uptime on the cloud infrastructure we own' },
-  { value: '2x', label: 'Faster load times and conversion on a major storefront' },
 ]
 
 export default function ProofBar() {

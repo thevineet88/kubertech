@@ -9,6 +9,7 @@ import {
   SiKubernetes,
   SiDocker,
   SiTailwindcss,
+  SiOpenai,
 } from "react-icons/si";
 import { FaAws } from "react-icons/fa";
 import ScrollReveal from "./ScrollReveal";
@@ -24,6 +25,15 @@ interface Offering {
 }
 
 const offerings: Offering[] = [
+  {
+    buyer: "AI engineering",
+    title: "For teams who need AI that works in production",
+    outcome:
+      "RAG pipelines, copilots, document search, agentic workflows. Not demos. Production systems that are traceable, evaluatable, and cost-controlled from day one.",
+    stack:
+      "LangGraph, RAG (hybrid search, contextual chunking, re-ranking), Weaviate, Pinecone, LLM evaluation, OpenTelemetry for AI, AWS for inference.",
+    logos: [SiOpenai, SiNodedotjs, SiTypescript, FaAws],
+  },
   {
     buyer: "Full-cycle development",
     title: "For teams who need it built right, end to end",
@@ -48,15 +58,6 @@ const offerings: Offering[] = [
     stack:
       "AWS, Terraform, Kubernetes, Docker, CI/CD pipelines, observability, autoscaling, and cost-optimised infrastructure as code.",
     logos: [FaAws, SiTerraform, SiKubernetes, SiDocker],
-  },
-  {
-    buyer: "Performance and conversion",
-    title: "For high-traffic products that load too slowly",
-    outcome:
-      "Slow products lose orders. We cut load times and fix Core Web Vitals under real production traffic, then turn that speed into measurable conversion.",
-    stack:
-      "Rendering strategy per surface, image and asset optimization, render-blocking removal, Core Web Vitals tuning, and A/B validation.",
-    logos: [SiReact, SiNextdotjs, SiTypescript],
   },
 ];
 

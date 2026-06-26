@@ -7,8 +7,8 @@ import { openBooking } from "../booking";
 
 const navLinks = [
   { label: "Work", href: "#work" },
-  { label: "Process", href: "#studio" },
   { label: "Services", href: "#services" },
+  { label: "AI", href: "#ai" },
   { label: "Contact", href: "#contact" },
 ];
 

@@ -64,10 +64,10 @@ export default function ContactSection() {
               className="font-medium leading-[1.1] tracking-[-0.02em] text-white"
               style={{ fontSize: "clamp(1.75rem, 4.5vw, 3.4rem)" }}
             >
-              Tell us what is slow,
+              Tell us what you're building,
               <br className="hidden sm:block" />
               <span className="sm:hidden"> </span>
-              or what you need built.
+              or what's broken.
             </h2>
             <p className="text-[15px] sm:text-[16px] text-white/60 leading-[1.6] mt-5 max-w-md">
               Whether you're starting from scratch, scaling up, or fixing what's
@@ -201,6 +201,12 @@ export default function ContactSection() {
                     <option value="" disabled className="bg-[#0c0c0c]">
                       Select one
                     </option>
+                    <option value="ai" className="bg-[#0c0c0c]">
+                      AI / RAG / ML integration
+                    </option>
+                    <option value="fullstack" className="bg-[#0c0c0c]">
+                      Full-stack product
+                    </option>
                     <option value="frontend" className="bg-[#0c0c0c]">
                       Frontend / web product
                     </option>
@@ -209,9 +215,6 @@ export default function ContactSection() {
                     </option>
                     <option value="cloud" className="bg-[#0c0c0c]">
                       Cloud / DevOps
-                    </option>
-                    <option value="fullstack" className="bg-[#0c0c0c]">
-                      Full-stack product
                     </option>
                     <option value="other" className="bg-[#0c0c0c]">
                       Something else

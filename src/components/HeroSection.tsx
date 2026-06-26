@@ -82,15 +82,15 @@ export default function HeroSection() {
           custom={0.35}
         >
           <span className="sm:hidden">
-            Make your web product fast enough to convert.
+            We build, scale, and AI-enable your product.
           </span>
           <span
             className="hidden sm:block"
             style={{ fontSize: "clamp(2.5rem, 5vw, 4.2rem)" }}
           >
-            Make your web product
+            We build, scale, and
             <br />
-            fast enough to convert.
+            AI-enable your product.
           </span>
         </motion.h1>
 
@@ -102,7 +102,8 @@ export default function HeroSection() {
           animate="show"
           custom={0.45}
         >
-          We engineer full-stack applications and cloud infrastructure that help businesses launch faster, scale confidently, and convert more.
+          Full-stack products, cloud infrastructure, and production AI systems,
+          built to launch fast, scale confidently, and earn their keep.
         </motion.p>
 
         {/* CTA */}
@@ -117,7 +118,13 @@ export default function HeroSection() {
         >
           <span>Book a free 30-min call</span>
           <div className="w-7 h-7 bg-white rounded-full flex items-center justify-center shrink-0">
-            <ArrowRight size={12} className="text-gray-900 transition-transform duration-500 group-hover:-rotate-45" style={{ transitionTimingFunction: "cubic-bezier(0.25,0.1,0.25,1)" }} />
+            <ArrowRight
+              size={12}
+              className="text-gray-900 transition-transform duration-500 group-hover:-rotate-45"
+              style={{
+                transitionTimingFunction: "cubic-bezier(0.25,0.1,0.25,1)",
+              }}
+            />
           </div>
         </motion.button>
       </div>
