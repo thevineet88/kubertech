@@ -71,7 +71,7 @@ export default function ContactSection() {
             </h2>
             <p className="text-[15px] sm:text-[16px] text-white/60 leading-[1.6] mt-5 max-w-md">
               Whether you're starting from scratch, scaling up, or fixing what's
-              broken — we scope it properly before we quote.
+              broken we scope it properly before we quote.
             </p>
 
             <div className="mt-8 space-y-4">
@@ -80,10 +80,10 @@ export default function ContactSection() {
                   Email
                 </p>
                 <a
-                  href="mailto:kubertechsolutions@gmail.com"
+                  href="mailto:vinit@kubertechsolutions.in"
                   className="text-[15px] text-white hover:text-[#F26522] transition-colors duration-200"
                 >
-                  kubertechsolutions@gmail.com
+                  vinit@kubertechsolutions.in
                 </a>
               </div>
 
