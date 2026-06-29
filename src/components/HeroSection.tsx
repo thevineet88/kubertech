@@ -27,12 +27,19 @@ export default function HeroSection() {
       id="top"
       className="relative min-h-[86svh] md:min-h-screen bg-[#EFEFEF] flex flex-col"
     >
+      {/* Ambient blobs */}
+      <div className="absolute inset-0 z-[15] pointer-events-none overflow-hidden">
+        <div className="absolute -top-20 -left-20 w-[280px] h-[280px] md:w-[480px] md:h-[480px] rounded-full bg-[#ff5f03] opacity-25 md:opacity-30 blur-[80px] animate-[blobFloat1_7s_ease-in-out_infinite]" />
+        <div className="absolute -bottom-16 -right-10 w-[220px] h-[220px] md:w-[380px] md:h-[380px] rounded-full bg-[#ff8c42] opacity-20 md:opacity-25 blur-[70px] animate-[blobFloat2_9s_ease-in-out_infinite]" />
+        <div className="absolute top-1/3 right-1/4 w-[160px] h-[160px] md:w-[260px] md:h-[260px] rounded-full bg-[#ffb347] opacity-15 md:opacity-20 blur-[60px] animate-[blobFloat3_6s_ease-in-out_infinite]" />
+      </div>
+
       {/* Full-screen shader overlay */}
       <div className="absolute inset-0 z-10 pointer-events-none">
         <Shader style={{ width: "100%", height: "100%" }}>
           <Swirl colorA="#ffffff" colorB="#f0f0f0" detail={1.7} />
           <ChromaFlow
-            baseColor="#ffffff"
+            baseColor="#fff7f3"
             downColor="#ff5f03"
             leftColor="#ff5f03"
             rightColor="#ff5f03"
