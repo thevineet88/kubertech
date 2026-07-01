@@ -12,11 +12,42 @@ import ClientsSection from './components/ClientsSection'
 import ContactSection from './components/ContactSection'
 import BookingModal from './components/BookingModal'
 import RivianCaseStudy from './pages/RivianCaseStudy'
-import JiffyCaseStudy from './pages/JiffyCaseStudy'
+import CustomPrintPlatformCaseStudy from './pages/CustomPrintPlatformCaseStudy'
+import Services from './pages/Services'
+import MarksAndSpencerCaseStudy from './pages/MarksAndSpencerCaseStudy'
+import RemoteEngineeringIndia from './pages/RemoteEngineeringIndia'
+import CaseStudiesHub from './pages/CaseStudiesHub'
+import Seo from './components/Seo'
+
+const organizationJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Kuber Tech Solutions',
+  url: 'https://kubertechsolutions.in',
+  logo: 'https://kubertechsolutions.in/logos/KuberTechLogo.png',
+  description:
+    "We build high-performance full-stack applications, cloud infrastructure, and production AI systems for funded startups in AI, HealthTech, FinTech, and EdTech.",
+  address: {
+    '@type': 'PostalAddress',
+    addressCountry: 'IN',
+  },
+  areaServed: ['US', 'GB', 'AE', 'IN'],
+  sameAs: [
+    'https://www.linkedin.com/company/kubertechsolutions/',
+    'https://github.com/thevineet88',
+    'https://www.instagram.com/the.vineeet',
+  ],
+}
 
 function Home() {
   return (
     <div className="w-full">
+      <Seo
+        title="Kuber Tech Solutions: AI, Cloud & Full-Stack Engineering"
+        description="The engineering team behind fast, scalable, AI-enabled products. Full-stack, AI systems, and cloud infrastructure for funded startups in the US, UK, and UAE."
+        path="/"
+        jsonLd={organizationJsonLd}
+      />
       <Nav />
       <HeroSection />
       <ProofBar />
@@ -37,8 +68,24 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/rivian" element={<RivianCaseStudy />} />
-        <Route path="/jiffy" element={<JiffyCaseStudy />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/case-studies" element={<CaseStudiesHub />} />
+        <Route
+          path="/case-studies/marks-and-spencer-performance"
+          element={<MarksAndSpencerCaseStudy />}
+        />
+        <Route
+          path="/case-studies/custom-print-platform"
+          element={<CustomPrintPlatformCaseStudy />}
+        />
+        <Route
+          path="/case-studies/rag-knowledge-engine"
+          element={<RivianCaseStudy />}
+        />
+        <Route
+          path="/remote-engineering-india"
+          element={<RemoteEngineeringIndia />}
+        />
       </Routes>
       <Analytics />
     </>

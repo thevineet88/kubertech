@@ -77,7 +77,7 @@ interface Project {
 
 const featured: Project[] = [
   {
-    title: "Jiffy: Design Lab",
+    title: "Custom Print Platform",
     tag: "Full-stack real-time app",
     metric: "Full funnel",
     metricLabel: "Upload, customise, checkout — owned end to end",
@@ -85,7 +85,7 @@ const featured: Project[] = [
       "A canvas-based design tool where users upload artwork, customise placement live, and order print products. Built on Konva.js with WebSockets throughout. The canvas POC alone took 3 to 4 weeks before it was solid enough to build on.",
     logos: ["react", "ts", "konva", "socketio", "rails"],
     gradient: "linear-gradient(135deg, #F26522 0%, #b5421a 100%)",
-    slug: "/jiffy",
+    slug: "/case-studies/custom-print-platform",
   },
   {
     title: "Rivian: RAG Knowledge Engine",
@@ -96,7 +96,7 @@ const featured: Project[] = [
       "Designed and built an internal search system indexing 500k+ technical documents using hybrid dense + sparse retrieval (Weaviate). Deployed on Kubernetes (EKS) with sub-200ms latency at 35% lower cloud cost than initial provisioning.",
     logos: ["aws", "k8s", "node", "ts"],
     gradient: "linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%)",
-    slug: "/rivian",
+    slug: "/case-studies/rag-knowledge-engine",
   },
 ];
 
@@ -120,9 +120,10 @@ const moreWork: Project[] = [
       "The e-commerce experience end to end on React, Next.js and TypeScript with a governed design system. LCP cut from 4.1s to 1.8s, checkout conversion doubled from 2% to 4%.",
     logos: ["next", "react", "ts", "node", "graphql"],
     gradient: "linear-gradient(135deg, #0b3d2e 0%, #05140f 100%)",
+    slug: "/case-studies/marks-and-spencer-performance",
   },
   {
-    title: "Jiffy: Conversion flow",
+    title: "Checkout Conversion Flow",
     tag: "Full-stack commerce",
     metric: "2% → 4%",
     metricLabel: "Checkout conversion, 40k+ users",
@@ -282,6 +283,14 @@ export default function CaseStudiesSection() {
                   <span className="text-[11px] font-medium uppercase tracking-wider text-white/70">
                     {p.tag}
                   </span>
+                  {p.slug && (
+                    <Link
+                      to={p.slug}
+                      className="text-[11px] font-medium text-white/70 hover:text-white underline shrink-0"
+                    >
+                      Case study
+                    </Link>
+                  )}
                 </div>
                 <div>
                   <TechRow keys={p.logos} className="text-white/80 mb-3" />

@@ -1,25 +1,38 @@
 import { useEffect } from "react";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { openBooking } from "../booking";
+import BackLink from "../components/BackLink";
+import Seo from "../components/Seo";
+
+const caseStudyJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: "Custom Print Platform Case Study",
+  description:
+    "A canvas-based design tool built on Konva.js with WebSockets throughout, shipped and iterated on over six months with zero regressions.",
+  author: { "@type": "Person", name: "Vinit Brahmankar" },
+  publisher: { "@type": "Organization", name: "Kuber Tech Solutions" },
+  datePublished: "2026-06-30",
+  dateModified: "2026-07-01",
+};
 
 const metrics = [
-  { value: "6 mo", label: "Active engagement — A/B testing, iteration, no regressions" },
+  { value: "6 mo", label: "Active engagement: A/B testing, iteration, no regressions" },
   { value: "3–4 wk", label: "POC for the canvas editor before we were confident to build on it" },
   { value: "Green", label: "Core Web Vitals across LCP, CLS, and FID in production" },
-  { value: "6", label: "Engineers across frontend, backend, and QA — no bloat" },
+  { value: "6", label: "Engineers across frontend, backend, and QA, no bloat" },
 ];
 
 const phases = [
   {
     n: "01",
     title: "Upload and instant preview",
-    body: "The journey starts with artwork upload — drag and drop or browse. Instant preview with no page reload. Simple on the surface, but the pipeline behind it had to handle format validation, image processing, and state sync fast enough that the user never noticed the work happening.",
+    body: "It starts with artwork upload, drag and drop or browse. Instant preview with no page reload. Simple on the surface, but the pipeline behind it had to handle format validation, image processing, and state sync fast enough that the user never noticed the work happening.",
   },
   {
     n: "02",
-    title: "The canvas editor — the hard part",
-    body: "Most of the project lived here. Users resize, reposition, and adjust artwork placement on the product in real time. We built it on Konva.js, a canvas rendering library. The POC alone took three to four weeks — getting Konva talking to the Rails backend, keeping state consistent across renders, and handling edge cases in the rendering pipeline before we were confident enough to build on it.",
+    title: "The canvas editor, the hard part",
+    body: "Most of the project lived here. Users resize, reposition, and adjust artwork placement on the product in real time. We built it on Konva.js, a canvas rendering library. The POC alone took three to four weeks: getting Konva talking to the Rails backend, keeping state consistent across renders, and handling edge cases in the rendering pipeline before we trusted it enough to build on.",
   },
   {
     n: "03",
@@ -28,18 +41,18 @@ const phases = [
   },
   {
     n: "04",
-    title: "Mobile — not an afterthought",
-    body: "A significant share of Jiffy's traffic is mobile. We made sure the canvas editor, the upload flow, and the customisation UI all worked properly on small screens — not a degraded experience, the same one. This required custom handling for touch events on the Konva canvas.",
+    title: "Mobile wasn't an afterthought",
+    body: "A large share of the platform's traffic is mobile. We made sure the canvas editor, the upload flow, and the customisation UI all worked properly on small screens, not a degraded experience, the same one. That took custom handling for touch events on the Konva canvas.",
   },
   {
     n: "05",
     title: "Performance and Core Web Vitals",
-    body: "We got LCP, CLS, and FID into the green zone under real production traffic. That work translated directly into conversion improvement — faster load times on a commerce platform close deals that a slow one loses.",
+    body: "We got LCP, CLS, and FID into the green zone under real production traffic. That translated directly into conversion: faster load times on a commerce platform close deals that a slow one loses.",
   },
   {
     n: "06",
     title: "Six months of iteration",
-    body: "This wasn't a build-and-leave engagement. We stayed on for around six months: A/B experiments, new features as Jiffy requested them, removing what wasn't working, and making sure nothing broke in the process. Consistent quality throughout with zero regressions shipped.",
+    body: "This wasn't a build-and-leave engagement. We stayed on for around six months: A/B experiments, new features requested by the client, removing what wasn't working, and making sure nothing broke in the process. Consistent quality throughout with zero regressions shipped.",
   },
 ];
 
@@ -49,27 +62,32 @@ const stack = [
   { category: "Backend", items: "Ruby on Rails API, image processing pipeline, cart and order management" },
   { category: "Performance", items: "Core Web Vitals tuning (LCP, CLS, FID), rendering strategy, asset optimisation" },
   { category: "Experimentation", items: "A/B testing framework, Mixpanel instrumentation, feature flags" },
-  { category: "Team", items: "2 frontend engineers, 3 backend engineers, 1 QA — six months" },
+  { category: "Team", items: "2 frontend engineers, 3 backend engineers, 1 QA, six months" },
 ];
 
-export default function JiffyCaseStudy() {
+export default function CustomPrintPlatformCaseStudy() {
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white">
+      <Seo
+        title="Custom Print Platform Case Study | Kuber Tech Solutions"
+        description="A real-time canvas design tool built on Konva.js and WebSockets, shipped and iterated over six months with zero regressions."
+        path="/case-studies/custom-print-platform"
+        ogType="article"
+        jsonLd={caseStudyJsonLd}
+      />
       {/* Nav strip */}
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 pt-6 sm:pt-8">
-        <Link
-          to="/"
+        <BackLink
+          fallback="/case-studies"
+          label="Back"
           className="inline-flex items-center gap-2 text-white/50 hover:text-white text-[14px] transition-colors duration-200"
-        >
-          <ArrowLeft size={16} />
-          Back to Kuber Tech
-        </Link>
+        />
       </div>
 
       {/* Hero */}
-      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 pt-16 sm:pt-24 pb-16 sm:pb-20">
+      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 pt-12 sm:pt-16 pb-10 sm:pb-14">
         <p className="text-[12px] sm:text-[13px] font-semibold uppercase tracking-wider text-[#F26522] mb-4">
           Full-stack case study
         </p>
@@ -77,14 +95,14 @@ export default function JiffyCaseStudy() {
           className="font-medium leading-[1.08] tracking-[-0.03em] text-white mb-6 max-w-4xl"
           style={{ fontSize: "clamp(1.75rem, 5vw, 3.8rem)" }}
         >
-          Jiffy: Custom Print Platform
+          Custom Print Platform
         </h1>
         <p className="text-[16px] sm:text-[18px] text-white/60 leading-[1.6] max-w-2xl">
-          A canvas-based design tool where users upload artwork, customise placement in real time, and order print products. The hard part was making a browser canvas feel native — on desktop and mobile — while keeping the backend in sync without a page reload.
+          A canvas-based design tool where users upload artwork, customise placement in real time, and order print products. The hard part was making a browser canvas feel native, on desktop and mobile, while keeping the backend in sync without a page reload.
         </p>
 
         {/* Metrics */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mt-12 sm:mt-16">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mt-8 sm:mt-10">
           {metrics.map((m) => (
             <div key={m.value} className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 sm:p-6">
               <p className="text-[28px] sm:text-[34px] font-semibold text-[#F26522] leading-none mb-2">
@@ -99,14 +117,14 @@ export default function JiffyCaseStudy() {
       <div className="border-t border-white/8 max-w-[1440px] mx-auto" />
 
       {/* Problem */}
-      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 py-14 sm:py-20">
+      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 py-10 sm:py-14">
         <div className="grid lg:grid-cols-[280px_1fr] gap-8 lg:gap-16">
           <p className="text-[12px] font-semibold uppercase tracking-wider text-white/30">
             The problem
           </p>
           <div className="space-y-5">
             <p className="text-[16px] sm:text-[17px] text-white/80 leading-[1.65]">
-              Jiffy is a custom print platform. Users upload artwork, customise it on a product, and order. That sounds straightforward. The execution wasn't.
+              This is a custom print platform. Users upload artwork, customise it on a product, and order. That sounds straightforward. The execution wasn't.
             </p>
             <p className="text-[16px] sm:text-[17px] text-white/80 leading-[1.65]">
               The core challenge was the canvas editor: a real-time design tool that had to feel instant, work on mobile, stay in sync with a Rails backend, and handle the messy edge cases of print-ready artwork. No off-the-shelf tool fit the requirement. We had to build it from the ground up.
@@ -118,7 +136,7 @@ export default function JiffyCaseStudy() {
       <div className="border-t border-white/8 max-w-[1440px] mx-auto" />
 
       {/* Phases */}
-      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 py-14 sm:py-20">
+      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 py-10 sm:py-14">
         <p className="text-[12px] font-semibold uppercase tracking-wider text-white/30 mb-10">
           What we built
         </p>
@@ -140,7 +158,7 @@ export default function JiffyCaseStudy() {
       <div className="border-t border-white/8 max-w-[1440px] mx-auto" />
 
       {/* Stack */}
-      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 py-14 sm:py-20">
+      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 py-10 sm:py-14">
         <p className="text-[12px] font-semibold uppercase tracking-wider text-white/30 mb-8">
           Tech stack
         </p>
@@ -159,7 +177,7 @@ export default function JiffyCaseStudy() {
       <div className="border-t border-white/8 max-w-[1440px] mx-auto" />
 
       {/* CTA */}
-      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 py-14 sm:py-20">
+      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 py-10 sm:py-14">
         <h2
           className="font-medium leading-[1.1] tracking-[-0.02em] text-white mb-4"
           style={{ fontSize: "clamp(1.4rem, 3vw, 2.4rem)" }}
@@ -170,21 +188,14 @@ export default function JiffyCaseStudy() {
           We take on complex product builds and stay in them. If your scope needs a team that treats your product like their own, let's talk.
         </p>
         <div className="flex flex-wrap gap-4">
-          <button
-            type="button"
-            onClick={openBooking}
+          <Link
+            to="/case-studies"
             className="group inline-flex items-center gap-2 bg-[#F26522] hover:bg-[#d9541a] text-white text-[14px] font-medium rounded-full pl-6 pr-2 py-2.5 transition-colors duration-300"
           >
-            <span>Book a free scoping call</span>
+            <span>See all work</span>
             <div className="w-7 h-7 bg-white/15 rounded-full flex items-center justify-center shrink-0">
               <ArrowRight size={12} className="text-white transition-transform duration-500 group-hover:-rotate-45" style={{ transitionTimingFunction: "cubic-bezier(0.25,0.1,0.25,1)" }} />
             </div>
-          </button>
-          <Link
-            to="/"
-            className="inline-flex items-center gap-2 border border-white/20 hover:border-white/40 text-white/70 hover:text-white text-[14px] font-medium rounded-full px-6 py-2.5 transition-all duration-200"
-          >
-            See all work
           </Link>
         </div>
       </div>

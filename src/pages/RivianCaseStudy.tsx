@@ -1,7 +1,20 @@
 import { useEffect } from "react";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { openBooking } from "../booking";
+import BackLink from "../components/BackLink";
+import Seo from "../components/Seo";
+
+const rivianJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: "Rivian RAG Knowledge Engine Case Study",
+  description:
+    "A hybrid retrieval system indexing 500k+ technical documents with sub-200ms query latency at 35% lower cloud cost than the initial spec.",
+  author: { "@type": "Person", name: "Vinit Brahmankar" },
+  publisher: { "@type": "Organization", name: "Kuber Tech Solutions" },
+  datePublished: "2026-06-30",
+  dateModified: "2026-07-01",
+};
 
 const metrics = [
   { value: "500k+", label: "Technical documents indexed" },
@@ -23,21 +36,26 @@ export default function RivianCaseStudy() {
   useEffect(() => { window.scrollTo(0, 0); }, []);
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white">
+      <Seo
+        title="Rivian RAG Knowledge Engine Case Study | Kuber Tech Solutions"
+        description="Hybrid dense + sparse retrieval indexing 500k+ documents at sub-200ms latency, 35% lower cloud cost, deployed on Kubernetes."
+        path="/case-studies/rag-knowledge-engine"
+        ogType="article"
+        jsonLd={rivianJsonLd}
+      />
       {/* Nav strip */}
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 pt-6 sm:pt-8">
         <div className="flex items-center">
-          <Link
-            to="/"
+          <BackLink
+            fallback="/case-studies"
+            label="Back"
             className="inline-flex items-center gap-2 text-white/50 hover:text-white text-[14px] transition-colors duration-200"
-          >
-            <ArrowLeft size={16} />
-            Back to Kuber Tech
-          </Link>
+          />
         </div>
       </div>
 
       {/* Hero */}
-      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 pt-16 sm:pt-24 pb-16 sm:pb-20">
+      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 pt-12 sm:pt-16 pb-10 sm:pb-14">
         <p className="text-[12px] sm:text-[13px] font-semibold uppercase tracking-wider text-[#F26522] mb-4">
           AI engineering case study
         </p>
@@ -52,7 +70,7 @@ export default function RivianCaseStudy() {
         </p>
 
         {/* Metrics */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mt-12 sm:mt-16">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mt-8 sm:mt-10">
           {metrics.map((m) => (
             <div key={m.value} className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 sm:p-6">
               <p className="text-[28px] sm:text-[34px] font-semibold text-[#F26522] leading-none mb-2">
@@ -68,7 +86,7 @@ export default function RivianCaseStudy() {
       <div className="border-t border-white/8 max-w-[1440px] mx-auto" />
 
       {/* Problem */}
-      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 py-14 sm:py-20">
+      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 py-10 sm:py-14">
         <div className="grid lg:grid-cols-[280px_1fr] gap-8 lg:gap-16">
           <div>
             <p className="text-[12px] font-semibold uppercase tracking-wider text-white/30 mb-2">
@@ -89,7 +107,7 @@ export default function RivianCaseStudy() {
       <div className="border-t border-white/8 max-w-[1440px] mx-auto" />
 
       {/* Architecture diagram */}
-      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 py-14 sm:py-20">
+      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 py-10 sm:py-14">
         <p className="text-[12px] font-semibold uppercase tracking-wider text-white/30 mb-8">
           Architecture
         </p>
@@ -154,7 +172,7 @@ export default function RivianCaseStudy() {
 
             {/* Labels below boxes */}
             <text x="75" y="195" textAnchor="middle" fill="#ffffff30" fontSize="9.5" fontFamily="system-ui">Step 1</text>
-            <text x="241" y="215" textAnchor="middle" fill="#ffffff30" fontSize="9.5" fontFamily="system-ui">Step 2 — parallel retrieval</text>
+            <text x="241" y="215" textAnchor="middle" fill="#ffffff30" fontSize="9.5" fontFamily="system-ui">Step 2, parallel retrieval</text>
             <text x="421" y="195" textAnchor="middle" fill="#ffffff30" fontSize="9.5" fontFamily="system-ui">Step 3</text>
             <text x="586" y="195" textAnchor="middle" fill="#ffffff30" fontSize="9.5" fontFamily="system-ui">Step 4</text>
             <text x="741" y="195" textAnchor="middle" fill="#ffffff30" fontSize="9.5" fontFamily="system-ui">Step 5</text>
@@ -176,7 +194,7 @@ export default function RivianCaseStudy() {
       <div className="border-t border-white/8 max-w-[1440px] mx-auto" />
 
       {/* What we built */}
-      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 py-14 sm:py-20">
+      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 py-10 sm:py-14">
         <div className="grid lg:grid-cols-[280px_1fr] gap-8 lg:gap-16">
           <div>
             <p className="text-[12px] font-semibold uppercase tracking-wider text-white/30 mb-2">
@@ -200,7 +218,7 @@ export default function RivianCaseStudy() {
       <div className="border-t border-white/8 max-w-[1440px] mx-auto" />
 
       {/* Tech stack */}
-      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 py-14 sm:py-20">
+      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 py-10 sm:py-14">
         <p className="text-[12px] font-semibold uppercase tracking-wider text-white/30 mb-8">
           Tech stack
         </p>
@@ -219,7 +237,7 @@ export default function RivianCaseStudy() {
       <div className="border-t border-white/8 max-w-[1440px] mx-auto" />
 
       {/* CTA */}
-      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 py-14 sm:py-20">
+      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 py-10 sm:py-14">
         <h2
           className="font-medium leading-[1.1] tracking-[-0.02em] text-white mb-4"
           style={{ fontSize: "clamp(1.4rem, 3vw, 2.4rem)" }}
@@ -230,21 +248,14 @@ export default function RivianCaseStudy() {
           We scope every AI project before we quote. Bring your use case and we'll tell you exactly what it takes to ship it properly.
         </p>
         <div className="flex flex-wrap gap-4">
-          <button
-            type="button"
-            onClick={openBooking}
+          <Link
+            to="/case-studies"
             className="group inline-flex items-center gap-2 bg-[#F26522] hover:bg-[#d9541a] text-white text-[14px] font-medium rounded-full pl-6 pr-2 py-2.5 transition-colors duration-300"
           >
-            <span>Book a free scoping call</span>
+            <span>See all work</span>
             <div className="w-7 h-7 bg-white/15 rounded-full flex items-center justify-center shrink-0">
               <ArrowRight size={12} className="text-white transition-transform duration-500 group-hover:-rotate-45" style={{ transitionTimingFunction: "cubic-bezier(0.25,0.1,0.25,1)" }} />
             </div>
-          </button>
-          <Link
-            to="/"
-            className="inline-flex items-center gap-2 border border-white/20 hover:border-white/40 text-white/70 hover:text-white text-[14px] font-medium rounded-full px-6 py-2.5 transition-all duration-200"
-          >
-            See all work
           </Link>
         </div>
       </div>

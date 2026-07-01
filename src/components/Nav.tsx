@@ -1,23 +1,66 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 
-import { ArrowRight, Menu, X } from "lucide-react";
+import { ArrowRight, ChevronDown, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Link } from "react-router-dom";
 import { openBooking } from "../booking";
 
-const navLinks = [
-  { label: "Work", href: "#work" },
-  { label: "Services", href: "#services" },
+interface NavChild {
+  label: string;
+  href: string;
+}
+
+interface NavItem {
+  label: string;
+  href: string;
+  children?: NavChild[];
+}
+
+const navLinks: NavItem[] = [
+  {
+    label: "Services",
+    href: "/services",
+    children: [
+      { label: "All services", href: "/services" },
+      { label: "Remote engineering (India)", href: "/remote-engineering-india" },
+    ],
+  },
   { label: "AI", href: "#ai" },
+  { label: "Work", href: "/case-studies" },
   { label: "Contact", href: "#contact" },
 ];
+
+const isInternalRoute = (href: string) => href.startsWith("/");
+
+function NavLink({ label, href }: NavChild) {
+  return isInternalRoute(href) ? (
+    <Link
+      to={href}
+      className="text-[14px] text-gray-900 hover:text-gray-500 transition-colors duration-300"
+    >
+      {label}
+    </Link>
+  ) : (
+    <a
+      href={href}
+      className="text-[14px] text-gray-900 hover:text-gray-500 transition-colors duration-300"
+    >
+      {label}
+    </a>
+  );
+}
 
 export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [openMobileGroup, setOpenMobileGroup] = useState<string | null>(null);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
+    if (!menuOpen) setOpenMobileGroup(null);
     return () => {
       document.body.style.overflow = "";
     };
@@ -29,6 +72,14 @@ export default function Nav() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const openNow = (label: string) => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setOpenDropdown(label);
+  };
+  const closeSoon = () => {
+    closeTimer.current = setTimeout(() => setOpenDropdown(null), 150);
+  };
 
   return (
     <>
@@ -66,19 +117,60 @@ export default function Nav() {
 
             {/* Right: spread nav links */}
             <ul className="hidden md:flex items-center gap-10 lg:gap-14 pr-3">
-              {navLinks.map(({ label, href }, i) => (
+              {navLinks.map(({ label, href, children }, i) => (
                 <motion.li
                   key={label}
+                  className="relative"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.3 + i * 0.07, duration: 0.4 }}
+                  onMouseEnter={() => children && openNow(label)}
+                  onMouseLeave={() => children && closeSoon()}
                 >
-                  <a
-                    href={href}
-                    className="text-[14px] text-gray-900 hover:text-gray-500 transition-colors duration-300"
-                  >
-                    {label}
-                  </a>
+                  {children ? (
+                    <>
+                      <button
+                        type="button"
+                        className="flex items-center gap-1 text-[14px] text-gray-900 hover:text-gray-500 transition-colors duration-300"
+                        aria-expanded={openDropdown === label}
+                        onClick={() =>
+                          setOpenDropdown(openDropdown === label ? null : label)
+                        }
+                      >
+                        <span>{label}</span>
+                        <ChevronDown
+                          size={13}
+                          className={`transition-transform duration-200 ${
+                            openDropdown === label ? "rotate-180" : ""
+                          }`}
+                        />
+                      </button>
+                      <AnimatePresence>
+                        {openDropdown === label && (
+                          <motion.div
+                            initial={{ opacity: 0, y: -6 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -6 }}
+                            transition={{ duration: 0.18 }}
+                            className="absolute top-full left-0 mt-3 w-56 bg-white rounded-xl shadow-[0_8px_32px_rgba(0,0,0,0.14)] border border-gray-100 py-2 z-50"
+                          >
+                            {children.map((c) => (
+                              <Link
+                                key={c.href}
+                                to={c.href}
+                                onClick={() => setOpenDropdown(null)}
+                                className="block px-4 py-2.5 text-[13.5px] text-gray-700 hover:text-gray-900 hover:bg-gray-50 transition-colors duration-150"
+                              >
+                                {c.label}
+                              </Link>
+                            ))}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </>
+                  ) : (
+                    <NavLink label={label} href={href} />
+                  )}
                 </motion.li>
               ))}
             </ul>
@@ -118,7 +210,7 @@ export default function Nav() {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            className="fixed inset-x-0 bottom-0 z-50 md:hidden mx-3 mb-3"
+            className="fixed inset-x-0 bottom-0 z-50 md:hidden mx-3 mb-3 max-h-[85vh] overflow-y-auto"
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
@@ -126,20 +218,74 @@ export default function Nav() {
           >
             <div className="bg-white rounded-2xl p-6 space-y-6">
               <ul className="space-y-4">
-                {navLinks.map(({ label, href }, i) => (
+                {navLinks.map(({ label, href, children }, i) => (
                   <motion.li
                     key={label}
                     initial={{ opacity: 0, x: -12 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.06, duration: 0.3 }}
                   >
-                    <a
-                      href={href}
-                      className="text-[28px] font-medium text-gray-900 leading-[32px] hover:text-gray-500 transition-colors"
-                      onClick={() => setMenuOpen(false)}
-                    >
-                      {label}
-                    </a>
+                    {children ? (
+                      <div>
+                        <button
+                          type="button"
+                          className="w-full flex items-center justify-between text-[28px] font-medium text-gray-900 leading-[32px]"
+                          onClick={() =>
+                            setOpenMobileGroup(
+                              openMobileGroup === label ? null : label,
+                            )
+                          }
+                        >
+                          {label}
+                          <ChevronDown
+                            size={20}
+                            className={`transition-transform duration-200 ${
+                              openMobileGroup === label ? "rotate-180" : ""
+                            }`}
+                          />
+                        </button>
+                        <AnimatePresence>
+                          {openMobileGroup === label && (
+                            <motion.div
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: "auto", opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.25 }}
+                              className="overflow-hidden"
+                            >
+                              <div className="pt-3 pl-1 space-y-3">
+                                {children.map((c) => (
+                                  <Link
+                                    key={c.href}
+                                    to={c.href}
+                                    onClick={() => setMenuOpen(false)}
+                                    className="block text-[16px] text-gray-600 hover:text-gray-900 transition-colors"
+                                  >
+                                    {c.label}
+                                  </Link>
+                                ))}
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    ) : isInternalRoute(href) ? (
+                      <Link
+                        to={href}
+                        className="text-[28px] font-medium text-gray-900 leading-[32px] hover:text-gray-500 transition-colors"
+                        onClick={() => setMenuOpen(false)}
+                      >
+                        {label}
+                      </Link>
+                    ) : (
+                      <a
+                        href={href}
+                        className="text-[28px] font-medium text-gray-900 leading-[32px] hover:text-gray-500 transition-colors"
+                        onClick={() => setMenuOpen(false)}
+                      >
+                        {label}
+                      </a>
+                    )}
                   </motion.li>
                 ))}
               </ul>

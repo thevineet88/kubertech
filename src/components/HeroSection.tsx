@@ -89,15 +89,15 @@ export default function HeroSection() {
           custom={0.35}
         >
           <span className="sm:hidden">
-            We build, scale, and AI-enable your product.
+            The engineering team behind fast, scalable, AI-enabled products.
           </span>
           <span
             className="hidden sm:block"
             style={{ fontSize: "clamp(2.5rem, 5vw, 4.2rem)" }}
           >
-            We build, scale, and
+            The engineering team behind fast,
             <br />
-            AI-enable your product.
+            scalable, AI-enabled products.
           </span>
         </motion.h1>
 
@@ -110,7 +110,8 @@ export default function HeroSection() {
           custom={0.45}
         >
           Full-stack products, cloud infrastructure, and production AI systems,
-          built to launch fast, scale confidently, and earn their keep.
+          built to launch fast, scale confidently, and earn their keep. Tell
+          us what you're building.
         </motion.p>
 
         {/* CTA */}

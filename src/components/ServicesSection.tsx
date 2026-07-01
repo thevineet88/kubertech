@@ -1,4 +1,6 @@
 import type { ComponentType } from "react";
+import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 import {
   SiReact,
   SiNextdotjs,
@@ -138,6 +140,19 @@ export default function ServicesSection() {
             </ScrollReveal>
           ))}
         </div>
+
+        <ScrollReveal
+          className="px-5 sm:px-8 lg:px-12 mt-8 sm:mt-10"
+          delay={0.3}
+        >
+          <Link
+            to="/services"
+            className="inline-flex items-center gap-2 text-[14px] font-medium text-gray-900 hover:text-[#F26522] transition-colors duration-200"
+          >
+            View all services
+            <ArrowRight size={14} />
+          </Link>
+        </ScrollReveal>
       </div>
     </section>
   );
