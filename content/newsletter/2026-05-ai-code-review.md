@@ -1,7 +1,7 @@
 ---
 title: "AI made code reviews harder than coding"
-date: "2026-06-01"
-slug: "2026-06-ai-code-review"
+date: "2026-05-01"
+slug: "2026-05-ai-code-review"
 summary: "AI-generated code rarely fails outright, it just looks reasonable enough to merge. That's a harder problem than bad code ever was."
 ---
 

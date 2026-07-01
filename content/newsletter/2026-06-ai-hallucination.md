@@ -1,7 +1,7 @@
 ---
 title: "The AI feature everyone wanted, until it started hallucinating"
-date: "2026-07-01"
-slug: "2026-07-ai-hallucination"
+date: "2026-06-01"
+slug: "2026-06-ai-hallucination"
 summary: "One decision from a recent build, including where our assumptions were wrong, and where we have room to plan ahead."
 ---
 

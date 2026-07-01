@@ -1,7 +1,7 @@
 ---
 title: "We deleted 40 components from our design system"
-date: "2026-05-01"
-slug: "2026-05-deleted-design-system-components"
+date: "2025-11-01"
+slug: "2025-11-deleted-design-system-components"
 summary: "A design system with a component for every edge case left nobody sure which one to use. We cut 40 of them and confidence went up."
 ---
 
