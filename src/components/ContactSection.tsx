@@ -283,6 +283,9 @@ export default function ContactSection() {
             >
               Remote engineering, India
             </Link>
+            <Link to="/newsletter" className="hover:text-white transition-colors duration-200">
+              Newsletter
+            </Link>
           </div>
           <div className="flex flex-wrap items-center justify-center gap-6">
             <a

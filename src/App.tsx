@@ -17,6 +17,8 @@ import Services from './pages/Services'
 import MarksAndSpencerCaseStudy from './pages/MarksAndSpencerCaseStudy'
 import RemoteEngineeringIndia from './pages/RemoteEngineeringIndia'
 import CaseStudiesHub from './pages/CaseStudiesHub'
+import NewsletterIndex from './pages/NewsletterIndex'
+import NewsletterIssue from './pages/NewsletterIssue'
 import Seo from './components/Seo'
 
 const organizationJsonLd = {
@@ -86,6 +88,8 @@ function App() {
           path="/remote-engineering-india"
           element={<RemoteEngineeringIndia />}
         />
+        <Route path="/newsletter" element={<NewsletterIndex />} />
+        <Route path="/newsletter/:slug" element={<NewsletterIssue />} />
       </Routes>
       <Analytics />
     </>

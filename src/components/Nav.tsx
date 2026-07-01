@@ -24,6 +24,7 @@ const navLinks: NavItem[] = [
     children: [
       { label: "All services", href: "/services" },
       { label: "Remote engineering (India)", href: "/remote-engineering-india" },
+      { label: "Newsletter", href: "/newsletter" },
     ],
   },
   { label: "AI", href: "#ai" },
