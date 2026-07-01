@@ -74,9 +74,11 @@ export default function NewsletterIssue() {
         >
           {issue.title}
         </h1>
-        <p className="text-[17px] sm:text-[19px] text-gray-500 leading-[1.55]">
-          {issue.summary}
-        </p>
+        <blockquote className="border-l-2 border-[#F26522] pl-4 sm:pl-5">
+          <p className="text-[17px] sm:text-[19px] italic text-gray-500 leading-[1.55]">
+            {issue.summary}
+          </p>
+        </blockquote>
 
         {/* Byline */}
         <div className="flex items-center gap-3 mt-10">

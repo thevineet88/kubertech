@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import Seo from "../components/Seo";
 import BackLink from "../components/BackLink";
-import { getAllIssues, formatIssueDate } from "../lib/newsletter";
+import { getAllIssues, formatIssueMonth, groupIssuesByYear } from "../lib/newsletter";
 
 const hubJsonLd = {
   "@context": "https://schema.org",
@@ -20,6 +20,7 @@ export default function NewsletterIndex() {
   }, []);
 
   const issues = getAllIssues();
+  const yearGroups = groupIssuesByYear(issues);
 
   return (
     <div className="min-h-screen bg-[#FAFAFA]">
@@ -62,29 +63,41 @@ export default function NewsletterIndex() {
             The first issue is on its way.
           </p>
         ) : (
-          <div className="divide-y divide-gray-200 border-t border-gray-200">
-            {issues.map((issue) => (
-              <Link
-                key={issue.slug}
-                to={`/newsletter/${issue.slug}`}
-                className="group flex flex-col sm:flex-row sm:items-baseline gap-1.5 sm:gap-8 py-8 sm:py-10"
+          <div className="border-t border-gray-200">
+            {yearGroups.map((group) => (
+              <div
+                key={group.year}
+                className="flex gap-6 sm:gap-10 border-b border-gray-200 py-8 sm:py-10"
               >
-                <span className="shrink-0 sm:w-40 text-[13px] font-medium uppercase tracking-wider text-gray-400">
-                  {formatIssueDate(issue.date)}
+                <span className="shrink-0 w-12 sm:w-16 text-[14px] sm:text-[15px] font-semibold text-[#F26522] pt-1">
+                  {group.year}
                 </span>
-                <div className="flex-1">
-                  <h2 className="text-[19px] sm:text-[22px] font-semibold text-gray-900 leading-[1.3] mb-2 flex items-center gap-2">
-                    {issue.title}
-                    <ArrowRight
-                      size={16}
-                      className="text-gray-400 group-hover:text-[#F26522] group-hover:translate-x-0.5 transition-all duration-200 shrink-0"
-                    />
-                  </h2>
-                  <p className="text-[14.5px] sm:text-[15px] text-gray-600 leading-[1.6]">
-                    {issue.summary}
-                  </p>
+                <div className="flex-1 divide-y divide-gray-100">
+                  {group.issues.map((issue) => (
+                    <Link
+                      key={issue.slug}
+                      to={`/newsletter/${issue.slug}`}
+                      className="group flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-6 py-5 first:pt-0 last:pb-0"
+                    >
+                      <span className="shrink-0 sm:w-24 text-[12px] font-medium uppercase tracking-wider text-gray-400">
+                        {formatIssueMonth(issue.date)}
+                      </span>
+                      <div className="flex-1">
+                        <h2 className="text-[17px] sm:text-[19px] font-semibold text-gray-900 leading-[1.3] mb-1.5">
+                          {issue.title}
+                        </h2>
+                        <p className="text-[14px] text-gray-600 leading-[1.6]">
+                          {issue.summary}
+                        </p>
+                      </div>
+                      <ArrowRight
+                        size={15}
+                        className="shrink-0 self-center sm:ml-auto text-gray-400 group-hover:text-[#F26522] group-hover:translate-x-0.5 transition-all duration-200"
+                      />
+                    </Link>
+                  ))}
                 </div>
-              </Link>
+              </div>
             ))}
           </div>
         )}
