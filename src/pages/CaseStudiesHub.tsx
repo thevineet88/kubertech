@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import Seo from "../components/Seo";
-import BackLink from "../components/BackLink";
+import PageHeader from "../components/PageHeader";
 
 const caseStudies = [
   {
@@ -52,38 +51,20 @@ export default function CaseStudiesHub() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA]">
-      <Seo
-        title="Case Studies | Kuber Tech Solutions"
-        description="Real engagements: frontend performance, full-stack commerce, and AI engineering work for Marks & Spencer, a custom print platform, and Rivian."
-        path="/case-studies"
-        jsonLd={hubJsonLd}
+    <div className="min-h-screen bg-paper">
+      <PageHeader
+        seo={{
+          title: "Case Studies | Kuber Tech Solutions",
+          description:
+            "Real engagements: frontend performance, full-stack commerce, and AI engineering work for Marks & Spencer, a custom print platform, and Rivian.",
+          path: "/case-studies",
+          jsonLd: hubJsonLd,
+        }}
+        backTo={{ fallback: "/", label: "Back to Kuber Tech" }}
+        eyebrow="Case studies"
+        title="Engagements where the numbers moved."
+        description="Frontend performance, full-stack commerce, and AI engineering work our team has delivered for funded startups and enterprise platforms."
       />
-
-      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 pt-6 sm:pt-8">
-        <BackLink
-          fallback="/"
-          label="Back to Kuber Tech"
-          className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-900 text-[14px] transition-colors duration-200"
-        />
-      </div>
-
-      {/* Hero */}
-      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 pt-10 sm:pt-14 pb-8 sm:pb-10">
-        <p className="text-[12px] sm:text-[13px] font-semibold uppercase tracking-wider text-[#F26522] mb-4">
-          Case studies
-        </p>
-        <h1
-          className="font-medium leading-[1.08] tracking-[-0.03em] text-gray-900 mb-6 max-w-3xl"
-          style={{ fontSize: "clamp(1.75rem, 5vw, 3.4rem)" }}
-        >
-          Engagements where the numbers moved.
-        </h1>
-        <p className="text-[16px] sm:text-[18px] text-gray-600 leading-[1.6] max-w-2xl">
-          Frontend performance, full-stack commerce, and AI engineering work
-          our team has delivered for funded startups and enterprise platforms.
-        </p>
-      </div>
 
       {/* Cards */}
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 pb-10 sm:pb-14">
@@ -115,7 +96,7 @@ export default function CaseStudiesHub() {
                   {c.title}
                   <ArrowRight
                     size={14}
-                    className="text-gray-400 group-hover:text-[#F26522] group-hover:translate-x-0.5 transition-all duration-200"
+                    className="text-gray-400 group-hover:text-brand group-hover:translate-x-0.5 transition-all duration-200"
                   />
                 </p>
                 <p className="text-[13.5px] text-gray-600 leading-[1.6]">

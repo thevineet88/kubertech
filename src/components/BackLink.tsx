@@ -5,12 +5,17 @@ interface BackLinkProps {
   fallback: string;
   label: string;
   className: string;
+  alwaysFallback?: boolean;
 }
 
-export default function BackLink({ fallback, label, className }: BackLinkProps) {
+export default function BackLink({ fallback, label, className, alwaysFallback = false }: BackLinkProps) {
   const navigate = useNavigate();
 
   const handleBack = () => {
+    if (alwaysFallback) {
+      navigate(fallback);
+      return;
+    }
     const state = window.history.state as { idx?: number } | null;
     if (state && typeof state.idx === "number" && state.idx > 0) {
       navigate(-1);

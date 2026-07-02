@@ -1,3 +1,4 @@
+import { Suspense, lazy } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { Analytics } from '@vercel/analytics/react'
 import Nav from './components/Nav'
@@ -11,15 +12,17 @@ import CaseStudiesSection from './components/CaseStudiesSection'
 import ClientsSection from './components/ClientsSection'
 import ContactSection from './components/ContactSection'
 import BookingModal from './components/BookingModal'
-import RivianCaseStudy from './pages/RivianCaseStudy'
-import CustomPrintPlatformCaseStudy from './pages/CustomPrintPlatformCaseStudy'
-import Services from './pages/Services'
-import MarksAndSpencerCaseStudy from './pages/MarksAndSpencerCaseStudy'
-import RemoteEngineeringIndia from './pages/RemoteEngineeringIndia'
-import CaseStudiesHub from './pages/CaseStudiesHub'
-import NewsletterIndex from './pages/NewsletterIndex'
-import NewsletterIssue from './pages/NewsletterIssue'
 import Seo from './components/Seo'
+
+const RivianCaseStudy = lazy(() => import('./pages/RivianCaseStudy'))
+const CustomPrintPlatformCaseStudy = lazy(() => import('./pages/CustomPrintPlatformCaseStudy'))
+const Services = lazy(() => import('./pages/Services'))
+const MarksAndSpencerCaseStudy = lazy(() => import('./pages/MarksAndSpencerCaseStudy'))
+const RemoteEngineeringIndia = lazy(() => import('./pages/RemoteEngineeringIndia'))
+const CaseStudiesHub = lazy(() => import('./pages/CaseStudiesHub'))
+const NewsletterIndex = lazy(() => import('./pages/NewsletterIndex'))
+const NewsletterIssue = lazy(() => import('./pages/NewsletterIssue'))
+const NotFound = lazy(() => import('./pages/NotFound'))
 
 const organizationJsonLd = {
   '@context': 'https://schema.org',
@@ -68,29 +71,32 @@ function Home() {
 function App() {
   return (
     <>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/case-studies" element={<CaseStudiesHub />} />
-        <Route
-          path="/case-studies/marks-and-spencer-performance"
-          element={<MarksAndSpencerCaseStudy />}
-        />
-        <Route
-          path="/case-studies/custom-print-platform"
-          element={<CustomPrintPlatformCaseStudy />}
-        />
-        <Route
-          path="/case-studies/rag-knowledge-engine"
-          element={<RivianCaseStudy />}
-        />
-        <Route
-          path="/remote-engineering-india"
-          element={<RemoteEngineeringIndia />}
-        />
-        <Route path="/newsletter" element={<NewsletterIndex />} />
-        <Route path="/newsletter/:slug" element={<NewsletterIssue />} />
-      </Routes>
+      <Suspense fallback={null}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/case-studies" element={<CaseStudiesHub />} />
+          <Route
+            path="/case-studies/marks-and-spencer-performance"
+            element={<MarksAndSpencerCaseStudy />}
+          />
+          <Route
+            path="/case-studies/custom-print-platform"
+            element={<CustomPrintPlatformCaseStudy />}
+          />
+          <Route
+            path="/case-studies/rag-knowledge-engine"
+            element={<RivianCaseStudy />}
+          />
+          <Route
+            path="/remote-engineering-india"
+            element={<RemoteEngineeringIndia />}
+          />
+          <Route path="/newsletter" element={<NewsletterIndex />} />
+          <Route path="/newsletter/:slug" element={<NewsletterIssue />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Suspense>
       <Analytics />
     </>
   )

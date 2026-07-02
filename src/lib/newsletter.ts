@@ -1,4 +1,6 @@
+import matter from "gray-matter";
 import { marked } from "marked";
+import { z } from "zod";
 
 export interface NewsletterIssue {
   title: string;
@@ -8,22 +10,16 @@ export interface NewsletterIssue {
   html: string;
 }
 
-function parseFrontmatter(raw: string): { data: Record<string, string>; body: string } {
-  const match = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
-  if (!match) return { data: {}, body: raw };
-
-  const [, frontmatter, body] = match;
-  const data: Record<string, string> = {};
-
-  for (const line of frontmatter.split("\n")) {
-    const lineMatch = line.match(/^([A-Za-z0-9_]+):\s*(.*)$/);
-    if (!lineMatch) continue;
-    const [, key, rawValue] = lineMatch;
-    data[key] = rawValue.trim().replace(/^"(.*)"$/, "$1");
-  }
-
-  return { data, body: body.trim() };
-}
+const frontmatterSchema = z.object({
+  title: z.string().min(1, "title is required"),
+  date: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, "date must be in YYYY-MM-DD format"),
+  slug: z
+    .string()
+    .regex(/^[a-z0-9-]+$/, "slug must be lowercase, numbers, and hyphens only"),
+  summary: z.string().min(1, "summary is required"),
+});
 
 const modules = import.meta.glob("/content/newsletter/*.md", {
   query: "?raw",
@@ -31,19 +27,35 @@ const modules = import.meta.glob("/content/newsletter/*.md", {
   eager: true,
 }) as Record<string, string>;
 
-const issues: NewsletterIssue[] = Object.values(modules)
-  .map((raw) => {
-    const { data, body } = parseFrontmatter(raw);
-    return {
-      title: data.title ?? "",
-      date: data.date ?? "",
-      slug: data.slug ?? "",
-      summary: data.summary ?? "",
-      html: marked.parse(body, { async: false }) as string,
-    };
-  })
-  .filter((issue) => issue.slug)
-  .sort((a, b) => (a.date < b.date ? 1 : -1));
+const issues: NewsletterIssue[] = Object.entries(modules).map(([path, raw]) => {
+  const { data, content } = matter(raw);
+  const result = frontmatterSchema.safeParse(data);
+
+  if (!result.success) {
+    const issues = result.error.issues
+      .map((issue) => `  - ${issue.path.join(".")}: ${issue.message}`)
+      .join("\n");
+    throw new Error(`Invalid newsletter frontmatter in ${path}:\n${issues}`);
+  }
+
+  return {
+    ...result.data,
+    html: marked.parse(content.trim(), { async: false }) as string,
+  };
+});
+
+const slugCounts = new Map<string, number>();
+for (const issue of issues) {
+  slugCounts.set(issue.slug, (slugCounts.get(issue.slug) ?? 0) + 1);
+}
+const duplicateSlugs = [...slugCounts.entries()].filter(([, count]) => count > 1);
+if (duplicateSlugs.length > 0) {
+  throw new Error(
+    `Duplicate newsletter slugs found: ${duplicateSlugs.map(([slug]) => slug).join(", ")}`,
+  );
+}
+
+issues.sort((a, b) => (a.date < b.date ? 1 : -1));
 
 export function getAllIssues(): NewsletterIssue[] {
   return issues;

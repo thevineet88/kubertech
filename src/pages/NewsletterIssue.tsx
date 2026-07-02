@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, Navigate, Link } from "react-router-dom";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import Seo from "../components/Seo";
-import BackLink from "../components/BackLink";
+import PageHeader from "../components/PageHeader";
 import { getIssueBySlug, getAdjacentIssues, formatIssueDate } from "../lib/newsletter";
 
 export default function NewsletterIssue() {
@@ -45,55 +44,48 @@ export default function NewsletterIssue() {
     },
   };
 
-  return (
-    <div className="min-h-screen bg-[#FAFAFA]">
-      <Seo
-        title={`${issue.title} | Kuber Tech Solutions Newsletter`}
-        description={issue.summary}
-        path={`/newsletter/${issue.slug}`}
-        ogType="article"
-        jsonLd={articleJsonLd}
-      />
-
-      <div className="max-w-[680px] mx-auto px-5 sm:px-0 pt-6 sm:pt-10">
-        <BackLink
-          fallback="/newsletter"
-          label="Back to newsletter"
-          className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-900 text-[14px] transition-colors duration-200"
+  const avatar = (size: "sm" | "lg") => (
+    <div
+      className={`${size === "sm" ? "w-10 h-10" : "w-12 h-12"} rounded-full bg-brand/10 overflow-hidden shrink-0 flex items-center justify-center`}
+    >
+      {photoFailed ? (
+        <span className={`${size === "sm" ? "text-[12px]" : "text-[13px]"} font-semibold text-brand`}>
+          VB
+        </span>
+      ) : (
+        <img
+          src="/team/vinit.png"
+          alt="Vinit Brahmankar"
+          className="w-full h-full object-cover"
+          onError={() => setPhotoFailed(true)}
         />
-      </div>
+      )}
+    </div>
+  );
 
-      {/* Header */}
-      <div className="max-w-[680px] mx-auto px-5 sm:px-0 pt-10 sm:pt-12 pb-8">
-        <p className="text-[12px] sm:text-[13px] font-semibold uppercase tracking-wider text-[#F26522] mb-4">
-          {formatIssueDate(issue.date)}
-        </p>
-        <h1
-          className="font-medium leading-[1.15] tracking-[-0.03em] text-gray-900 mb-6"
-          style={{ fontSize: "clamp(1.75rem, 4.5vw, 2.6rem)" }}
-        >
-          {issue.title}
-        </h1>
-        <blockquote className="border-l-2 border-[#F26522] pl-4 sm:pl-5">
+  return (
+    <div className="min-h-screen bg-paper">
+      <PageHeader
+        variant="article"
+        seo={{
+          title: `${issue.title} | Kuber Tech Solutions Newsletter`,
+          description: issue.summary,
+          path: `/newsletter/${issue.slug}`,
+          ogType: "article",
+          jsonLd: articleJsonLd,
+        }}
+        backTo={{ fallback: "/newsletter", label: "Back to newsletter", alwaysFallback: true }}
+        eyebrow={formatIssueDate(issue.date)}
+        title={issue.title}
+      >
+        <blockquote className="border-l-2 border-brand pl-4 sm:pl-5">
           <p className="text-[17px] sm:text-[19px] italic text-gray-500 leading-[1.55]">
             {issue.summary}
           </p>
         </blockquote>
 
-        {/* Byline */}
         <div className="flex items-center gap-3 mt-10">
-          <div className="w-10 h-10 rounded-full bg-[#F26522]/10 overflow-hidden shrink-0 flex items-center justify-center">
-            {photoFailed ? (
-              <span className="text-[12px] font-semibold text-[#F26522]">VB</span>
-            ) : (
-              <img
-                src="/team/vinit.png"
-                alt="Vinit Brahmankar"
-                className="w-full h-full object-cover"
-                onError={() => setPhotoFailed(true)}
-              />
-            )}
-          </div>
+          {avatar("sm")}
           <div className="leading-tight">
             <p className="text-[13px] font-semibold text-gray-900 uppercase tracking-wide">
               Vinit Brahmankar
@@ -103,7 +95,7 @@ export default function NewsletterIssue() {
             </p>
           </div>
         </div>
-      </div>
+      </PageHeader>
 
       {/* Article body */}
       <div className="max-w-[680px] mx-auto px-5 sm:px-0 pb-12 sm:pb-16">
@@ -116,18 +108,7 @@ export default function NewsletterIssue() {
       {/* Author bio */}
       <div className="max-w-[680px] mx-auto px-5 sm:px-0 pb-12 sm:pb-16">
         <div className="flex gap-4 border-t border-gray-200 pt-8">
-          <div className="w-12 h-12 rounded-full bg-[#F26522]/10 overflow-hidden shrink-0 flex items-center justify-center">
-            {photoFailed ? (
-              <span className="text-[13px] font-semibold text-[#F26522]">VB</span>
-            ) : (
-              <img
-                src="/team/vinit.png"
-                alt="Vinit Brahmankar"
-                className="w-full h-full object-cover"
-                onError={() => setPhotoFailed(true)}
-              />
-            )}
-          </div>
+          {avatar("lg")}
           <div>
             <p className="text-[12px] text-gray-500 mb-1">Written by</p>
             <p className="text-[15px] font-semibold text-gray-900 mb-2">Vinit Brahmankar</p>

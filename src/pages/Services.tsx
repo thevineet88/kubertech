@@ -2,8 +2,7 @@ import { useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { openBooking } from "../booking";
-import Seo from "../components/Seo";
-import BackLink from "../components/BackLink";
+import PageHeader from "../components/PageHeader";
 
 const services = [
   {
@@ -110,39 +109,20 @@ export default function Services() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA]">
-      <Seo
-        title="AI, Cloud & Full-Stack Services | Kuber Tech Solutions"
-        description="AI engineering, cloud infrastructure, frontend engineering, full-stack development, design systems, and performance optimization for funded startups."
-        path="/services"
-        jsonLd={servicesJsonLd}
+    <div className="min-h-screen bg-paper">
+      <PageHeader
+        seo={{
+          title: "AI, Cloud & Full-Stack Services | Kuber Tech Solutions",
+          description:
+            "AI engineering, cloud infrastructure, frontend engineering, full-stack development, design systems, and performance optimization for funded startups.",
+          path: "/services",
+          jsonLd: servicesJsonLd,
+        }}
+        backTo={{ fallback: "/", label: "Back to Kuber Tech" }}
+        eyebrow="Services"
+        title="AI, cloud, and product engineering, under one team."
+        description="Our team partners with funded startups in AI, HealthTech, FinTech, and EdTech across the US, UK, and UAE, engaged for one of these six areas, or several of them together."
       />
-
-      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 pt-6 sm:pt-8">
-        <BackLink
-          fallback="/"
-          label="Back to Kuber Tech"
-          className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-900 text-[14px] transition-colors duration-200"
-        />
-      </div>
-
-      {/* Hero */}
-      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 pt-10 sm:pt-14 pb-8 sm:pb-10">
-        <p className="text-[12px] sm:text-[13px] font-semibold uppercase tracking-wider text-[#F26522] mb-4">
-          Services
-        </p>
-        <h1
-          className="font-medium leading-[1.08] tracking-[-0.03em] text-gray-900 mb-6 max-w-3xl"
-          style={{ fontSize: "clamp(1.75rem, 5vw, 3.4rem)" }}
-        >
-          AI, cloud, and product engineering, under one team.
-        </h1>
-        <p className="text-[16px] sm:text-[18px] text-gray-600 leading-[1.6] max-w-2xl">
-          Our team partners with funded startups in AI, HealthTech, FinTech,
-          and EdTech across the US, UK, and UAE, engaged for one of these
-          six areas, or several of them together.
-        </p>
-      </div>
 
       {/* Service grid */}
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 pb-10 sm:pb-14">
@@ -153,7 +133,7 @@ export default function Services() {
               id={s.id}
               className="h-full rounded-2xl border border-gray-200 bg-white p-6 sm:p-7 hover:border-gray-300 transition-colors duration-300 flex flex-col scroll-mt-24"
             >
-              <p className="text-[12px] sm:text-[13px] font-semibold uppercase tracking-wider text-[#F26522] mb-3">
+              <p className="text-[12px] sm:text-[13px] font-semibold uppercase tracking-wider text-brand mb-3">
                 {s.tag}
               </p>
               <p className="text-[14px] sm:text-[15px] text-gray-700 leading-[1.6] mb-6">
@@ -165,7 +145,7 @@ export default function Services() {
                     key={p}
                     className="text-[13px] sm:text-[13.5px] text-gray-600 leading-snug flex items-start gap-2"
                   >
-                    <span className="text-[#F26522] mt-1">•</span>
+                    <span className="text-brand mt-1">•</span>
                     {p}
                   </li>
                 ))}
@@ -183,7 +163,7 @@ export default function Services() {
             See how we{" "}
             <Link
               to="/remote-engineering-india"
-              className="text-[#F26522] font-medium hover:underline"
+              className="text-brand font-medium hover:underline"
             >
               deliver async-first with US and UK teams from India
             </Link>
@@ -208,7 +188,7 @@ export default function Services() {
           <button
             type="button"
             onClick={openBooking}
-            className="group inline-flex items-center gap-2 bg-gray-900 hover:bg-[#F26522] text-white text-[14px] font-medium rounded-full pl-6 pr-2 py-2.5 transition-colors duration-300"
+            className="group inline-flex items-center gap-2 bg-gray-900 hover:bg-brand text-white text-[14px] font-medium rounded-full pl-6 pr-2 py-2.5 transition-colors duration-300"
           >
             <span>Book a free 30-min call</span>
             <div className="w-7 h-7 bg-white rounded-full flex items-center justify-center shrink-0">

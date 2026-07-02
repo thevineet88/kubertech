@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import Seo from "../components/Seo";
-import BackLink from "../components/BackLink";
+import PageHeader from "../components/PageHeader";
 
 const overlaps = [
   { zone: "US East (EST/EDT)", window: "IST is 9.5–10.5 hours ahead of EST. Our early-morning IST hours (7–10am IST) land in US EST evening (9–11.30pm EST the prior day) and our late-afternoon IST hours overlap US EST early morning." },
@@ -65,41 +64,20 @@ export default function RemoteEngineeringIndia() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA]">
-      <Seo
-        title="Hire Remote Engineers in India | Kuber Tech Solutions"
-        description="An async-first engineering team in India, deliberate US EST and UK overlap, not generic outsourcing."
-        path="/remote-engineering-india"
-        jsonLd={faqJsonLd}
+    <div className="min-h-screen bg-paper">
+      <PageHeader
+        seo={{
+          title: "Hire Remote Engineers in India | Kuber Tech Solutions",
+          description:
+            "An async-first engineering team in India, deliberate US EST and UK overlap, not generic outsourcing.",
+          path: "/remote-engineering-india",
+          jsonLd: faqJsonLd,
+        }}
+        backTo={{ fallback: "/", label: "Back to Kuber Tech" }}
+        eyebrow="Remote engineering, India"
+        title="A remote engineering team in India, built for US and UK overlap."
+        description="We're an India-based engineering team (IST, UTC+5:30) delivering frontend performance, design systems, and full-stack work for funded startups in the US, UK, and UAE, with deliberate timezone overlap and an async-first workflow, not a generic outsourcing arrangement."
       />
-
-      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 pt-6 sm:pt-8">
-        <BackLink
-          fallback="/"
-          label="Back to Kuber Tech"
-          className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-900 text-[14px] transition-colors duration-200"
-        />
-      </div>
-
-      {/* Hero, answer-first */}
-      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 pt-10 sm:pt-14 pb-8 sm:pb-10">
-        <p className="text-[12px] sm:text-[13px] font-semibold uppercase tracking-wider text-[#F26522] mb-4">
-          Remote engineering, India
-        </p>
-        <h1
-          className="font-medium leading-[1.08] tracking-[-0.03em] text-gray-900 mb-6 max-w-3xl"
-          style={{ fontSize: "clamp(1.75rem, 5vw, 3.4rem)" }}
-        >
-          A remote engineering team in India, built for US and UK overlap.
-        </h1>
-        <p className="text-[16px] sm:text-[18px] text-gray-600 leading-[1.6] max-w-2xl">
-          We're an India-based engineering team (IST, UTC+5:30) delivering
-          frontend performance, design systems, and full-stack work for
-          funded startups in the US, UK, and UAE, with deliberate timezone
-          overlap and an async-first workflow, not a generic outsourcing
-          arrangement.
-        </p>
-      </div>
 
       {/* Timezone overlap */}
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 pb-8 sm:pb-10">
@@ -112,7 +90,7 @@ export default function RemoteEngineeringIndia() {
               key={o.zone}
               className="rounded-2xl bg-white border border-gray-200 p-6"
             >
-              <p className="text-[14px] font-semibold text-[#F26522] mb-3">
+              <p className="text-[14px] font-semibold text-brand mb-3">
                 {o.zone}
               </p>
               <p className="text-[13.5px] text-gray-600 leading-[1.6]">
@@ -147,7 +125,7 @@ export default function RemoteEngineeringIndia() {
 
       {/* Why us, not generic outsourcing */}
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 pb-10 sm:pb-14 flex justify-center">
-        <div className="rounded-2xl bg-[#0c0c0c] border border-[#0c0c0c] p-6 sm:p-10 max-w-3xl">
+        <div className="rounded-2xl bg-ink border border-ink p-6 sm:p-10 max-w-3xl">
           <h2 className="text-[20px] sm:text-[24px] font-semibold text-white mb-4">
             Why engineering teams choose us over outsourcing firms
           </h2>
@@ -160,7 +138,7 @@ export default function RemoteEngineeringIndia() {
             standard we hold every engagement to. Read the full{" "}
             <Link
               to="/case-studies/marks-and-spencer-performance"
-              className="text-[#F26522] font-medium hover:underline"
+              className="text-brand font-medium hover:underline"
             >
               Marks &amp; Spencer case study
             </Link>
@@ -169,7 +147,7 @@ export default function RemoteEngineeringIndia() {
           <p className="text-[14px] sm:text-[15px] text-white/60 leading-[1.65]">
             We specialize in frontend engineering, performance optimization,
             and design systems. See the full{" "}
-            <Link to="/services" className="text-[#F26522] font-medium hover:underline">
+            <Link to="/services" className="text-brand font-medium hover:underline">
               breakdown of our services
             </Link>
             .

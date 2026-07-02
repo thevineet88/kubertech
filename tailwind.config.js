@@ -14,6 +14,14 @@ export default {
           "sans-serif",
         ],
       },
+      colors: {
+        brand: {
+          DEFAULT: "#F26522",
+          dark: "#e05a1a",
+        },
+        ink: "#0c0c0c",
+        paper: "#FAFAFA",
+      },
     },
   },
   plugins: [],
