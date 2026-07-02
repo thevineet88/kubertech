@@ -8,14 +8,14 @@ export default function NotFound() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA] flex items-center">
+    <div className="min-h-screen bg-paper flex items-center">
       <Seo
         title="Page not found | Kuber Tech Solutions"
         description="The page you're looking for doesn't exist."
         path="/404"
       />
       <div className="max-w-[680px] mx-auto px-5 sm:px-0 text-center">
-        <p className="text-[12px] sm:text-[13px] font-semibold uppercase tracking-wider text-[#F26522] mb-4">
+        <p className="text-[12px] sm:text-[13px] font-semibold uppercase tracking-wider text-brand mb-4">
           404
         </p>
         <h1

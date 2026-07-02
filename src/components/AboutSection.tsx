@@ -20,7 +20,7 @@ const steps = [
 
 export default function AboutSection() {
   return (
-    <section id="studio" className="bg-[#FAFAFA] border-t border-gray-100 pt-10 sm:pt-14 lg:pt-18 pb-10 sm:pb-14 lg:pb-18 scroll-mt-4 md:scroll-mt-24">
+    <section id="studio" className="bg-paper border-t border-gray-100 pt-10 sm:pt-14 lg:pt-18 pb-10 sm:pb-14 lg:pb-18 scroll-mt-4 md:scroll-mt-24">
       <div className="max-w-[1440px] mx-auto">
         {/* Badge row */}
         <ScrollReveal className="px-5 sm:px-8 lg:px-12 flex items-center gap-3 mb-6 sm:mb-8" delay={0}>
@@ -64,7 +64,7 @@ export default function AboutSection() {
           {steps.map((s, i) => (
             <ScrollReveal key={s.n} delay={0.1 + i * 0.07} y={24}>
               <div className="h-full rounded-2xl bg-white border border-gray-200 p-6 sm:p-7">
-                <p className="text-[28px] sm:text-[34px] font-semibold text-[#F26522] leading-none mb-4">
+                <p className="text-[28px] sm:text-[34px] font-semibold text-brand leading-none mb-4">
                   {s.n}
                 </p>
                 <h3 className="text-[17px] sm:text-[19px] font-semibold text-gray-900 mb-2">

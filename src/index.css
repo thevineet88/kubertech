@@ -96,7 +96,7 @@ body {
 }
 
 .newsletter-prose a {
-  color: #F26522;
+  color: theme('colors.brand.DEFAULT');
   font-weight: 500;
   text-decoration: underline;
   text-underline-offset: 2px;
@@ -126,7 +126,7 @@ body {
 }
 
 .newsletter-prose blockquote {
-  border-left: 2px solid #F26522;
+  border-left: 2px solid theme('colors.brand.DEFAULT');
   padding-left: 1.25em;
   margin: 2em 0;
   font-size: 21px;

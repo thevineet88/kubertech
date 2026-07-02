@@ -104,7 +104,7 @@ export default function MarksAndSpencerCaseStudy() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white">
+    <div className="min-h-screen bg-ink text-white">
       <Seo
         title="M&S Performance Case Study | Kuber Tech Solutions"
         description="LCP improved from 4.1s to 1.8s across 2M+ monthly product pages and checkout conversion doubled from 2% to 4%, backed by a 50–60 component design system."
@@ -122,7 +122,7 @@ export default function MarksAndSpencerCaseStudy() {
 
       {/* Hero, answer-first */}
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 pt-12 sm:pt-16 pb-10 sm:pb-14">
-        <p className="text-[12px] sm:text-[13px] font-semibold uppercase tracking-wider text-[#F26522] mb-4">
+        <p className="text-[12px] sm:text-[13px] font-semibold uppercase tracking-wider text-brand mb-4">
           Full-stack commerce case study
         </p>
         <h1
@@ -145,7 +145,7 @@ export default function MarksAndSpencerCaseStudy() {
               key={m.label}
               className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 sm:p-6"
             >
-              <p className="text-[24px] sm:text-[30px] font-semibold text-[#F26522] leading-none mb-2">
+              <p className="text-[24px] sm:text-[30px] font-semibold text-brand leading-none mb-2">
                 {m.value}
               </p>
               <p className="text-[13px] text-white/55 leading-snug">{m.label}</p>
@@ -193,7 +193,7 @@ export default function MarksAndSpencerCaseStudy() {
               key={a.n}
               className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:p-7"
             >
-              <p className="text-[28px] sm:text-[32px] font-semibold text-[#F26522] leading-none mb-4">
+              <p className="text-[28px] sm:text-[32px] font-semibold text-brand leading-none mb-4">
                 {a.n}
               </p>
               <h3 className="text-[16px] sm:text-[17px] font-semibold text-white mb-3 leading-snug">
@@ -218,7 +218,7 @@ export default function MarksAndSpencerCaseStudy() {
               key={s.category}
               className="rounded-xl border border-white/10 bg-white/[0.03] p-5"
             >
-              <p className="text-[12px] font-semibold uppercase tracking-wider text-[#F26522] mb-2">
+              <p className="text-[12px] font-semibold uppercase tracking-wider text-brand mb-2">
                 {s.category}
               </p>
               <p className="text-[13.5px] text-white/60 leading-[1.6]">{s.items}</p>
@@ -261,7 +261,7 @@ export default function MarksAndSpencerCaseStudy() {
         <p className="text-[15px] sm:text-[16px] text-white/55 leading-[1.6] max-w-lg mb-8">
           Our team specializes in exactly this kind of performance work. See
           our full{" "}
-          <Link to="/services" className="text-[#F26522] hover:underline">
+          <Link to="/services" className="text-brand hover:underline">
             services
           </Link>
           .
@@ -269,7 +269,7 @@ export default function MarksAndSpencerCaseStudy() {
         <div className="flex flex-wrap gap-4">
           <Link
             to="/case-studies"
-            className="group inline-flex items-center gap-2 bg-[#F26522] hover:bg-[#d9541a] text-white text-[14px] font-medium rounded-full pl-6 pr-2 py-2.5 transition-colors duration-300"
+            className="group inline-flex items-center gap-2 bg-brand hover:bg-brand-dark text-white text-[14px] font-medium rounded-full pl-6 pr-2 py-2.5 transition-colors duration-300"
           >
             <span>See all work</span>
             <div className="w-7 h-7 bg-white/15 rounded-full flex items-center justify-center shrink-0">

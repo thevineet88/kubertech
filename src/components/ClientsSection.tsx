@@ -11,7 +11,7 @@ const clients = [
 
 export default function ClientsSection() {
   return (
-    <section className="bg-[#FAFAFA] border-t border-gray-100 pt-8 sm:pt-10 lg:pt-12 pb-6 sm:pb-8 lg:pb-10">
+    <section className="bg-paper border-t border-gray-100 pt-8 sm:pt-10 lg:pt-12 pb-6 sm:pb-8 lg:pb-10">
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12">
         <ScrollReveal>
           <p className="text-center text-[12px] sm:text-[13px] uppercase tracking-[0.18em] text-gray-400 mb-9 sm:mb-12">

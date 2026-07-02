@@ -32,7 +32,7 @@ export default function AISection() {
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12">
         {/* Badge row */}
         <ScrollReveal className="flex items-center gap-3 mb-6 sm:mb-8" delay={0}>
-          <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#F26522] flex items-center justify-center shrink-0">
+          <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-brand flex items-center justify-center shrink-0">
             <Cpu size={13} className="text-white" />
           </div>
           <span className="text-[12px] sm:text-[13px] font-medium border border-white/20 rounded-full px-3 sm:px-4 py-1 sm:py-1.5 text-white/70">
@@ -59,11 +59,11 @@ export default function AISection() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-5 mb-10 sm:mb-14">
           {useCases.map((uc, i) => (
             <ScrollReveal key={uc.label} delay={0.1 + i * 0.08} y={28}>
-              <div className="h-full rounded-2xl border border-white/10 bg-white/5 p-6 sm:p-7 hover:border-[#F26522]/50 hover:bg-white/[0.08] transition-all duration-300 flex flex-col">
-                <div className="w-9 h-9 rounded-xl bg-[#F26522]/15 flex items-center justify-center mb-4 shrink-0">
-                  <uc.icon size={18} className="text-[#F26522]" />
+              <div className="h-full rounded-2xl border border-white/10 bg-white/5 p-6 sm:p-7 hover:border-brand/50 hover:bg-white/[0.08] transition-all duration-300 flex flex-col">
+                <div className="w-9 h-9 rounded-xl bg-brand/15 flex items-center justify-center mb-4 shrink-0">
+                  <uc.icon size={18} className="text-brand" />
                 </div>
-                <p className="text-[11px] sm:text-[12px] font-semibold uppercase tracking-wider text-[#F26522] mb-2">
+                <p className="text-[11px] sm:text-[12px] font-semibold uppercase tracking-wider text-brand mb-2">
                   {uc.label}
                 </p>
                 <h3 className="text-[17px] sm:text-[19px] font-semibold text-white mb-3 leading-snug">
@@ -86,7 +86,7 @@ export default function AISection() {
             <button
               type="button"
               onClick={openBooking}
-              className="group shrink-0 inline-flex items-center gap-2 bg-[#F26522] hover:bg-[#d9541a] text-white text-[14px] font-medium rounded-full pl-6 pr-2 py-2.5 transition-colors duration-300"
+              className="group shrink-0 inline-flex items-center gap-2 bg-brand hover:bg-brand-dark text-white text-[14px] font-medium rounded-full pl-6 pr-2 py-2.5 transition-colors duration-300"
             >
               <span>Book a free call</span>
               <div className="w-7 h-7 bg-white/15 rounded-full flex items-center justify-center shrink-0">

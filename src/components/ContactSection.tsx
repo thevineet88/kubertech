@@ -37,7 +37,7 @@ export default function ContactSection() {
   return (
     <section
       id="contact"
-      className="bg-[#0c0c0c] pt-12 sm:pt-16 lg:pt-20 pb-8 sm:pb-10 scroll-mt-4 md:scroll-mt-24"
+      className="bg-ink pt-12 sm:pt-16 lg:pt-20 pb-8 sm:pb-10 scroll-mt-4 md:scroll-mt-24"
     >
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12">
         {/* Badge row */}
@@ -82,7 +82,7 @@ export default function ContactSection() {
                 </p>
                 <a
                   href="mailto:vinit@kubertechsolutions.in"
-                  className="text-[15px] text-white hover:text-[#F26522] transition-colors duration-200"
+                  className="text-[15px] text-white hover:text-brand transition-colors duration-200"
                 >
                   vinit@kubertechsolutions.in
                 </a>
@@ -96,7 +96,7 @@ export default function ContactSection() {
                   href="https://wa.me/919028163126"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[15px] text-white hover:text-[#F26522] transition-colors duration-200"
+                  className="text-[15px] text-white hover:text-brand transition-colors duration-200"
                 >
                   Let's talk
                 </a>
@@ -106,13 +106,13 @@ export default function ContactSection() {
             <button
               type="button"
               onClick={openBooking}
-              className="group mt-8 inline-flex items-center gap-2 bg-[#F26522] hover:bg-[#e05a1a] text-white text-[14px] font-medium rounded-full pl-6 pr-2 py-2.5 transition-colors duration-200"
+              className="group mt-8 inline-flex items-center gap-2 bg-brand hover:bg-brand-dark text-white text-[14px] font-medium rounded-full pl-6 pr-2 py-2.5 transition-colors duration-200"
             >
               <span>Book a 30-minute call</span>
               <div className="w-7 h-7 bg-white rounded-full flex items-center justify-center shrink-0">
                 <ArrowRight
                   size={12}
-                  className="text-[#F26522] transition-transform duration-500 group-hover:-rotate-45"
+                  className="text-brand transition-transform duration-500 group-hover:-rotate-45"
                   style={{
                     transitionTimingFunction: "cubic-bezier(0.25,0.1,0.25,1)",
                   }}
@@ -125,7 +125,7 @@ export default function ContactSection() {
           <ScrollReveal delay={0.15}>
             {state === "success" ? (
               <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-8 text-center">
-                <p className="text-[#F26522] font-medium mb-2">Message sent.</p>
+                <p className="text-brand font-medium mb-2">Message sent.</p>
                 <p className="text-sm text-white/60">
                   We will get back to you within one business day.
                 </p>
@@ -147,7 +147,7 @@ export default function ContactSection() {
                       required
                       autoComplete="name"
                       placeholder="Your name"
-                      className="w-full bg-white/[0.04] border border-white/10 rounded-lg px-4 py-3 text-[14px] text-white placeholder-white/30 focus:border-[#F26522] focus:outline-none transition-colors duration-200"
+                      className="w-full bg-white/[0.04] border border-white/10 rounded-lg px-4 py-3 text-[14px] text-white placeholder-white/30 focus:border-brand focus:outline-none transition-colors duration-200"
                     />
                   </div>
                   <div>
@@ -164,7 +164,7 @@ export default function ContactSection() {
                       required
                       autoComplete="email"
                       placeholder="you@company.com"
-                      className="w-full bg-white/[0.04] border border-white/10 rounded-lg px-4 py-3 text-[14px] text-white placeholder-white/30 focus:border-[#F26522] focus:outline-none transition-colors duration-200"
+                      className="w-full bg-white/[0.04] border border-white/10 rounded-lg px-4 py-3 text-[14px] text-white placeholder-white/30 focus:border-brand focus:outline-none transition-colors duration-200"
                     />
                   </div>
                 </div>
@@ -181,7 +181,7 @@ export default function ContactSection() {
                     type="tel"
                     autoComplete="tel"
                     placeholder="+91 98765 43210"
-                    className="w-full bg-white/[0.04] border border-white/10 rounded-lg px-4 py-3 text-[14px] text-white placeholder-white/30 focus:border-[#F26522] focus:outline-none transition-colors duration-200"
+                    className="w-full bg-white/[0.04] border border-white/10 rounded-lg px-4 py-3 text-[14px] text-white placeholder-white/30 focus:border-brand focus:outline-none transition-colors duration-200"
                   />
                 </div>
 
@@ -197,27 +197,27 @@ export default function ContactSection() {
                     name="project-type"
                     required
                     defaultValue=""
-                    className="w-full bg-white/[0.04] border border-white/10 rounded-lg px-4 py-3 text-[14px] text-white focus:border-[#F26522] focus:outline-none transition-colors duration-200 appearance-none"
+                    className="w-full bg-white/[0.04] border border-white/10 rounded-lg px-4 py-3 text-[14px] text-white focus:border-brand focus:outline-none transition-colors duration-200 appearance-none"
                   >
-                    <option value="" disabled className="bg-[#0c0c0c]">
+                    <option value="" disabled className="bg-ink">
                       Select one
                     </option>
-                    <option value="ai" className="bg-[#0c0c0c]">
+                    <option value="ai" className="bg-ink">
                       AI / RAG / ML integration
                     </option>
-                    <option value="fullstack" className="bg-[#0c0c0c]">
+                    <option value="fullstack" className="bg-ink">
                       Full-stack product
                     </option>
-                    <option value="frontend" className="bg-[#0c0c0c]">
+                    <option value="frontend" className="bg-ink">
                       Frontend / web product
                     </option>
-                    <option value="backend" className="bg-[#0c0c0c]">
+                    <option value="backend" className="bg-ink">
                       Backend / API
                     </option>
-                    <option value="cloud" className="bg-[#0c0c0c]">
+                    <option value="cloud" className="bg-ink">
                       Cloud / DevOps
                     </option>
-                    <option value="other" className="bg-[#0c0c0c]">
+                    <option value="other" className="bg-ink">
                       Something else
                     </option>
                   </select>
@@ -236,7 +236,7 @@ export default function ContactSection() {
                     required
                     rows={4}
                     placeholder="What are you building, and what does done look like?"
-                    className="w-full bg-white/[0.04] border border-white/10 rounded-lg px-4 py-3 text-[14px] text-white placeholder-white/30 focus:border-[#F26522] focus:outline-none transition-colors duration-200 resize-none"
+                    className="w-full bg-white/[0.04] border border-white/10 rounded-lg px-4 py-3 text-[14px] text-white placeholder-white/30 focus:border-brand focus:outline-none transition-colors duration-200 resize-none"
                   />
                 </div>
 
@@ -250,7 +250,7 @@ export default function ContactSection() {
                 <button
                   type="submit"
                   disabled={state === "submitting"}
-                  className="group flex items-center gap-2 bg-[#F26522] hover:bg-[#e05a1a] text-white text-[14px] font-medium rounded-full pl-6 pr-2 py-2.5 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+                  className="group flex items-center gap-2 bg-brand hover:bg-brand-dark text-white text-[14px] font-medium rounded-full pl-6 pr-2 py-2.5 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
                 >
                   <span>
                     {state === "submitting" ? "Sending..." : "Send message"}
@@ -258,7 +258,7 @@ export default function ContactSection() {
                   <div className="w-7 h-7 bg-white rounded-full flex items-center justify-center shrink-0">
                     <ArrowRight
                       size={12}
-                      className="text-[#F26522] transition-transform duration-500 group-hover:-rotate-45"
+                      className="text-brand transition-transform duration-500 group-hover:-rotate-45"
                       style={{
                         transitionTimingFunction:
                           "cubic-bezier(0.25,0.1,0.25,1)",

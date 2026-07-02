@@ -297,11 +297,11 @@ export default function Nav() {
                   setMenuOpen(false);
                   openBooking();
                 }}
-                className="group flex items-center gap-2 bg-[#F26522] text-white text-[13px] font-medium rounded-full pl-5 pr-2 py-2 w-full justify-between"
+                className="group flex items-center gap-2 bg-brand text-white text-[13px] font-medium rounded-full pl-5 pr-2 py-2 w-full justify-between"
               >
                 <span>Book a 30-minute call</span>
                 <div className="w-7 h-7 bg-white rounded-full flex items-center justify-center shrink-0">
-                  <ArrowRight size={12} className="text-[#F26522]" />
+                  <ArrowRight size={12} className="text-brand" />
                 </div>
               </a>
             </div>

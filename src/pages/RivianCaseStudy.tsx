@@ -35,7 +35,7 @@ const stack = [
 export default function RivianCaseStudy() {
   useEffect(() => { window.scrollTo(0, 0); }, []);
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white">
+    <div className="min-h-screen bg-ink text-white">
       <Seo
         title="Rivian RAG Knowledge Engine Case Study | Kuber Tech Solutions"
         description="Hybrid dense + sparse retrieval indexing 500k+ documents at sub-200ms latency, 35% lower cloud cost, deployed on Kubernetes."
@@ -56,7 +56,7 @@ export default function RivianCaseStudy() {
 
       {/* Hero */}
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 pt-12 sm:pt-16 pb-10 sm:pb-14">
-        <p className="text-[12px] sm:text-[13px] font-semibold uppercase tracking-wider text-[#F26522] mb-4">
+        <p className="text-[12px] sm:text-[13px] font-semibold uppercase tracking-wider text-brand mb-4">
           AI engineering case study
         </p>
         <h1
@@ -73,7 +73,7 @@ export default function RivianCaseStudy() {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mt-8 sm:mt-10">
           {metrics.map((m) => (
             <div key={m.value} className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 sm:p-6">
-              <p className="text-[28px] sm:text-[34px] font-semibold text-[#F26522] leading-none mb-2">
+              <p className="text-[28px] sm:text-[34px] font-semibold text-brand leading-none mb-2">
                 {m.value}
               </p>
               <p className="text-[13px] text-white/55 leading-snug">{m.label}</p>
@@ -225,7 +225,7 @@ export default function RivianCaseStudy() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {stack.map((s) => (
             <div key={s.category} className="rounded-xl border border-white/10 bg-white/[0.03] p-5">
-              <p className="text-[12px] font-semibold uppercase tracking-wider text-[#F26522] mb-2">
+              <p className="text-[12px] font-semibold uppercase tracking-wider text-brand mb-2">
                 {s.category}
               </p>
               <p className="text-[13.5px] text-white/60 leading-[1.6]">{s.items}</p>
@@ -250,7 +250,7 @@ export default function RivianCaseStudy() {
         <div className="flex flex-wrap gap-4">
           <Link
             to="/case-studies"
-            className="group inline-flex items-center gap-2 bg-[#F26522] hover:bg-[#d9541a] text-white text-[14px] font-medium rounded-full pl-6 pr-2 py-2.5 transition-colors duration-300"
+            className="group inline-flex items-center gap-2 bg-brand hover:bg-brand-dark text-white text-[14px] font-medium rounded-full pl-6 pr-2 py-2.5 transition-colors duration-300"
           >
             <span>See all work</span>
             <div className="w-7 h-7 bg-white/15 rounded-full flex items-center justify-center shrink-0">

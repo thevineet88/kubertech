@@ -118,7 +118,7 @@ export default function HeroSection() {
         <motion.button
           type="button"
           onClick={openBooking}
-          className="group inline-flex items-center gap-2 bg-gray-900 hover:bg-[#F26522] text-white text-[14px] font-medium rounded-full pl-6 pr-2 py-2.5 transition-colors duration-300"
+          className="group inline-flex items-center gap-2 bg-gray-900 hover:bg-brand text-white text-[14px] font-medium rounded-full pl-6 pr-2 py-2.5 transition-colors duration-300"
           variants={fadeUp}
           initial="hidden"
           animate="show"
