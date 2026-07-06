@@ -13,6 +13,7 @@ import ClientsSection from './components/ClientsSection'
 import ContactSection from './components/ContactSection'
 import BookingModal from './components/BookingModal'
 import Seo from './components/Seo'
+import Preloader from './components/Preloader'
 
 const RivianCaseStudy = lazy(() => import('./pages/RivianCaseStudy'))
 const CustomPrintPlatformCaseStudy = lazy(() => import('./pages/CustomPrintPlatformCaseStudy'))
@@ -71,6 +72,7 @@ function Home() {
 function App() {
   return (
     <>
+      <Preloader />
       <Suspense fallback={null}>
         <Routes>
           <Route path="/" element={<Home />} />
