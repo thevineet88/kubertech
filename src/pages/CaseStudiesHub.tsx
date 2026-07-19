@@ -6,14 +6,24 @@ import PageHeader from "../components/PageHeader";
 
 const caseStudies = [
   {
-    title: "Marks & Spencer: Performance & Conversion",
-    tag: "Full-stack commerce platform",
-    metric: "4.1s → 1.8s",
-    metricLabel: "LCP across 2M+ monthly pages, conversion 2% → 4%",
+    title: "Rivian: RAG Knowledge Engine",
+    tag: "AI engineering",
+    metric: "sub-200ms",
+    metricLabel: "500k+ docs indexed, 35% lower cloud cost",
     description:
-      "Rebuilt the rendering strategy and governed it with a 50–60 component design system across 2M+ monthly product pages.",
-    href: "/case-studies/marks-and-spencer-performance",
-    gradient: "linear-gradient(135deg, #0b3d2e 0%, #05140f 100%)",
+      "An internal search system indexing 500k+ technical documents using hybrid dense + sparse retrieval, deployed on Kubernetes with sub-200ms latency.",
+    href: "/case-studies/rag-knowledge-engine",
+    gradient: "linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%)",
+  },
+  {
+    title: "Smart IoT Device Management Platform",
+    tag: "Full-stack IoT platform",
+    metric: "Edge → Cloud",
+    metricLabel: "Secure provisioning, OTA deployments & fleet management",
+    description:
+      "A cloud-connected IoT platform managing Raspberry Pi devices through AWS IoT Greengrass, MQTT, secure provisioning, automated deployments and reliable offline operation across the entire hardware fleet.",
+    href: "/case-studies/iot-xponent",
+    gradient: "linear-gradient(135deg, #0B5D5B 0%, #0F172A 100%)",
   },
   {
     title: "Custom Print Platform",
@@ -26,14 +36,62 @@ const caseStudies = [
     gradient: "linear-gradient(135deg, #8B5CF6 0%, #6B94CC 100%)",
   },
   {
-    title: "Rivian: RAG Knowledge Engine",
-    tag: "AI engineering",
-    metric: "sub-200ms",
-    metricLabel: "500k+ docs indexed, 35% lower cloud cost",
+    title: "Marks & Spencer: Performance & Conversion",
+    tag: "Full-stack commerce platform",
+    metric: "4.1s → 1.8s",
+    metricLabel: "LCP across 2M+ monthly pages, conversion 2% → 4%",
     description:
-      "An internal search system indexing 500k+ technical documents using hybrid dense + sparse retrieval, deployed on Kubernetes with sub-200ms latency.",
-    href: "/case-studies/rag-knowledge-engine",
-    gradient: "linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%)",
+      "Rebuilt the rendering strategy and governed it with a 50–60 component design system across 2M+ monthly product pages.",
+    href: "/case-studies/marks-and-spencer-performance",
+    gradient: "linear-gradient(135deg, #0b3d2e 0%, #05140f 100%)",
+  },
+];
+
+const moreProjects = [
+  {
+    title: "Enterprise banking platform",
+    tag: "Cloud platform & SRE",
+    metric: "99.9%",
+    metricLabel: "Uptime, MTTR down 30%",
+    description:
+      "Cloud infrastructure and SRE for a regulated banking platform: 50+ production workloads on Kubernetes and OpenShift, automated GitLab delivery, and full observability across the estate.",
+    gradient: "linear-gradient(135deg, #0f2027 0%, #203a43 55%, #2c5364 100%)",
+  },
+  {
+    title: "Checkout Conversion Flow",
+    tag: "Full-stack commerce",
+    metric: "2% → 4%",
+    metricLabel: "Checkout conversion, 40k+ users",
+    description:
+      "Fixed fragmented checkout state and instrumented the full funnel with Mixpanel, then iterated on real drop-off data behind feature flags.",
+    gradient: "linear-gradient(135deg, #1f2a5a 0%, #3b4ba0 100%)",
+  },
+  {
+    title: "Cloud: 5G telecom platform",
+    tag: "Cloud platform",
+    metric: "-50%",
+    metricLabel: "Deployment cycle time",
+    description:
+      "Fully automated, cost-optimised AWS infrastructure with reusable Terraform modules and Jenkins CI/CD for a production 5G platform.",
+    gradient: "linear-gradient(135deg, #102a43 0%, #486581 100%)",
+  },
+  {
+    title: "Siemens Teamcenter: Data grid",
+    tag: "Full-stack app",
+    metric: "Excel-like",
+    metricLabel: "Frozen rows and columns",
+    description:
+      "A spreadsheet-grade PLM data grid with frozen panes and rich inline editing, rendered with D3.js over an Apollo GraphQL backend.",
+    gradient: "linear-gradient(135deg, #2c3e50 0%, #4ca1af 100%)",
+  },
+  {
+    title: "Cigora & Pipes and Cigars",
+    tag: "Design system",
+    metric: "2 brands",
+    metricLabel: "One themeable system",
+    description:
+      "A themeable design system on design tokens and atomic design, powering two distinct e-commerce brands from one source of truth.",
+    gradient: "linear-gradient(135deg, #3a1c71 0%, #874da2 100%)",
   },
 ];
 
@@ -110,6 +168,48 @@ export default function CaseStudiesHub() {
         </div>
       </div>
 
+      {/* More projects */}
+      <div className="relative z-10 max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 pb-16 sm:pb-20">
+        <h2 className="text-[18px] sm:text-[20px] font-semibold text-[color:var(--color-text)] mb-1">
+          More projects
+        </h2>
+        <p className="text-[13.5px] text-[color:var(--color-text-muted)] mb-6 sm:mb-8">
+          Commerce, cloud platforms, and design systems.
+        </p>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          {moreProjects.map((c) => (
+            <div
+              key={c.title}
+              className="block overflow-hidden rounded-2xl border border-[color:var(--color-border)] bg-[var(--color-surface)]"
+            >
+              <div
+                className="relative p-6 sm:p-7 flex flex-col justify-between min-h-[180px]"
+                style={{ background: c.gradient }}
+              >
+                <span className="text-[11px] font-medium uppercase tracking-wider text-white/70">
+                  {c.tag}
+                </span>
+                <div>
+                  <p className="text-[20px] sm:text-[22px] font-semibold text-white leading-tight">
+                    {c.metric}
+                  </p>
+                  <p className="text-[12px] text-white/70 mt-1">
+                    {c.metricLabel}
+                  </p>
+                </div>
+              </div>
+              <div className="p-5 sm:p-6">
+                <p className="text-[15px] sm:text-[16px] font-semibold text-[color:var(--color-text)] mb-2">
+                  {c.title}
+                </p>
+                <p className="text-[13.5px] text-[color:var(--color-text-muted)] leading-[1.6]">
+                  {c.description}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

@@ -97,7 +97,7 @@ export default function Nav() {
   return (
     <>
       <motion.div
-        className="relative z-20 w-full md:fixed md:top-0 md:left-0 md:right-0 md:z-50"
+        className="fixed top-0 left-0 right-0 z-50 w-full"
         initial={{ opacity: 0, y: -16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
@@ -116,11 +116,11 @@ export default function Nav() {
               className="flex items-center gap-2.5 shrink-0"
               aria-label="Kuber Tech Solutions, back to top"
             >
-              <span className="w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center shrink-0 overflow-hidden rounded-l-full">
+              <span className="w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center shrink-0 overflow-hidden rounded-full">
                 <img
-                  src="/logos/KuberTechLogo.png"
+                  src="/kuber_icon.png"
                   alt="Kuber Tech Solutions"
-                  className="w-full h-full object-cover rounded-l-full"
+                  className="w-full h-full object-cover"
                 />
               </span>
               <span className="hidden md:inline text-[15px] font-semibold tracking-tight text-white">
@@ -190,7 +190,7 @@ export default function Nav() {
 
             {/* Mobile toggle */}
             <button
-              className="md:hidden flex items-center gap-2 bg-white text-gray-900 text-[13px] font-medium rounded-full px-4 py-2 mr-1"
+              className="md:hidden flex items-center gap-2 bg-transparent border border-white/25 text-white text-[13px] font-medium rounded-full px-4 py-2 mr-1"
               onClick={() => setMenuOpen(!menuOpen)}
               aria-label={menuOpen ? "Close menu" : "Open menu"}
             >

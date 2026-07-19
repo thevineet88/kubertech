@@ -35,7 +35,7 @@ export default function NewsletterIssue() {
       name: "Kuber Tech Solutions",
       logo: {
         "@type": "ImageObject",
-        url: "https://kubertechsolutions.in/logos/KuberTechLogo.png",
+        url: "https://kubertechsolutions.in/kuber_logo_dark.jpeg",
       },
     },
     mainEntityOfPage: {

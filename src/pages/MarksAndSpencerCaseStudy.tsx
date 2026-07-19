@@ -5,9 +5,15 @@ import Seo from "../components/Seo";
 import BackLink from "../components/BackLink";
 
 const metrics = [
-  { value: "4.1s → 1.8s", label: "Largest Contentful Paint (LCP) across 2M+ monthly product pages" },
+  {
+    value: "4.1s → 1.8s",
+    label: "Largest Contentful Paint (LCP) across 2M+ monthly product pages",
+  },
   { value: "2% → 4%", label: "Checkout conversion rate, doubled" },
-  { value: "50–60", label: "Component design system built and maintained across product squads" },
+  {
+    value: "50–60",
+    label: "Component design system built and maintained across product squads",
+  },
   { value: "2M+", label: "Monthly product pages served by the platform" },
 ];
 
@@ -41,9 +47,21 @@ const approach = [
 
 const stack = [
   { category: "Frontend", items: "React, Next.js, TypeScript" },
-  { category: "Design system", items: "Design tokens, atomic design, 50–60 components across multiple product squads" },
-  { category: "Martech", items: "Tealium CDP, Adobe Analytics, Adobe Target, Contentsquare, GTM, OneTrust" },
-  { category: "Performance", items: "Core Web Vitals tuning (LCP focus), rendering strategy, asset optimization" },
+  {
+    category: "Design system",
+    items:
+      "Design tokens, atomic design, 50–60 components across multiple product squads",
+  },
+  {
+    category: "Martech",
+    items:
+      "Tealium CDP, Adobe Analytics, Adobe Target, Contentsquare, GTM, OneTrust",
+  },
+  {
+    category: "Performance",
+    items:
+      "Core Web Vitals tuning (LCP focus), rendering strategy, asset optimization",
+  },
 ];
 
 const faqs = [
@@ -122,7 +140,7 @@ export default function MarksAndSpencerCaseStudy() {
 
       {/* Hero, answer-first */}
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 pt-12 sm:pt-16 pb-10 sm:pb-14">
-        <p className="text-[12px] sm:text-[13px] font-semibold uppercase tracking-wider text-brand mb-4">
+        <p className="text-[12px] sm:text-[13px] font-semibold uppercase tracking-wider text-[color:var(--color-accent)] mb-4">
           Full-stack commerce case study
         </p>
         <h1
@@ -145,10 +163,12 @@ export default function MarksAndSpencerCaseStudy() {
               key={m.label}
               className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 sm:p-6"
             >
-              <p className="text-[24px] sm:text-[30px] font-semibold text-brand leading-none mb-2">
+              <p className="text-[24px] sm:text-[30px] font-semibold text-[color:var(--color-accent)] leading-none mb-2">
                 {m.value}
               </p>
-              <p className="text-[13px] text-white/55 leading-snug">{m.label}</p>
+              <p className="text-[13px] text-white/55 leading-snug">
+                {m.label}
+              </p>
             </div>
           ))}
         </div>
@@ -166,15 +186,15 @@ export default function MarksAndSpencerCaseStudy() {
             <p className="text-[16px] sm:text-[17px] text-white/80 leading-[1.65]">
               A 2M+ monthly page e-commerce platform was losing checkout
               conversion to slow Largest Contentful Paint: 4.1 seconds on
-              product pages, well past the point where users start
-              abandoning before the page is even usable.
+              product pages, well past the point where users start abandoning
+              before the page is even usable.
             </p>
             <p className="text-[16px] sm:text-[17px] text-white/80 leading-[1.65]">
               Multiple product squads were shipping UI independently, which
-              meant performance regressions kept re-appearing even after
-              fixes landed, and the platform's heavy martech stack (Tealium,
-              Adobe Analytics, Adobe Target, Contentsquare, GTM, OneTrust)
-              was a recurring source of render-blocking cost.
+              meant performance regressions kept re-appearing even after fixes
+              landed, and the platform's heavy martech stack (Tealium, Adobe
+              Analytics, Adobe Target, Contentsquare, GTM, OneTrust) was a
+              recurring source of render-blocking cost.
             </p>
           </div>
         </div>
@@ -193,13 +213,15 @@ export default function MarksAndSpencerCaseStudy() {
               key={a.n}
               className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:p-7"
             >
-              <p className="text-[28px] sm:text-[32px] font-semibold text-brand leading-none mb-4">
+              <p className="text-[28px] sm:text-[32px] font-semibold text-[color:var(--color-accent)] leading-none mb-4">
                 {a.n}
               </p>
               <h3 className="text-[16px] sm:text-[17px] font-semibold text-white mb-3 leading-snug">
                 {a.title}
               </h3>
-              <p className="text-[13.5px] text-white/55 leading-[1.65]">{a.body}</p>
+              <p className="text-[13.5px] text-white/55 leading-[1.65]">
+                {a.body}
+              </p>
             </div>
           ))}
         </div>
@@ -218,10 +240,12 @@ export default function MarksAndSpencerCaseStudy() {
               key={s.category}
               className="rounded-xl border border-white/10 bg-white/[0.03] p-5"
             >
-              <p className="text-[12px] font-semibold uppercase tracking-wider text-brand mb-2">
+              <p className="text-[12px] font-semibold uppercase tracking-wider text-[color:var(--color-accent)] mb-2">
                 {s.category}
               </p>
-              <p className="text-[13.5px] text-white/60 leading-[1.6]">{s.items}</p>
+              <p className="text-[13.5px] text-white/60 leading-[1.6]">
+                {s.items}
+              </p>
             </div>
           ))}
         </div>
@@ -259,9 +283,12 @@ export default function MarksAndSpencerCaseStudy() {
           Got a slow product losing conversion?
         </h2>
         <p className="text-[15px] sm:text-[16px] text-white/55 leading-[1.6] max-w-lg mb-8">
-          Our team specializes in exactly this kind of performance work. See
-          our full{" "}
-          <Link to="/services" className="text-brand hover:underline">
+          Our team specializes in exactly this kind of performance work. See our
+          full{" "}
+          <Link
+            to="/services"
+            className="text-[color:var(--color-accent)] hover:underline"
+          >
             services
           </Link>
           .
@@ -269,7 +296,7 @@ export default function MarksAndSpencerCaseStudy() {
         <div className="flex flex-wrap gap-4">
           <Link
             to="/case-studies"
-            className="group inline-flex items-center gap-2 bg-brand hover:bg-brand-dark text-white text-[14px] font-medium rounded-full pl-6 pr-2 py-2.5 transition-colors duration-300"
+            className="group inline-flex items-center gap-2 bg-[#8B5CF6] hover:bg-[#7C4DE8] text-white text-[14px] font-medium rounded-full pl-6 pr-2 py-2.5 transition-colors duration-300"
           >
             <span>See all work</span>
             <div className="w-7 h-7 bg-white/15 rounded-full flex items-center justify-center shrink-0">

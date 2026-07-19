@@ -48,25 +48,6 @@ export default function ContactSection({
       className="relative z-10 pt-12 sm:pt-16 lg:pt-20 pb-8 sm:pb-10 scroll-mt-4 md:scroll-mt-24"
     >
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12">
-        {showIntro && (
-          <ScrollReveal
-            className="flex items-center gap-3 mb-6 sm:mb-8"
-            delay={0}
-          >
-            <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white flex items-center justify-center shrink-0">
-              <span
-                className="text-gray-900 font-semibold"
-                style={{ fontSize: "11px" }}
-              >
-                4
-              </span>
-            </div>
-            <span className="text-[12px] sm:text-[13px] font-medium border border-white/20 rounded-full px-3 sm:px-4 py-1 sm:py-1.5 text-white/70">
-              Contact Us
-            </span>
-          </ScrollReveal>
-        )}
-
         <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-16 items-start">
           {/* Left: heading + direct contact */}
           <ScrollReveal delay={0.1}>

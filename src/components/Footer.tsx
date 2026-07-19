@@ -83,7 +83,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-16 text-center font-mono text-[10px] uppercase tracking-[0.18em] text-white/50 sm:mt-20">
-          <p>Kuber Tech Solutions | All rights reserved 2026</p>
+          <p>&copy; {new Date().getFullYear()} Kuber Tech Solutions | All rights reserved</p>
         </div>
       </div>
     </footer>

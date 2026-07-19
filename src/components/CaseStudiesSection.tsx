@@ -77,17 +77,6 @@ interface Project {
 
 const featured: Project[] = [
   {
-    title: "Custom Print Platform",
-    tag: "Full-stack real-time app",
-    metric: "Full funnel",
-    metricLabel: "Upload, customise, checkout — owned end to end",
-    description:
-      "A canvas-based design tool where users upload artwork, customise placement live, and order print products. Built on Konva.js with WebSockets throughout. The canvas POC alone took 3 to 4 weeks before it was solid enough to build on.",
-    logos: ["react", "ts", "konva", "socketio", "rails"],
-    gradient: "linear-gradient(135deg, #8B5CF6 0%, #6B94CC 100%)",
-    slug: "/case-studies/custom-print-platform",
-  },
-  {
     title: "Rivian: RAG Knowledge Engine",
     tag: "AI engineering",
     metric: "sub-200ms",
@@ -98,33 +87,26 @@ const featured: Project[] = [
     gradient: "linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%)",
     slug: "/case-studies/rag-knowledge-engine",
   },
+  {
+    title: "Smart IoT Device Management Platform",
+    tag: "IoT & connected devices",
+    metric: "AWS IoT",
+    metricLabel: "Secure fleet provisioning, OTA updates, real-time telemetry",
+    description:
+      "A cloud-connected IoT platform managing Raspberry Pi powered devices end to end: secure provisioning over Tailscale, automated over-the-air deployments via AWS IoT Greengrass, and live MQTT telemetry between edge devices and AWS IoT Core.",
+    logos: ["aws", "node", "ts"],
+    gradient: "linear-gradient(135deg, #F59E0B 0%, #b5421a 100%)",
+    slug: "/case-studies/iot-xponent",
+  },
 ];
 
 export default function CaseStudiesSection() {
   return (
     <section
       id="work"
-      className="relative z-10 pt-8 sm:pt-12 lg:pt-16 pb-10 sm:pb-14 lg:pb-16 scroll-mt-4 md:scroll-mt-24"
+      className="relative z-10 border-t border-white/10 pt-6 sm:pt-10 lg:pt-12 pb-10 sm:pb-14 lg:pb-16 scroll-mt-4 md:scroll-mt-24"
     >
       <div className="max-w-[1440px] mx-auto">
-        {/* Badge row */}
-        <ScrollReveal
-          className="px-5 sm:px-8 lg:px-12 flex items-center gap-3 mb-6 sm:mb-8"
-          delay={0}
-        >
-          <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#8B5CF6] flex items-center justify-center shrink-0">
-            <span
-              className="text-white font-semibold"
-              style={{ fontSize: "11px" }}
-            >
-              3
-            </span>
-          </div>
-          <span className="text-[12px] sm:text-[13px] font-medium border border-white/15 rounded-full px-3 sm:px-4 py-1 sm:py-1.5 text-white/70">
-            Selected work
-          </span>
-        </ScrollReveal>
-
         {/* Heading */}
         <ScrollReveal
           className="px-5 sm:px-8 lg:px-12 mb-8 sm:mb-14 lg:mb-16"
@@ -193,6 +175,15 @@ export default function CaseStudiesSection() {
           ))}
         </div>
 
+        <ScrollReveal className="px-5 sm:px-8 lg:px-12 mt-8 sm:mt-10" delay={0.3}>
+          <Link
+            to="/case-studies"
+            className="inline-flex items-center gap-2 text-[14px] font-medium text-[#FAFAFA] hover:text-[#8B5CF6] transition-colors duration-200"
+          >
+            More projects
+            <ArrowRight size={14} />
+          </Link>
+        </ScrollReveal>
       </div>
     </section>
   );

@@ -10,7 +10,7 @@ interface SeoProps {
 }
 
 const SITE_URL = "https://kubertechsolutions.in";
-const DEFAULT_OG_IMAGE = `${SITE_URL}/logos/KuberTechLogo.png`;
+const DEFAULT_OG_IMAGE = `${SITE_URL}/kuber_logo_dark.jpeg`;
 
 export default function Seo({
   title,

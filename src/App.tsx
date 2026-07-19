@@ -1,49 +1,56 @@
-import { Suspense, lazy } from 'react'
-import { Routes, Route } from 'react-router-dom'
-import { Analytics } from '@vercel/analytics/react'
-import Nav from './components/Nav'
-import HeroSection from './components/HeroSection'
-import AmbientMeshBackground from './components/AmbientMeshBackground'
-import CapabilitiesOrbit from './components/CapabilitiesOrbit'
-import TestimonialsSection from './components/TestimonialsSection'
-import CaseStudiesSection from './components/CaseStudiesSection'
-import ClientsSection from './components/ClientsSection'
-import Footer from './components/Footer'
-import BookingModal from './components/BookingModal'
-import Seo from './components/Seo'
-import Preloader from './components/Preloader'
+import { Suspense, lazy } from "react";
+import { Routes, Route } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/react";
+import Nav from "./components/Nav";
+import HeroSection from "./components/HeroSection";
+import AmbientMeshBackground from "./components/AmbientMeshBackground";
+import CapabilitiesOrbit from "./components/CapabilitiesOrbit";
+import TestimonialsSection from "./components/TestimonialsSection";
+import CaseStudiesSection from "./components/CaseStudiesSection";
+import ClientsSection from "./components/ClientsSection";
+import Footer from "./components/Footer";
+import BookingModal from "./components/BookingModal";
+import Seo from "./components/Seo";
+import Preloader from "./components/Preloader";
 
-const RivianCaseStudy = lazy(() => import('./pages/RivianCaseStudy'))
-const CustomPrintPlatformCaseStudy = lazy(() => import('./pages/CustomPrintPlatformCaseStudy'))
-const Services = lazy(() => import('./pages/Services'))
-const MarksAndSpencerCaseStudy = lazy(() => import('./pages/MarksAndSpencerCaseStudy'))
-const RemoteEngineeringIndia = lazy(() => import('./pages/RemoteEngineeringIndia'))
-const About = lazy(() => import('./pages/About'))
-const Contact = lazy(() => import('./pages/Contact'))
-const CaseStudiesHub = lazy(() => import('./pages/CaseStudiesHub'))
-const NewsletterIndex = lazy(() => import('./pages/NewsletterIndex'))
-const NewsletterIssue = lazy(() => import('./pages/NewsletterIssue'))
-const NotFound = lazy(() => import('./pages/NotFound'))
+const RivianCaseStudy = lazy(() => import("./pages/RivianCaseStudy"));
+const CustomPrintPlatformCaseStudy = lazy(
+  () => import("./pages/CustomPrintPlatformCaseStudy"),
+);
+const Services = lazy(() => import("./pages/Services"));
+const MarksAndSpencerCaseStudy = lazy(
+  () => import("./pages/MarksAndSpencerCaseStudy"),
+);
+const IoTXponentCaseStudy = lazy(() => import("./pages/IoTXponentCaseStudy"));
+const RemoteEngineeringIndia = lazy(
+  () => import("./pages/RemoteEngineeringIndia"),
+);
+const About = lazy(() => import("./pages/About"));
+const Contact = lazy(() => import("./pages/Contact"));
+const CaseStudiesHub = lazy(() => import("./pages/CaseStudiesHub"));
+const NewsletterIndex = lazy(() => import("./pages/NewsletterIndex"));
+const NewsletterIssue = lazy(() => import("./pages/NewsletterIssue"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 const organizationJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: 'Kuber Tech Solutions',
-  url: 'https://kubertechsolutions.in',
-  logo: 'https://kubertechsolutions.in/logos/KuberTechLogo.png',
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Kuber Tech Solutions",
+  url: "https://kubertechsolutions.in",
+  logo: "https://kubertechsolutions.in/kuber_logo_dark.jpeg",
   description:
     "We build high-performance full-stack applications, cloud infrastructure, and production AI systems for funded startups in AI, HealthTech, FinTech, and EdTech.",
   address: {
-    '@type': 'PostalAddress',
-    addressCountry: 'IN',
+    "@type": "PostalAddress",
+    addressCountry: "IN",
   },
-  areaServed: ['US', 'GB', 'AE', 'IN'],
+  areaServed: ["US", "GB", "AE", "IN"],
   sameAs: [
-    'https://www.linkedin.com/company/kubertechsolutions/',
-    'https://github.com/thevineet88',
-    'https://www.instagram.com/the.vineeet',
+    "https://www.linkedin.com/company/kubertechsolutions/",
+    "https://github.com/thevineet88",
+    "https://www.instagram.com/the.vineeet",
   ],
-}
+};
 
 function Home() {
   return (
@@ -66,7 +73,7 @@ function Home() {
       </div>
       <BookingModal />
     </div>
-  )
+  );
 }
 
 function App() {
@@ -78,6 +85,10 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/services" element={<Services />} />
           <Route path="/case-studies" element={<CaseStudiesHub />} />
+          <Route
+            path="/case-studies/iot-xponent"
+            element={<IoTXponentCaseStudy />}
+          />
           <Route
             path="/case-studies/marks-and-spencer-performance"
             element={<MarksAndSpencerCaseStudy />}
@@ -103,7 +114,7 @@ function App() {
       </Suspense>
       <Analytics />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -114,7 +114,7 @@ export default function ServicesSection() {
           {offerings.map((o, i) => (
             <ScrollReveal key={o.buyer} delay={0.1 + i * 0.08} y={28}>
               <div className="h-full rounded-2xl border border-white/10 p-6 sm:p-7 hover:border-brand/40 transition-colors duration-300 flex flex-col">
-                <p className="text-[12px] sm:text-[13px] font-semibold uppercase tracking-wider text-brand mb-1.5">
+                <p className="text-[12px] sm:text-[13px] font-semibold uppercase tracking-wider text-[color:var(--color-accent)] mb-1.5">
                   {o.buyer}
                 </p>
                 <h3 className="text-[18px] sm:text-[20px] font-semibold text-[#FAFAFA] mb-3 leading-snug">
@@ -147,7 +147,7 @@ export default function ServicesSection() {
         >
           <Link
             to="/services"
-            className="inline-flex items-center gap-2 text-[14px] font-medium text-[#FAFAFA] hover:text-brand transition-colors duration-200"
+            className="inline-flex items-center gap-2 text-[14px] font-medium text-[#FAFAFA] hover:text-[color:var(--color-accent)] transition-colors duration-200"
           >
             View all services
             <ArrowRight size={14} />

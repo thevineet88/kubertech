@@ -30,7 +30,7 @@ export default function Preloader() {
     <AnimatePresence>
       {visible && (
         <motion.div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-paper"
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-[#0A0A0B]"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.6, ease: "easeInOut" }}
@@ -96,7 +96,7 @@ export default function Preloader() {
               bottom: -10px;
               width: 55%;
               height: 14px;
-              background: radial-gradient(ellipse at center, rgba(12, 12, 12, 0.14), transparent 72%);
+              background: radial-gradient(ellipse at center, rgba(139, 92, 246, 0.28), transparent 72%);
               filter: blur(3px);
               opacity: 0;
               animation: kt-shadowFade 0.5s ease-out 0.15s forwards;
@@ -113,20 +113,17 @@ export default function Preloader() {
             .kt-sparkle-3 { top: 40%; right: -8%; font-size: 8px; animation-delay: 0.8s; }
           `}</style>
 
-          <div className="kt-stage">
+          <div className="kt-stage flex flex-col items-center">
             <div className="kt-logo-card">
-              <picture>
-                <source srcSet="/logos/KuberTechLogo-mark.webp" type="image/webp" />
-                <img
-                  src="/logos/KuberTechLogo-mark.png"
-                  alt="Kuber Tech Solutions"
-                  className="kt-logo-img"
-                  width={640}
-                  height={473}
-                  fetchPriority="high"
-                  decoding="async"
-                />
-              </picture>
+              <img
+                src="/kuber_logo_dark.jpeg"
+                alt="Kuber Tech Solutions"
+                className="kt-logo-img"
+                width={640}
+                height={640}
+                fetchPriority="high"
+                decoding="async"
+              />
               <div className="kt-shine" />
             </div>
             <div className="kt-shadow" />

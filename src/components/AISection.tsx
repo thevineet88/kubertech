@@ -31,7 +31,10 @@ export default function AISection() {
     >
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12">
         {/* Badge row */}
-        <ScrollReveal className="flex items-center gap-3 mb-6 sm:mb-8" delay={0}>
+        <ScrollReveal
+          className="flex items-center gap-3 mb-6 sm:mb-8"
+          delay={0}
+        >
           <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-brand flex items-center justify-center shrink-0">
             <Cpu size={13} className="text-white" />
           </div>
@@ -46,12 +49,15 @@ export default function AISection() {
             className="font-medium leading-[1.1] tracking-[-0.02em] text-white mb-4 sm:mb-5"
             style={{ fontSize: "clamp(1.5rem, 4vw, 3.2rem)" }}
           >
-            We add AI that actually works<br className="hidden sm:block" /> in production.
+            We add AI that actually works
+            <br className="hidden sm:block" /> in production.
           </h2>
         </ScrollReveal>
         <ScrollReveal delay={0.15}>
           <p className="text-[15px] sm:text-[17px] text-white/60 leading-[1.55] max-w-2xl mb-10 sm:mb-14">
-            Not demos. Not wrappers. Production systems built on your data, deployed on your infrastructure, with the tracing and evaluation to prove they work.
+            Not demos. Not wrappers. Production systems built on your data,
+            deployed on your infrastructure, with the tracing and evaluation to
+            prove they work.
           </p>
         </ScrollReveal>
 
@@ -61,9 +67,12 @@ export default function AISection() {
             <ScrollReveal key={uc.label} delay={0.1 + i * 0.08} y={28}>
               <div className="h-full rounded-2xl border border-white/10 bg-white/5 p-6 sm:p-7 hover:border-brand/50 hover:bg-white/[0.08] transition-all duration-300 flex flex-col">
                 <div className="w-9 h-9 rounded-xl bg-brand/15 flex items-center justify-center mb-4 shrink-0">
-                  <uc.icon size={18} className="text-brand" />
+                  <uc.icon
+                    size={18}
+                    className="text-[color:var(--color-accent)]"
+                  />
                 </div>
-                <p className="text-[11px] sm:text-[12px] font-semibold uppercase tracking-wider text-brand mb-2">
+                <p className="text-[11px] sm:text-[12px] font-semibold uppercase tracking-wider text-[color:var(--color-accent)] mb-2">
                   {uc.label}
                 </p>
                 <h3 className="text-[17px] sm:text-[19px] font-semibold text-white mb-3 leading-snug">
@@ -90,12 +99,17 @@ export default function AISection() {
             >
               <span>Book a free call</span>
               <div className="w-7 h-7 bg-white/15 rounded-full flex items-center justify-center shrink-0">
-                <ArrowRight size={12} className="text-white transition-transform duration-500 group-hover:-rotate-45" style={{ transitionTimingFunction: "cubic-bezier(0.25,0.1,0.25,1)" }} />
+                <ArrowRight
+                  size={12}
+                  className="text-white transition-transform duration-500 group-hover:-rotate-45"
+                  style={{
+                    transitionTimingFunction: "cubic-bezier(0.25,0.1,0.25,1)",
+                  }}
+                />
               </div>
             </button>
           </div>
         </ScrollReveal>
-
       </div>
     </section>
   );
