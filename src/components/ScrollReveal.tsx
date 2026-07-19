@@ -62,7 +62,7 @@ export default function ScrollReveal({
     transform: visible
       ? 'translateY(0px) scale(1)'
       : `translateY(${y}px) scale(${scale ?? 1})`,
-    transition: `opacity 0.65s cubic-bezier(0.25,0.1,0.25,1) ${delay}s, transform 0.65s cubic-bezier(0.25,0.1,0.25,1) ${delay}s`,
+    transition: `opacity 1.15s cubic-bezier(0.19,1,0.22,1) ${delay}s, transform 1.15s cubic-bezier(0.19,1,0.22,1) ${delay}s`,
     willChange: 'opacity, transform',
     ...style,
   }

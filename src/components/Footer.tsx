@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { openBooking } from "../booking";
+import ScrollReveal from "./ScrollReveal";
 
 const productLinks = [
   { label: "Services", href: "/services" },
@@ -18,7 +19,6 @@ const companyLinks = [
 const helpLinks = [
   { label: "Contact us", href: "/contact" },
   { label: "Book a call", action: openBooking },
-  { label: "Instagram", href: "https://www.instagram.com/the.vineeet" },
 ];
 
 type FooterLink = {
@@ -76,15 +76,19 @@ export default function Footer() {
         className="absolute inset-0 -z-10 bg-[#050506]/55"
       />
       <div className="mx-auto max-w-[1120px]">
-        <div className="grid grid-cols-1 gap-10 text-center sm:grid-cols-3 sm:gap-8">
+        <ScrollReveal className="grid grid-cols-1 gap-10 text-center sm:grid-cols-3 sm:gap-8" y={20}>
           <FooterColumn title="Product" links={productLinks} />
           <FooterColumn title="Company" links={companyLinks} />
           <FooterColumn title="Help" links={helpLinks} />
-        </div>
+        </ScrollReveal>
 
-        <div className="mt-16 text-center font-mono text-[10px] uppercase tracking-[0.18em] text-white/50 sm:mt-20">
+        <ScrollReveal
+          className="mt-16 text-center font-mono text-[10px] uppercase tracking-[0.18em] text-white/50 sm:mt-20"
+          delay={0.1}
+          y={12}
+        >
           <p>&copy; {new Date().getFullYear()} Kuber Tech Solutions | All rights reserved</p>
-        </div>
+        </ScrollReveal>
       </div>
     </footer>
   );

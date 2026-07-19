@@ -37,15 +37,16 @@ export default function HeroSection() {
 
       <HeroGlobe />
 
-      {/* Subtle halo behind the globe, above the canvas so it actually shows */}
+      {/* Small, subtle glow just outside the wireframe mesh's outer edge */}
       <div
         aria-hidden="true"
         className="absolute left-1/2 top-1/2 z-[1] -translate-x-1/2 -translate-y-1/2 rounded-full"
         style={{
-          width: "min(82vw, 56vh)",
-          height: "min(82vw, 56vh)",
-          background: "radial-gradient(circle, #6B94CC40 0%, #6B94CC1F 42%, transparent 72%)",
-          filter: "blur(14px)",
+          width: "min(70vw, 48vh)",
+          height: "min(70vw, 48vh)",
+          background:
+            "radial-gradient(circle, transparent 0%, transparent 54%, #6B94CC22 62%, #6B94CC0F 72%, transparent 88%)",
+          filter: "blur(8px)",
           mixBlendMode: "screen",
         }}
       />
@@ -121,7 +122,7 @@ export default function HeroSection() {
         <motion.p
           variants={heroWord}
           className="max-w-xl text-center"
-          style={{ color: "#E4E4E7", fontWeight: 500, fontSize: "clamp(0.9rem, 1.8vw, 1.05rem)", lineHeight: 1.6 }}
+          style={{ color: "#E4E4E7", fontWeight: 500, fontSize: "clamp(1.05rem, 2.2vw, 1.3rem)", lineHeight: 1.6 }}
         >
           The engineering team behind fast, scalable, AI-enabled products.
         </motion.p>

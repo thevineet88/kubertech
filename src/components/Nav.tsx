@@ -123,7 +123,7 @@ export default function Nav() {
                   className="w-full h-full object-cover"
                 />
               </span>
-              <span className="hidden md:inline text-[15px] font-semibold tracking-tight text-white">
+              <span className="text-[15px] font-semibold tracking-tight text-white">
                 Kuber Tech Solutions
               </span>
             </a>
