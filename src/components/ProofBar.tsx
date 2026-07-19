@@ -42,10 +42,10 @@ function StatItem({ end, suffix, label, delay }: typeof stats[0] & { delay: numb
   return (
     <ScrollReveal delay={delay} y={18}>
       <div ref={ref}>
-        <p className="text-[28px] sm:text-[34px] lg:text-[38px] font-semibold tracking-tight text-gray-900 leading-none">
+        <p className="text-[28px] sm:text-[34px] lg:text-[38px] font-semibold tracking-tight text-[#FAFAFA] leading-none">
           {count}{suffix}
         </p>
-        <p className="text-[12px] sm:text-[13px] text-gray-500 mt-2 leading-[1.45] max-w-[240px]">
+        <p className="text-[12px] sm:text-[13px] text-white/50 mt-2 leading-[1.45] max-w-[240px]">
           {label}
         </p>
       </div>
@@ -55,7 +55,7 @@ function StatItem({ end, suffix, label, delay }: typeof stats[0] & { delay: numb
 
 export default function ProofBar() {
   return (
-    <section className="bg-white border-y border-gray-100 py-10 sm:py-12 lg:py-14">
+    <section className="bg-paper border-y border-white/10 py-10 sm:py-12 lg:py-14">
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-8 sm:gap-y-10">
           {stats.map((s, i) => (

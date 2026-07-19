@@ -16,14 +16,14 @@ export default {
       },
       colors: {
         brand: {
-          DEFAULT: "#F26522",
-          dark: "#e05a1a",
+          DEFAULT: "#8B5CF6",
+          dark: "#6B94CC",
+          cyan: "#06B6D4",
         },
-        ink: "#0c0c0c",
-        paper: "#FAFAFA",
+        ink: "#050506",
+        paper: "#0A0A0B",
       },
     },
   },
   plugins: [],
 }
-

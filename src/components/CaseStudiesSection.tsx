@@ -84,7 +84,7 @@ const featured: Project[] = [
     description:
       "A canvas-based design tool where users upload artwork, customise placement live, and order print products. Built on Konva.js with WebSockets throughout. The canvas POC alone took 3 to 4 weeks before it was solid enough to build on.",
     logos: ["react", "ts", "konva", "socketio", "rails"],
-    gradient: "linear-gradient(135deg, #F26522 0%, #b5421a 100%)",
+    gradient: "linear-gradient(135deg, #8B5CF6 0%, #6B94CC 100%)",
     slug: "/case-studies/custom-print-platform",
   },
   {
@@ -100,75 +100,11 @@ const featured: Project[] = [
   },
 ];
 
-const moreWork: Project[] = [
-  {
-    title: "Enterprise banking platform",
-    tag: "Cloud platform & SRE",
-    metric: "99.9%",
-    metricLabel: "Uptime, MTTR down 30%",
-    description:
-      "Cloud infrastructure and SRE for a regulated banking platform: 50+ production workloads on Kubernetes and OpenShift, automated GitLab delivery, and full observability across the estate.",
-    logos: ["aws", "terraform", "k8s", "openshift", "grafana"],
-    gradient: "linear-gradient(135deg, #0f2027 0%, #203a43 55%, #2c5364 100%)",
-  },
-  {
-    title: "Marks and Spencer",
-    tag: "Full-stack commerce platform",
-    metric: "4.1s → 1.8s",
-    metricLabel: "LCP across 2M+ monthly pages",
-    description:
-      "The e-commerce experience end to end on React, Next.js and TypeScript with a governed design system. LCP cut from 4.1s to 1.8s, checkout conversion doubled from 2% to 4%.",
-    logos: ["next", "react", "ts", "node", "graphql"],
-    gradient: "linear-gradient(135deg, #0b3d2e 0%, #05140f 100%)",
-    slug: "/case-studies/marks-and-spencer-performance",
-  },
-  {
-    title: "Checkout Conversion Flow",
-    tag: "Full-stack commerce",
-    metric: "2% → 4%",
-    metricLabel: "Checkout conversion, 40k+ users",
-    description:
-      "Fixed fragmented checkout state and instrumented the full funnel with Mixpanel, then iterated on real drop-off data behind feature flags.",
-    logos: ["react", "ts", "redux"],
-    gradient: "linear-gradient(135deg, #1f2a5a 0%, #3b4ba0 100%)",
-  },
-  {
-    title: "Cloud: 5G telecom platform",
-    tag: "Cloud platform",
-    metric: "-50%",
-    metricLabel: "Deployment cycle time",
-    description:
-      "Fully automated, cost-optimised AWS infrastructure with reusable Terraform modules and Jenkins CI/CD for a production 5G platform.",
-    logos: ["aws", "terraform", "jenkins", "docker", "ansible"],
-    gradient: "linear-gradient(135deg, #102a43 0%, #486581 100%)",
-  },
-  {
-    title: "Siemens Teamcenter: Data grid",
-    tag: "Full-stack app",
-    metric: "Excel-like",
-    metricLabel: "Frozen rows and columns",
-    description:
-      "A spreadsheet-grade PLM data grid with frozen panes and rich inline editing, rendered with D3.js over an Apollo GraphQL backend.",
-    logos: ["react", "ts", "d3", "apollo"],
-    gradient: "linear-gradient(135deg, #2c3e50 0%, #4ca1af 100%)",
-  },
-  {
-    title: "Cigora & Pipes and Cigars",
-    tag: "Design system",
-    metric: "2 brands",
-    metricLabel: "One themeable system",
-    description:
-      "A themeable design system on design tokens and atomic design, powering two distinct e-commerce brands from one source of truth.",
-    logos: ["react", "ts", "tailwind"],
-    gradient: "linear-gradient(135deg, #3a1c71 0%, #874da2 100%)",
-  },
-];
-
 export default function CaseStudiesSection() {
   return (
     <section
       id="work"
-      className="bg-[#F5F5F5] pt-8 sm:pt-12 lg:pt-16 pb-10 sm:pb-14 lg:pb-16 scroll-mt-4 md:scroll-mt-24"
+      className="relative z-10 pt-8 sm:pt-12 lg:pt-16 pb-10 sm:pb-14 lg:pb-16 scroll-mt-4 md:scroll-mt-24"
     >
       <div className="max-w-[1440px] mx-auto">
         {/* Badge row */}
@@ -176,7 +112,7 @@ export default function CaseStudiesSection() {
           className="px-5 sm:px-8 lg:px-12 flex items-center gap-3 mb-6 sm:mb-8"
           delay={0}
         >
-          <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-gray-900 flex items-center justify-center shrink-0">
+          <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#8B5CF6] flex items-center justify-center shrink-0">
             <span
               className="text-white font-semibold"
               style={{ fontSize: "11px" }}
@@ -184,7 +120,7 @@ export default function CaseStudiesSection() {
               3
             </span>
           </div>
-          <span className="text-[12px] sm:text-[13px] font-medium border border-gray-300 rounded-full px-3 sm:px-4 py-1 sm:py-1.5 text-gray-700">
+          <span className="text-[12px] sm:text-[13px] font-medium border border-white/15 rounded-full px-3 sm:px-4 py-1 sm:py-1.5 text-white/70">
             Selected work
           </span>
         </ScrollReveal>
@@ -195,7 +131,7 @@ export default function CaseStudiesSection() {
           delay={0.1}
         >
           <h2
-            className="font-medium leading-[1.08] tracking-[-0.03em] text-gray-900"
+            className="font-medium leading-[1.08] tracking-[-0.03em] text-[#FAFAFA]"
             style={{ fontSize: "clamp(1.75rem, 7vw, 4.2rem)" }}
           >
             <span className="sm:hidden">Our projects</span>
@@ -247,70 +183,16 @@ export default function CaseStudiesSection() {
                   </p>
                 </div>
               </motion.div>
-              <p className="text-[13px] sm:text-[14px] text-gray-600 mt-4 leading-relaxed">
+              <p className="text-[13px] sm:text-[14px] text-white/50 mt-4 leading-relaxed">
                 {p.description}
               </p>
-              <p className="text-[14px] sm:text-[15px] font-semibold text-gray-900 mt-1">
+              <p className="text-[14px] sm:text-[15px] font-semibold text-[#FAFAFA] mt-1">
                 {p.title}
               </p>
             </ScrollReveal>
           ))}
         </div>
 
-        {/* More work */}
-        <ScrollReveal
-          className="px-5 sm:px-8 lg:px-12 mt-12 sm:mt-20 lg:mt-24 mb-6 sm:mb-10"
-          delay={0}
-        >
-          <h3 className="text-[18px] sm:text-[20px] font-semibold text-gray-900">
-            More projects
-          </h3>
-          <p className="text-[13px] sm:text-[14px] text-gray-600 mt-1">
-            Commerce, AI, cloud platforms, and design systems.
-          </p>
-        </ScrollReveal>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 px-5 sm:px-8 lg:px-12">
-          {moreWork.map((p, i) => (
-            <ScrollReveal key={p.title} delay={0.1 + i * 0.06} y={28}>
-              <motion.div
-                className="group relative overflow-hidden rounded-2xl p-5 flex flex-col justify-between min-h-[200px]"
-                style={{ background: p.gradient }}
-                whileHover={{ scale: 1.01 }}
-                transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
-              >
-                <div className="flex items-start justify-between">
-                  <span className="text-[11px] font-medium uppercase tracking-wider text-white/70">
-                    {p.tag}
-                  </span>
-                  {p.slug && (
-                    <Link
-                      to={p.slug}
-                      className="text-[11px] font-medium text-white/70 hover:text-white underline shrink-0"
-                    >
-                      Case study
-                    </Link>
-                  )}
-                </div>
-                <div>
-                  <TechRow keys={p.logos} className="text-white/80 mb-3" />
-                  <p className="text-[22px] sm:text-[24px] font-semibold text-white leading-tight">
-                    {p.metric}
-                  </p>
-                  <p className="text-[12px] text-white/70 mt-1">
-                    {p.metricLabel}
-                  </p>
-                </div>
-              </motion.div>
-              <p className="text-[13px] sm:text-[14px] text-gray-600 mt-4 leading-relaxed">
-                {p.description}
-              </p>
-              <p className="text-[14px] sm:text-[15px] font-semibold text-gray-900 mt-1">
-                {p.title}
-              </p>
-            </ScrollReveal>
-          ))}
-        </div>
       </div>
     </section>
   );

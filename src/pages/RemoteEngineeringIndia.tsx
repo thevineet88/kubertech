@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import AmbientMeshBackground from "../components/AmbientMeshBackground";
 import PageHeader from "../components/PageHeader";
 
 const overlaps = [
@@ -64,7 +65,8 @@ export default function RemoteEngineeringIndia() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-paper">
+    <div className="relative isolate min-h-screen overflow-hidden bg-[var(--color-bg)]">
+      <AmbientMeshBackground />
       <PageHeader
         seo={{
           title: "Hire Remote Engineers in India | Kuber Tech Solutions",
@@ -80,20 +82,20 @@ export default function RemoteEngineeringIndia() {
       />
 
       {/* Timezone overlap */}
-      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 pb-8 sm:pb-10">
-        <h2 className="text-[20px] sm:text-[24px] font-semibold text-gray-900 mb-6">
+      <div className="relative z-10 max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 pb-8 sm:pb-10">
+        <h2 className="text-[20px] sm:text-[24px] font-semibold text-[color:var(--color-text)] mb-6">
           How does the IST/EST overlap actually work?
         </h2>
         <div className="grid sm:grid-cols-3 gap-4 sm:gap-5">
           {overlaps.map((o) => (
             <div
               key={o.zone}
-              className="rounded-2xl bg-white border border-gray-200 p-6"
+              className="rounded-2xl bg-[var(--color-surface)] border border-[color:var(--color-border)] p-6"
             >
-              <p className="text-[14px] font-semibold text-brand mb-3">
+              <p className="text-[14px] font-semibold text-[color:var(--color-accent)] mb-3">
                 {o.zone}
               </p>
-              <p className="text-[13.5px] text-gray-600 leading-[1.6]">
+              <p className="text-[13.5px] text-[color:var(--color-text-muted)] leading-[1.6]">
                 {o.window}
               </p>
             </div>
@@ -102,20 +104,20 @@ export default function RemoteEngineeringIndia() {
       </div>
 
       {/* Practices */}
-      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 pb-8 sm:pb-10">
-        <h2 className="text-[20px] sm:text-[24px] font-semibold text-gray-900 mb-6">
+      <div className="relative z-10 max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 pb-8 sm:pb-10">
+        <h2 className="text-[20px] sm:text-[24px] font-semibold text-[color:var(--color-text)] mb-6">
           How do we run async-first delivery with distributed teams?
         </h2>
         <div className="grid sm:grid-cols-2 gap-4 sm:gap-5">
           {practices.map((p) => (
             <div
               key={p.title}
-              className="rounded-2xl bg-white border border-gray-200 p-6"
+              className="rounded-2xl bg-[var(--color-surface)] border border-[color:var(--color-border)] p-6"
             >
-              <h3 className="text-[15px] sm:text-[16px] font-semibold text-gray-900 mb-2">
+              <h3 className="text-[15px] sm:text-[16px] font-semibold text-[color:var(--color-text)] mb-2">
                 {p.title}
               </h3>
-              <p className="text-[13.5px] text-gray-600 leading-[1.6]">
+              <p className="text-[13.5px] text-[color:var(--color-text-muted)] leading-[1.6]">
                 {p.body}
               </p>
             </div>
@@ -124,12 +126,12 @@ export default function RemoteEngineeringIndia() {
       </div>
 
       {/* Why us, not generic outsourcing */}
-      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 pb-10 sm:pb-14 flex justify-center">
-        <div className="rounded-2xl bg-ink border border-ink p-6 sm:p-10 max-w-3xl">
+      <div className="relative z-10 max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 pb-10 sm:pb-14 flex justify-center">
+        <div className="rounded-2xl bg-[var(--color-bg-deep)] border border-[color:var(--color-border)] p-6 sm:p-10 max-w-3xl">
           <h2 className="text-[20px] sm:text-[24px] font-semibold text-white mb-4">
             Why engineering teams choose us over outsourcing firms
           </h2>
-          <p className="text-[14px] sm:text-[15px] text-white/60 leading-[1.65] mb-4">
+          <p className="text-[14px] sm:text-[15px] text-[color:var(--color-text-muted)] leading-[1.65] mb-4">
             Outsourcing firms compete on rate. We compete on outcomes. On one
             engagement, we took Largest Contentful Paint from 4.1s to 1.8s
             across 2M+ monthly product pages and doubled checkout conversion
@@ -138,16 +140,16 @@ export default function RemoteEngineeringIndia() {
             standard we hold every engagement to. Read the full{" "}
             <Link
               to="/case-studies/marks-and-spencer-performance"
-              className="text-brand font-medium hover:underline"
+              className="text-[color:var(--color-accent)] font-medium hover:underline"
             >
               Marks &amp; Spencer case study
             </Link>
             .
           </p>
-          <p className="text-[14px] sm:text-[15px] text-white/60 leading-[1.65]">
+          <p className="text-[14px] sm:text-[15px] text-[color:var(--color-text-muted)] leading-[1.65]">
             We specialize in frontend engineering, performance optimization,
             and design systems. See the full{" "}
-            <Link to="/services" className="text-brand font-medium hover:underline">
+            <Link to="/services" className="text-[color:var(--color-accent)] font-medium hover:underline">
               breakdown of our services
             </Link>
             .

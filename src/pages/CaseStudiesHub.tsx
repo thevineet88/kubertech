@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import AmbientMeshBackground from "../components/AmbientMeshBackground";
 import PageHeader from "../components/PageHeader";
 
 const caseStudies = [
@@ -22,7 +23,7 @@ const caseStudies = [
     description:
       "A canvas-based design tool where users upload artwork, customise placement live, and order print products, built on Konva.js with WebSockets throughout.",
     href: "/case-studies/custom-print-platform",
-    gradient: "linear-gradient(135deg, #F26522 0%, #b5421a 100%)",
+    gradient: "linear-gradient(135deg, #8B5CF6 0%, #6B94CC 100%)",
   },
   {
     title: "Rivian: RAG Knowledge Engine",
@@ -51,7 +52,8 @@ export default function CaseStudiesHub() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-paper">
+    <div className="relative isolate min-h-screen overflow-hidden bg-[var(--color-bg)]">
+      <AmbientMeshBackground />
       <PageHeader
         seo={{
           title: "Case Studies | Kuber Tech Solutions",
@@ -67,13 +69,13 @@ export default function CaseStudiesHub() {
       />
 
       {/* Cards */}
-      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 pb-10 sm:pb-14">
+      <div className="relative z-10 max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 pb-10 sm:pb-14">
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {caseStudies.map((c) => (
             <Link
               key={c.href}
               to={c.href}
-              className="group block rounded-2xl overflow-hidden border border-gray-200 hover:border-gray-300 transition-colors duration-300"
+              className="group block overflow-hidden rounded-2xl border border-[color:var(--color-border)] bg-[var(--color-surface)] transition-colors duration-300 hover:border-[color:var(--color-accent)]"
             >
               <div
                 className="relative p-6 sm:p-7 flex flex-col justify-between min-h-[200px]"
@@ -91,15 +93,15 @@ export default function CaseStudiesHub() {
                   </p>
                 </div>
               </div>
-              <div className="bg-white p-5 sm:p-6">
-                <p className="text-[15px] sm:text-[16px] font-semibold text-gray-900 mb-2 flex items-center gap-2">
+              <div className="p-5 sm:p-6">
+                <p className="text-[15px] sm:text-[16px] font-semibold text-[color:var(--color-text)] mb-2 flex items-center gap-2">
                   {c.title}
                   <ArrowRight
                     size={14}
-                    className="text-gray-400 group-hover:text-brand group-hover:translate-x-0.5 transition-all duration-200"
+                    className="text-[color:var(--color-text-faint)] group-hover:text-[color:var(--color-accent)] group-hover:translate-x-0.5 transition-all duration-200"
                   />
                 </p>
-                <p className="text-[13.5px] text-gray-600 leading-[1.6]">
+                <p className="text-[13.5px] text-[color:var(--color-text-muted)] leading-[1.6]">
                   {c.description}
                 </p>
               </div>

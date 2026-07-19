@@ -3,14 +3,12 @@ import { Routes, Route } from 'react-router-dom'
 import { Analytics } from '@vercel/analytics/react'
 import Nav from './components/Nav'
 import HeroSection from './components/HeroSection'
+import AmbientMeshBackground from './components/AmbientMeshBackground'
+import CapabilitiesOrbit from './components/CapabilitiesOrbit'
 import TestimonialsSection from './components/TestimonialsSection'
-import ProofBar from './components/ProofBar'
-import ServicesSection from './components/ServicesSection'
-import AISection from './components/AISection'
-import AboutSection from './components/AboutSection'
 import CaseStudiesSection from './components/CaseStudiesSection'
 import ClientsSection from './components/ClientsSection'
-import ContactSection from './components/ContactSection'
+import Footer from './components/Footer'
 import BookingModal from './components/BookingModal'
 import Seo from './components/Seo'
 import Preloader from './components/Preloader'
@@ -20,6 +18,8 @@ const CustomPrintPlatformCaseStudy = lazy(() => import('./pages/CustomPrintPlatf
 const Services = lazy(() => import('./pages/Services'))
 const MarksAndSpencerCaseStudy = lazy(() => import('./pages/MarksAndSpencerCaseStudy'))
 const RemoteEngineeringIndia = lazy(() => import('./pages/RemoteEngineeringIndia'))
+const About = lazy(() => import('./pages/About'))
+const Contact = lazy(() => import('./pages/Contact'))
 const CaseStudiesHub = lazy(() => import('./pages/CaseStudiesHub'))
 const NewsletterIndex = lazy(() => import('./pages/NewsletterIndex'))
 const NewsletterIssue = lazy(() => import('./pages/NewsletterIssue'))
@@ -56,14 +56,14 @@ function Home() {
       />
       <Nav />
       <HeroSection />
-      <ProofBar />
-      <ServicesSection />
-      <AISection />
-      <AboutSection />
-      <CaseStudiesSection />
-      <ClientsSection />
-      <TestimonialsSection />
-      <ContactSection />
+      <div className="relative isolate overflow-hidden bg-[#0A0A0B]">
+        <AmbientMeshBackground />
+        <CapabilitiesOrbit />
+        <CaseStudiesSection />
+        <ClientsSection />
+        <TestimonialsSection />
+        <Footer />
+      </div>
       <BookingModal />
     </div>
   )
@@ -94,6 +94,8 @@ function App() {
             path="/remote-engineering-india"
             element={<RemoteEngineeringIndia />}
           />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/newsletter" element={<NewsletterIndex />} />
           <Route path="/newsletter/:slug" element={<NewsletterIssue />} />
           <Route path="*" element={<NotFound />} />

@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { openBooking } from "../booking";
+import AmbientMeshBackground from "../components/AmbientMeshBackground";
 import PageHeader from "../components/PageHeader";
 
 const services = [
@@ -27,6 +28,18 @@ const services = [
       "CI/CD pipeline design",
       "Observability, alerting, and incident response",
       "Cost-optimized, autoscaling architecture",
+    ],
+  },
+  {
+    id: "iot-connected-hardware",
+    tag: "IoT & Connected Hardware",
+    answer:
+      "We build embedded hardware control systems that connect device-side logic, cloud fleet management, and mobile apps. Think Raspberry Pi controllers for solar, battery, awning, wind sensing, and telemetry workflows that need to work online and offline.",
+    points: [
+      "Raspberry Pi controllers, CAN bus drivers, motor control, BLE pairing",
+      "AWS IoT Greengrass/Core, MQTT telemetry, ECR/S3 component delivery",
+      "Tailscale-secured device access and GitHub Actions deployment pipelines",
+      "Versioned OTA updates, rollback, local storage, and sync-to-cloud",
     ],
   },
   {
@@ -109,43 +122,45 @@ export default function Services() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-paper">
+    <div className="relative isolate min-h-screen overflow-hidden bg-[var(--color-bg)]">
+      <AmbientMeshBackground />
       <PageHeader
         seo={{
           title: "AI, Cloud & Full-Stack Services | Kuber Tech Solutions",
           description:
-            "AI engineering, cloud infrastructure, frontend engineering, full-stack development, design systems, and performance optimization for funded startups.",
+            "AI engineering, cloud infrastructure, IoT and connected hardware, frontend engineering, full-stack development, design systems, and performance optimization.",
           path: "/services",
           jsonLd: servicesJsonLd,
         }}
         backTo={{ fallback: "/", label: "Back to Kuber Tech" }}
         eyebrow="Services"
-        title="AI, cloud, and product engineering, under one team."
-        description="Our team partners with funded startups in AI, HealthTech, FinTech, and EdTech across the US, UK, and UAE, engaged for one of these six areas, or several of them together."
+        title="AI, cloud, IoT, and product engineering, under one team."
+        description="Our team partners with funded startups and hardware-enabled products across AI, HealthTech, FinTech, EdTech, and connected devices, engaged for one of these areas, or several of them together."
       />
 
       {/* Service grid */}
-      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 pb-10 sm:pb-14">
+      <div className="relative z-10 max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 pb-10 sm:pb-14">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
           {services.map((s) => (
             <section
               key={s.id}
               id={s.id}
-              className="h-full rounded-2xl border border-gray-200 bg-white p-6 sm:p-7 hover:border-gray-300 transition-colors duration-300 flex flex-col scroll-mt-24"
+              className="h-full rounded-2xl border border-[color:var(--color-border)] bg-[var(--color-surface)] p-6 sm:p-7 hover:border-[color:var(--color-accent)] transition-colors duration-300 flex flex-col scroll-mt-24"
             >
-              <p className="text-[12px] sm:text-[13px] font-semibold uppercase tracking-wider text-brand mb-3">
+              <p className="text-[12px] sm:text-[13px] font-semibold uppercase tracking-wider text-[color:var(--color-accent)] mb-3">
                 {s.tag}
               </p>
-              <p className="text-[14px] sm:text-[15px] text-gray-700 leading-[1.6] mb-6">
+              <h2 className="sr-only">{s.tag}</h2>
+              <p className="text-[14px] sm:text-[15px] text-[color:var(--color-text-muted)] leading-[1.6] mb-6">
                 {s.answer}
               </p>
-              <ul className="mt-auto pt-5 border-t border-gray-100 space-y-2">
+              <ul className="mt-auto pt-5 border-t border-[color:var(--color-border)] space-y-2">
                 {s.points.map((p) => (
                   <li
                     key={p}
-                    className="text-[13px] sm:text-[13.5px] text-gray-600 leading-snug flex items-start gap-2"
+                    className="text-[13px] sm:text-[13.5px] text-[color:var(--color-text-subtle)] leading-snug flex items-start gap-2"
                   >
-                    <span className="text-brand mt-1">•</span>
+                    <span className="text-[color:var(--color-accent)] mt-1">•</span>
                     {p}
                   </li>
                 ))}
@@ -156,14 +171,14 @@ export default function Services() {
       </div>
 
       {/* Cross-link: remote engineering */}
-      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 pb-10 sm:pb-14">
-        <div className="rounded-2xl bg-white border border-gray-200 p-6 sm:p-8">
-          <p className="text-[14px] sm:text-[15px] text-gray-600 leading-[1.6]">
+      <div className="relative z-10 max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 pb-10 sm:pb-14">
+        <div className="rounded-2xl bg-[var(--color-surface)] border border-[color:var(--color-border)] p-6 sm:p-8">
+          <p className="text-[14px] sm:text-[15px] text-[color:var(--color-text-muted)] leading-[1.6]">
             Based in the US or UK and exploring remote engineering capacity?
             See how we{" "}
             <Link
               to="/remote-engineering-india"
-              className="text-brand font-medium hover:underline"
+              className="text-[color:var(--color-accent)] font-medium hover:underline"
             >
               deliver async-first with US and UK teams from India
             </Link>
@@ -173,28 +188,28 @@ export default function Services() {
       </div>
 
       {/* CTA */}
-      <div className="border-t border-gray-200">
-        <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 py-10 sm:py-14">
+      <div className="relative z-10 border-t border-[color:var(--color-border)]">
+        <div className="relative z-10 max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 py-10 sm:py-14">
           <h2
-            className="font-medium leading-[1.1] tracking-[-0.02em] text-gray-900 mb-4"
+            className="font-medium leading-[1.1] tracking-[-0.02em] text-[color:var(--color-text)] mb-4"
             style={{ fontSize: "clamp(1.4rem, 3vw, 2.4rem)" }}
           >
             Currently taking on new engagements.
           </h2>
-          <p className="text-[15px] sm:text-[16px] text-gray-600 leading-[1.6] max-w-lg mb-8">
+          <p className="text-[15px] sm:text-[16px] text-[color:var(--color-text-muted)] leading-[1.6] max-w-lg mb-8">
             Tell us what you're building. If your scope fits one of these
             six areas, let's talk.
           </p>
           <button
             type="button"
             onClick={openBooking}
-            className="group inline-flex items-center gap-2 bg-gray-900 hover:bg-brand text-white text-[14px] font-medium rounded-full pl-6 pr-2 py-2.5 transition-colors duration-300"
+            className="group inline-flex items-center gap-2 bg-[var(--color-accent)] hover:bg-[var(--color-accent-blue)] text-white text-[14px] font-medium rounded-full pl-6 pr-2 py-2.5 transition-colors duration-300"
           >
             <span>Book a free 30-min call</span>
             <div className="w-7 h-7 bg-white rounded-full flex items-center justify-center shrink-0">
               <ArrowRight
                 size={12}
-                className="text-gray-900 transition-transform duration-500 group-hover:-rotate-45"
+                className="text-[color:var(--color-accent)] transition-transform duration-500 group-hover:-rotate-45"
                 style={{
                   transitionTimingFunction: "cubic-bezier(0.25,0.1,0.25,1)",
                 }}

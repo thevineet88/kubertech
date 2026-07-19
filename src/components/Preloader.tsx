@@ -103,7 +103,7 @@ export default function Preloader() {
             }
             .kt-sparkle {
               position: absolute;
-              color: #F26522;
+              color: #8B5CF6;
               opacity: 0;
               pointer-events: none;
               animation: kt-twinkle 1.9s ease-in-out infinite;

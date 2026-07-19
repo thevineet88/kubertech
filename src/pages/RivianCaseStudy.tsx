@@ -119,9 +119,9 @@ export default function RivianCaseStudy() {
           >
             {/* Boxes */}
             {/* Query */}
-            <rect x="20" y="100" width="110" height="60" rx="12" fill="#1a1a1a" stroke="#F26522" strokeWidth="1.5" />
-            <text x="75" y="127" textAnchor="middle" fill="#F26522" fontSize="11" fontWeight="600" fontFamily="system-ui">User</text>
-            <text x="75" y="143" textAnchor="middle" fill="#F26522" fontSize="11" fontWeight="600" fontFamily="system-ui">Query</text>
+            <rect x="20" y="100" width="110" height="60" rx="12" fill="#1a1a1a" stroke="#8B5CF6" strokeWidth="1.5" />
+            <text x="75" y="127" textAnchor="middle" fill="#8B5CF6" fontSize="11" fontWeight="600" fontFamily="system-ui">User</text>
+            <text x="75" y="143" textAnchor="middle" fill="#8B5CF6" fontSize="11" fontWeight="600" fontFamily="system-ui">Query</text>
 
             {/* Arrow Q → embed */}
             <line x1="130" y1="130" x2="175" y2="105" stroke="#ffffff30" strokeWidth="1.5" markerEnd="url(#arr)" />
@@ -142,9 +142,9 @@ export default function RivianCaseStudy() {
             <line x1="306" y1="160" x2="360" y2="140" stroke="#ffffff30" strokeWidth="1.5" markerEnd="url(#arr)" />
 
             {/* Weaviate */}
-            <rect x="361" y="100" width="120" height="60" rx="12" fill="#1a1a1a" stroke="#F26522" strokeWidth="1.5" />
-            <text x="421" y="126" textAnchor="middle" fill="#F26522" fontSize="11" fontWeight="600" fontFamily="system-ui">Weaviate</text>
-            <text x="421" y="143" textAnchor="middle" fill="#F26522bb" fontSize="9.5" fontFamily="system-ui">hybrid fusion (RRF)</text>
+            <rect x="361" y="100" width="120" height="60" rx="12" fill="#1a1a1a" stroke="#8B5CF6" strokeWidth="1.5" />
+            <text x="421" y="126" textAnchor="middle" fill="#8B5CF6" fontSize="11" fontWeight="600" fontFamily="system-ui">Weaviate</text>
+            <text x="421" y="143" textAnchor="middle" fill="#8B5CF6bb" fontSize="9.5" fontFamily="system-ui">hybrid fusion (RRF)</text>
 
             {/* Arrow → reranker */}
             <line x1="481" y1="130" x2="530" y2="130" stroke="#ffffff30" strokeWidth="1.5" markerEnd="url(#arr)" />
@@ -158,15 +158,15 @@ export default function RivianCaseStudy() {
             <line x1="641" y1="130" x2="690" y2="130" stroke="#ffffff30" strokeWidth="1.5" markerEnd="url(#arr)" />
 
             {/* LLM */}
-            <rect x="691" y="100" width="100" height="60" rx="12" fill="#1a1a1a" stroke="#F26522" strokeWidth="1.5" />
-            <text x="741" y="126" textAnchor="middle" fill="#F26522" fontSize="11" fontWeight="600" fontFamily="system-ui">LLM</text>
-            <text x="741" y="143" textAnchor="middle" fill="#F26522bb" fontSize="9.5" fontFamily="system-ui">GPT-4o</text>
+            <rect x="691" y="100" width="100" height="60" rx="12" fill="#1a1a1a" stroke="#8B5CF6" strokeWidth="1.5" />
+            <text x="741" y="126" textAnchor="middle" fill="#8B5CF6" fontSize="11" fontWeight="600" fontFamily="system-ui">LLM</text>
+            <text x="741" y="143" textAnchor="middle" fill="#8B5CF6bb" fontSize="9.5" fontFamily="system-ui">GPT-4o</text>
 
             {/* Arrow → Answer */}
             <line x1="791" y1="130" x2="835" y2="130" stroke="#ffffff30" strokeWidth="1.5" markerEnd="url(#arr)" />
 
             {/* Answer */}
-            <rect x="836" y="100" width="48" height="60" rx="12" fill="#F26522" />
+            <rect x="836" y="100" width="48" height="60" rx="12" fill="#8B5CF6" />
             <text x="860" y="126" textAnchor="middle" fill="white" fontSize="10" fontWeight="600" fontFamily="system-ui">An-</text>
             <text x="860" y="140" textAnchor="middle" fill="white" fontSize="10" fontWeight="600" fontFamily="system-ui">swer</text>
 
@@ -178,8 +178,8 @@ export default function RivianCaseStudy() {
             <text x="741" y="195" textAnchor="middle" fill="#ffffff30" fontSize="9.5" fontFamily="system-ui">Step 5</text>
 
             {/* Eval feedback arc */}
-            <path d="M 791 165 Q 741 235 586 220 Q 421 235 241 220" stroke="#F2652240" strokeWidth="1" fill="none" strokeDasharray="4 3" />
-            <text x="516" y="248" textAnchor="middle" fill="#F2652270" fontSize="9" fontFamily="system-ui">Ragas eval loop (faithfulness + relevance)</text>
+            <path d="M 791 165 Q 741 235 586 220 Q 421 235 241 220" stroke="#8B5CF640" strokeWidth="1" fill="none" strokeDasharray="4 3" />
+            <text x="516" y="248" textAnchor="middle" fill="#8B5CF670" fontSize="9" fontFamily="system-ui">Ragas eval loop (faithfulness + relevance)</text>
 
             {/* Arrow marker */}
             <defs>

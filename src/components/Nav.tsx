@@ -29,23 +29,35 @@ const navLinks: NavItem[] = [
   },
   { label: "AI", href: "#ai" },
   { label: "Work", href: "/case-studies" },
-  { label: "Contact", href: "#contact" },
+  { label: "Contact", href: "/contact" },
 ];
 
 const isInternalRoute = (href: string) => href.startsWith("/");
 
 function NavLink({ label, href }: NavChild) {
+  if (href === "#booking") {
+    return (
+      <button
+        type="button"
+        onClick={openBooking}
+        className="text-[14px] text-white/85 hover:text-white transition-colors duration-300"
+      >
+        {label}
+      </button>
+    );
+  }
+
   return isInternalRoute(href) ? (
     <Link
       to={href}
-      className="text-[14px] text-gray-900 hover:text-gray-500 transition-colors duration-300"
+      className="text-[14px] text-white/85 hover:text-white transition-colors duration-300"
     >
       {label}
     </Link>
   ) : (
     <a
       href={href}
-      className="text-[14px] text-gray-900 hover:text-gray-500 transition-colors duration-300"
+      className="text-[14px] text-white/85 hover:text-white transition-colors duration-300"
     >
       {label}
     </a>
@@ -94,7 +106,7 @@ export default function Nav() {
           <nav
             className={`rounded-full px-[5px] py-[5px] flex items-center justify-between transition-all duration-300 ${
               scrolled
-                ? "bg-white/60 backdrop-blur-md shadow-[0_4px_24px_rgba(0,0,0,0.12)]"
+                ? "bg-black/50 backdrop-blur-md border border-white/10 shadow-[0_4px_24px_rgba(0,0,0,0.4)]"
                 : "bg-transparent"
             }`}
           >
@@ -111,7 +123,7 @@ export default function Nav() {
                   className="w-full h-full object-cover rounded-l-full"
                 />
               </span>
-              <span className="hidden md:inline text-[15px] font-semibold tracking-tight text-gray-900">
+              <span className="hidden md:inline text-[15px] font-semibold tracking-tight text-white">
                 Kuber Tech Solutions
               </span>
             </a>
@@ -132,7 +144,7 @@ export default function Nav() {
                     <>
                       <button
                         type="button"
-                        className="flex items-center gap-1 text-[14px] text-gray-900 hover:text-gray-500 transition-colors duration-300"
+                        className="flex items-center gap-1 text-[14px] text-white/85 hover:text-white transition-colors duration-300"
                         aria-expanded={openDropdown === label}
                         onClick={() =>
                           setOpenDropdown(openDropdown === label ? null : label)
@@ -153,14 +165,14 @@ export default function Nav() {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -6 }}
                             transition={{ duration: 0.18 }}
-                            className="absolute top-full left-0 mt-3 w-56 bg-white rounded-xl shadow-[0_8px_32px_rgba(0,0,0,0.14)] border border-gray-100 py-2 z-50"
+                            className="absolute top-full left-0 mt-3 w-56 bg-[#0A0A0B] rounded-xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] border border-white/10 py-2 z-50"
                           >
                             {children.map((c) => (
                               <Link
                                 key={c.href}
                                 to={c.href}
                                 onClick={() => setOpenDropdown(null)}
-                                className="block px-4 py-2.5 text-[13.5px] text-gray-700 hover:text-gray-900 hover:bg-gray-50 transition-colors duration-150"
+                                className="block px-4 py-2.5 text-[13.5px] text-white/70 hover:text-white hover:bg-white/5 transition-colors duration-150"
                               >
                                 {c.label}
                               </Link>
@@ -178,7 +190,7 @@ export default function Nav() {
 
             {/* Mobile toggle */}
             <button
-              className="md:hidden flex items-center gap-2 bg-gray-900 text-white text-[13px] font-medium rounded-full px-4 py-2 mr-1"
+              className="md:hidden flex items-center gap-2 bg-white text-gray-900 text-[13px] font-medium rounded-full px-4 py-2 mr-1"
               onClick={() => setMenuOpen(!menuOpen)}
               aria-label={menuOpen ? "Close menu" : "Open menu"}
             >
@@ -217,7 +229,7 @@ export default function Nav() {
             exit={{ y: "100%" }}
             transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
           >
-            <div className="bg-white rounded-2xl p-6 space-y-6">
+            <div className="bg-[#0A0A0B] border border-white/10 rounded-2xl p-6 space-y-6">
               <ul className="space-y-4">
                 {navLinks.map(({ label, href, children }, i) => (
                   <motion.li
@@ -230,7 +242,7 @@ export default function Nav() {
                       <div>
                         <button
                           type="button"
-                          className="w-full flex items-center justify-between text-[28px] font-medium text-gray-900 leading-[32px]"
+                          className="w-full flex items-center justify-between text-[28px] font-medium text-white leading-[32px]"
                           onClick={() =>
                             setOpenMobileGroup(
                               openMobileGroup === label ? null : label,
@@ -260,7 +272,7 @@ export default function Nav() {
                                     key={c.href}
                                     to={c.href}
                                     onClick={() => setMenuOpen(false)}
-                                    className="block text-[16px] text-gray-600 hover:text-gray-900 transition-colors"
+                                    className="block text-[16px] text-white/60 hover:text-white transition-colors"
                                   >
                                     {c.label}
                                   </Link>
@@ -270,10 +282,21 @@ export default function Nav() {
                           )}
                         </AnimatePresence>
                       </div>
+                    ) : href === "#booking" ? (
+                      <button
+                        type="button"
+                        className="text-[28px] font-medium text-white leading-[32px] hover:text-white/60 transition-colors"
+                        onClick={() => {
+                          setMenuOpen(false);
+                          openBooking();
+                        }}
+                      >
+                        {label}
+                      </button>
                     ) : isInternalRoute(href) ? (
                       <Link
                         to={href}
-                        className="text-[28px] font-medium text-gray-900 leading-[32px] hover:text-gray-500 transition-colors"
+                        className="text-[28px] font-medium text-white leading-[32px] hover:text-white/60 transition-colors"
                         onClick={() => setMenuOpen(false)}
                       >
                         {label}
@@ -281,7 +304,7 @@ export default function Nav() {
                     ) : (
                       <a
                         href={href}
-                        className="text-[28px] font-medium text-gray-900 leading-[32px] hover:text-gray-500 transition-colors"
+                        className="text-[28px] font-medium text-white leading-[32px] hover:text-white/60 transition-colors"
                         onClick={() => setMenuOpen(false)}
                       >
                         {label}
@@ -291,17 +314,17 @@ export default function Nav() {
                 ))}
               </ul>
               <a
-                href="#contact"
+                href="#booking"
                 onClick={(e) => {
                   e.preventDefault();
                   setMenuOpen(false);
                   openBooking();
                 }}
-                className="group flex items-center gap-2 bg-brand text-white text-[13px] font-medium rounded-full pl-5 pr-2 py-2 w-full justify-between"
+                className="group flex items-center gap-2 bg-[#8B5CF6] text-white text-[13px] font-medium rounded-full pl-5 pr-2 py-2 w-full justify-between"
               >
                 <span>Book a 30-minute call</span>
                 <div className="w-7 h-7 bg-white rounded-full flex items-center justify-center shrink-0">
-                  <ArrowRight size={12} className="text-brand" />
+                  <ArrowRight size={12} className="text-[#8B5CF6]" />
                 </div>
               </a>
             </div>

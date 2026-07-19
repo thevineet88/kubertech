@@ -20,57 +20,69 @@ const steps = [
 
 export default function AboutSection() {
   return (
-    <section id="studio" className="bg-paper border-t border-gray-100 pt-10 sm:pt-14 lg:pt-18 pb-10 sm:pb-14 lg:pb-18 scroll-mt-4 md:scroll-mt-24">
+    <section id="about" className="relative z-10 border-t border-white/10 pt-10 sm:pt-14 lg:pt-18 pb-10 sm:pb-14 lg:pb-18 scroll-mt-4 md:scroll-mt-24">
       <div className="max-w-[1440px] mx-auto">
         {/* Badge row */}
         <ScrollReveal className="px-5 sm:px-8 lg:px-12 flex items-center gap-3 mb-6 sm:mb-8" delay={0}>
-          <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-gray-900 flex items-center justify-center shrink-0">
+          <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-brand flex items-center justify-center shrink-0">
             <span className="text-white font-semibold" style={{ fontSize: '11px' }}>2</span>
           </div>
-          <span className="text-[12px] sm:text-[13px] font-medium border border-gray-200 rounded-full px-3 sm:px-4 py-1 sm:py-1.5 text-gray-700">
-            How we work
+          <span className="text-[12px] sm:text-[13px] font-medium border border-white/15 rounded-full px-3 sm:px-4 py-1 sm:py-1.5 text-white/70">
+            About
           </span>
         </ScrollReveal>
 
-        {/* Heading */}
-        <ScrollReveal className="px-5 sm:px-8 lg:px-12 mb-5 sm:mb-6" delay={0.1}>
-          <h2
-            className="font-medium leading-[1.12] tracking-[-0.02em] text-gray-900 max-w-3xl"
-            style={{ fontSize: 'clamp(1.5rem, 4vw, 3.2rem)' }}
-          >
-            Design to deploy, owned end to end.
-          </h2>
-        </ScrollReveal>
+        <div className="grid gap-10 px-5 sm:px-8 lg:grid-cols-[0.82fr_1.18fr] lg:gap-16 lg:px-12">
+          <ScrollReveal delay={0.08}>
+            <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04]">
+              <img
+                src="/team/vinit.png"
+                alt="Vinit Brahmankar"
+                className="aspect-[4/5] w-full object-cover"
+              />
+            </div>
+          </ScrollReveal>
 
-        {/* Ownership + async/IST */}
-        <ScrollReveal className="px-5 sm:px-8 lg:px-12 mb-12 sm:mb-16" delay={0.15}>
-          <div className="max-w-3xl space-y-4">
-            <p className="text-[15px] sm:text-[17px] leading-[1.6] text-gray-700">
-              One team owns the whole path: the product in the browser and the
-              cloud it runs on. Performance is designed in, not bolted on, so there
-              is no handoff gap where a fast build turns into a slow production site.
-            </p>
-            <p className="text-[15px] sm:text-[17px] leading-[1.6] text-gray-700">
-              We work fully async on IST. Decisions, progress, and code land in
-              writing, so you get reviewable work on a predictable cadence instead
-              of standups. This is how we have delivered on distributed teams for
-              years, built for founders who want momentum without managing it.
-            </p>
+          <div>
+            <ScrollReveal delay={0.1}>
+              <h2
+                className="max-w-3xl font-medium leading-[1.12] tracking-[-0.02em] text-[#FAFAFA]"
+                style={{ fontSize: 'clamp(1.75rem, 4vw, 3.2rem)' }}
+              >
+                Led by Vinit Brahmankar, a full-stack engineer who likes owning the whole system.
+              </h2>
+            </ScrollReveal>
+
+            <ScrollReveal className="mt-6 max-w-3xl space-y-4" delay={0.15}>
+              <p className="text-[15px] sm:text-[17px] leading-[1.65] text-white/64">
+                I build Kuber Tech around a simple engineering belief: the product
+                in the browser and the cloud it runs on should be designed together.
+                That means fewer handoff gaps, fewer mystery production issues, and
+                a team that can move from user experience to infrastructure without
+                losing context.
+              </p>
+              <p className="text-[15px] sm:text-[17px] leading-[1.65] text-white/64">
+                My background spans frontend systems, full-stack product builds,
+                cloud infrastructure, performance work, and practical AI systems.
+                The kind that have to be observable, cost-aware, and useful after
+                the demo is over.
+              </p>
+            </ScrollReveal>
           </div>
-        </ScrollReveal>
+        </div>
 
         {/* Engagement steps */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5 px-5 sm:px-8 lg:px-12">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5 px-5 sm:px-8 lg:px-12 mt-10 sm:mt-14">
           {steps.map((s, i) => (
             <ScrollReveal key={s.n} delay={0.1 + i * 0.07} y={24}>
-              <div className="h-full rounded-2xl bg-white border border-gray-200 p-6 sm:p-7">
+              <div className="h-full rounded-2xl bg-white/[0.03] border border-white/10 p-6 sm:p-7">
                 <p className="text-[28px] sm:text-[34px] font-semibold text-brand leading-none mb-4">
                   {s.n}
                 </p>
-                <h3 className="text-[17px] sm:text-[19px] font-semibold text-gray-900 mb-2">
+                <h3 className="text-[17px] sm:text-[19px] font-semibold text-[#FAFAFA] mb-2">
                   {s.title}
                 </h3>
-                <p className="text-[13.5px] sm:text-[14px] text-gray-600 leading-[1.6]">
+                <p className="text-[13.5px] sm:text-[14px] text-white/55 leading-[1.6]">
                   {s.body}
                 </p>
               </div>

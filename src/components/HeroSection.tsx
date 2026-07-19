@@ -1,156 +1,151 @@
-import { ChevronDown, ArrowRight } from "lucide-react";
-import { openBooking } from "../booking";
-import {
-  Shader,
-  Swirl,
-  ChromaFlow,
-  FlutedGlass,
-  FilmGrain,
-} from "shaders/react";
-import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { motion, useScroll, useTransform, useReducedMotion, type Variants } from "framer-motion";
+import HeroGlobe from "./HeroGlobe";
 
-const easeOut = [0.25, 0.1, 0.25, 1] as const;
+const MUTED = "#A1A1AA";
+const FG = "#FAFAFA";
 
-const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  show: (delay = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.65, delay, ease: easeOut },
-  }),
-};
+const headline = "We engineer what's next.";
 
 export default function HeroSection() {
-  const reduceMotion = useReducedMotion();
+  const reduced = useReducedMotion();
+  const { scrollY } = useScroll();
+  const cueOpacity = useTransform(scrollY, [0, 120], [1, 0]);
+
+  const heroContainer: Variants = {
+    hidden: {},
+    show: { transition: { staggerChildren: reduced ? 0 : 0.07, delayChildren: 0.2 } },
+  };
+  const heroWord: Variants = {
+    hidden: { opacity: 0, y: reduced ? 0 : "0.7em" },
+    show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
+  };
+
   return (
     <section
       id="top"
-      className="relative min-h-[86svh] md:min-h-screen bg-[#EFEFEF] flex flex-col"
+      className="relative min-h-[100svh] md:min-h-screen flex flex-col items-center justify-center overflow-hidden px-5 sm:px-6 bg-[#0A0A0B]"
     >
-      {/* Ambient blobs */}
-      <div className="absolute inset-0 z-[15] pointer-events-none overflow-hidden">
-        <div className="absolute -top-20 -left-20 w-[280px] h-[280px] md:w-[480px] md:h-[480px] rounded-full bg-[#ff5f03] opacity-25 md:opacity-30 blur-[80px] animate-[blobFloat1_7s_ease-in-out_infinite]" />
-        <div className="absolute -bottom-16 -right-10 w-[220px] h-[220px] md:w-[380px] md:h-[380px] rounded-full bg-[#ff8c42] opacity-20 md:opacity-25 blur-[70px] animate-[blobFloat2_9s_ease-in-out_infinite]" />
-        <div className="absolute top-1/3 right-1/4 w-[160px] h-[160px] md:w-[260px] md:h-[260px] rounded-full bg-[#ffb347] opacity-15 md:opacity-20 blur-[60px] animate-[blobFloat3_6s_ease-in-out_infinite]" />
-      </div>
+      {/* Ambient colour wash, so the hero isn't flat black */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 z-0"
+        style={{
+          background:
+            "linear-gradient(120deg, #6B94CC24 0%, transparent 34%, #8B5CF61F 68%, transparent 100%), radial-gradient(74% 58% at 50% 100%, #1E1B4BCC 0%, #6B94CC26 38%, transparent 74%), radial-gradient(54% 42% at 10% 94%, #06B6D43D 0%, transparent 72%), radial-gradient(50% 42% at 88% 4%, #8B5CF647 0%, transparent 74%), radial-gradient(42% 36% at 62% 18%, #6B94CC24 0%, transparent 72%)",
+        }}
+      />
 
-      {/* Full-screen shader overlay */}
-      <div className="absolute inset-0 z-10 pointer-events-none">
-        <Shader style={{ width: "100%", height: "100%" }}>
-          <Swirl colorA="#ffffff" colorB="#f0f0f0" detail={1.7} />
-          <ChromaFlow
-            baseColor="#fff7f3"
-            downColor="#ff5f03"
-            leftColor="#ff5f03"
-            rightColor="#ff5f03"
-            upColor="#ff5f03"
-            momentum={13}
-            radius={3.5}
-          />
-          <FlutedGlass
-            aberration={0.61}
-            angle={31}
-            frequency={8}
-            highlight={0.12}
-            highlightSoftness={0}
-            lightAngle={-90}
-            refraction={4}
-            shape="rounded"
-            softness={1}
-            speed={0.15}
-          />
-          <FilmGrain strength={0.05} />
-        </Shader>
-      </div>
+      <HeroGlobe />
 
-      {/* Spacer pushes content to bottom */}
-      <div className="flex-1" />
+      {/* Subtle halo behind the globe, above the canvas so it actually shows */}
+      <div
+        aria-hidden="true"
+        className="absolute left-1/2 top-1/2 z-[1] -translate-x-1/2 -translate-y-1/2 rounded-full"
+        style={{
+          width: "min(82vw, 56vh)",
+          height: "min(82vw, 56vh)",
+          background: "radial-gradient(circle, #6B94CC40 0%, #6B94CC1F 42%, transparent 72%)",
+          filter: "blur(14px)",
+          mixBlendMode: "screen",
+        }}
+      />
 
-      {/* Hero content */}
-      <div className="relative z-20 max-w-[1440px] mx-auto w-full px-5 sm:px-8 lg:px-12 pb-14 sm:pb-16 lg:pb-20">
-        {/* Label */}
-        <motion.p
-          className="text-[13px] sm:text-[14px] text-gray-900 tracking-wide mb-5 sm:mb-8"
-          variants={fadeUp}
-          initial="hidden"
-          animate="show"
-          custom={0.2}
-        >
-          Kuber Tech Solutions
-        </motion.p>
+      {/* Scrim to keep headline legible over the globe */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 z-[2]"
+        style={{
+          background:
+            "radial-gradient(58% 46% at 50% 50%, #0A0A0BCC 0%, #0A0A0B4D 34%, transparent 64%), radial-gradient(120% 90% at 50% 45%, transparent 58%, #0A0A0B 94%)",
+        }}
+      />
 
-        {/* Headline */}
-        <motion.h1
-          className="font-medium leading-[1.08] tracking-[-0.03em] text-gray-900 mb-8 sm:mb-12"
-          style={{ fontSize: "clamp(1.75rem, 7vw, 4.2rem)" }}
-          variants={fadeUp}
-          initial="hidden"
-          animate="show"
-          custom={0.35}
-        >
-          <span className="sm:hidden">
-            The engineering team behind fast, scalable, AI-enabled products.
-          </span>
-          <span
-            className="hidden sm:block"
-            style={{ fontSize: "clamp(2.5rem, 5vw, 4.2rem)" }}
-          >
-            The engineering team behind fast,
-            <br />
-            scalable, AI-enabled products.
-          </span>
-        </motion.h1>
+      {/* Dedicated bottom scrim: guarantees the subhead stays legible no matter what
+          the globe (any side, any interaction state) is doing behind it */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 bottom-0 z-[3]"
+        style={{
+          height: "42%",
+          background: "linear-gradient(to bottom, transparent 0%, #0A0A0B8F 45%, #0A0A0B 100%)",
+        }}
+      />
 
-        {/* Subhead */}
-        <motion.p
-          className="text-[15px] sm:text-[17px] text-gray-600 leading-[1.55] max-w-xl -mt-2 sm:-mt-4 mb-8 sm:mb-10"
-          variants={fadeUp}
-          initial="hidden"
-          animate="show"
-          custom={0.45}
-        >
-          Full-stack products, cloud infrastructure, and production AI systems,
-          built to launch fast, scale confidently, and earn their keep. Tell
-          us what you're building.
-        </motion.p>
-
-        {/* CTA */}
-        <motion.button
-          type="button"
-          onClick={openBooking}
-          className="group inline-flex items-center gap-2 bg-gray-900 hover:bg-brand text-white text-[14px] font-medium rounded-full pl-6 pr-2 py-2.5 transition-colors duration-300"
-          variants={fadeUp}
-          initial="hidden"
-          animate="show"
-          custom={0.55}
-        >
-          <span>Book a free 30-min call</span>
-          <div className="w-7 h-7 bg-white rounded-full flex items-center justify-center shrink-0">
-            <ArrowRight
-              size={12}
-              className="text-gray-900 transition-transform duration-500 group-hover:-rotate-45"
-              style={{
-                transitionTimingFunction: "cubic-bezier(0.25,0.1,0.25,1)",
-              }}
-            />
-          </div>
-        </motion.button>
-      </div>
-
-      {/* Scroll cue */}
-      <motion.a
-        href="#studio"
-        aria-label="Scroll to next section"
-        className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 text-gray-500"
-        animate={reduceMotion ? undefined : { y: [0, 7, 0] }}
-        transition={
-          reduceMotion
-            ? undefined
-            : { duration: 1.6, repeat: Infinity, ease: "easeInOut" }
-        }
+      {/* Standalone decorative mesh border — plain SVG, not tied to the 3D globe,
+          so it never reacts to hover/click and never distracts from the text */}
+      <svg
+        aria-hidden="true"
+        className="absolute bottom-20 sm:bottom-24 left-1/2 z-[4] -translate-x-1/2 opacity-[0.06]"
+        width="280"
+        height="14"
+        viewBox="0 0 280 14"
       >
-        <ChevronDown size={24} strokeWidth={1.75} />
-      </motion.a>
+        <line x1="0" y1="7" x2="280" y2="7" stroke="#3F3F46" strokeWidth="0.5" />
+        {Array.from({ length: 15 }).map((_, i) => (
+          <line key={i} x1={i * 20} y1="3" x2={i * 20} y2="11" stroke="#3F3F46" strokeWidth="0.5" />
+        ))}
+      </svg>
+
+      <motion.div
+        variants={heroContainer}
+        initial="hidden"
+        animate="show"
+        className="relative z-10 -mt-16 sm:mt-0 flex max-w-4xl flex-col items-center gap-6 sm:gap-8 text-center"
+      >
+        <h1
+          className="font-semibold"
+          style={{
+            fontSize: "clamp(2.45rem, 13vw, 6rem)",
+            letterSpacing: "-0.03em",
+            lineHeight: 1.15,
+            color: FG,
+          }}
+        >
+          {headline.split(" ").map((w, i) => (
+            <span key={i} className="inline-block overflow-hidden align-top pb-2">
+              <motion.span variants={heroWord} className="inline-block">
+                {w}&#8202;&nbsp;
+              </motion.span>
+            </span>
+          ))}
+        </h1>
+
+      </motion.div>
+
+      <motion.div
+        variants={heroContainer}
+        initial="hidden"
+        animate="show"
+        className="absolute bottom-28 sm:bottom-36 left-0 right-0 z-10 mx-auto flex max-w-5xl justify-center px-6"
+      >
+        <motion.p
+          variants={heroWord}
+          className="max-w-xl text-center"
+          style={{ color: "#E4E4E7", fontWeight: 500, fontSize: "clamp(0.9rem, 1.8vw, 1.05rem)", lineHeight: 1.6 }}
+        >
+          The engineering team behind fast, scalable, AI-enabled products.
+        </motion.p>
+      </motion.div>
+
+      <motion.div
+        style={{ opacity: cueOpacity }}
+        className="absolute bottom-8 sm:bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-3"
+      >
+        <span
+          className="text-[10px] uppercase"
+          style={{ color: MUTED, fontFamily: "ui-monospace, Menlo, monospace", letterSpacing: "0.3em" }}
+        >
+          Scroll
+        </span>
+        <div className="relative h-10 w-px overflow-hidden" style={{ background: "#27272A" }}>
+          <motion.div
+            className="absolute left-0 top-0 h-4 w-px"
+            style={{ background: FG }}
+            animate={reduced ? undefined : { y: [-16, 44] }}
+            transition={reduced ? undefined : { duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </div>
+      </motion.div>
     </section>
   );
 }

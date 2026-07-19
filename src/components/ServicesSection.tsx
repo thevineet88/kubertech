@@ -67,7 +67,7 @@ export default function ServicesSection() {
   return (
     <section
       id="services"
-      className="bg-white pt-10 sm:pt-14 lg:pt-18 pb-10 sm:pb-14 lg:pb-18 scroll-mt-4 md:scroll-mt-24"
+      className="relative z-10 bg-paper pt-10 sm:pt-14 lg:pt-18 pb-10 sm:pb-14 lg:pb-18 scroll-mt-4 md:scroll-mt-24"
     >
       <div className="max-w-[1440px] mx-auto">
         {/* Badge row */}
@@ -75,7 +75,7 @@ export default function ServicesSection() {
           className="px-5 sm:px-8 lg:px-12 flex items-center gap-3 mb-6 sm:mb-8"
           delay={0}
         >
-          <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-gray-900 flex items-center justify-center shrink-0">
+          <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-brand flex items-center justify-center shrink-0">
             <span
               className="text-white font-semibold"
               style={{ fontSize: "11px" }}
@@ -83,7 +83,7 @@ export default function ServicesSection() {
               1
             </span>
           </div>
-          <span className="text-[12px] sm:text-[13px] font-medium border border-gray-200 rounded-full px-3 sm:px-4 py-1 sm:py-1.5 text-gray-700">
+          <span className="text-[12px] sm:text-[13px] font-medium border border-white/10 rounded-full px-3 sm:px-4 py-1 sm:py-1.5 text-white/64">
             What we do
           </span>
         </ScrollReveal>
@@ -94,7 +94,7 @@ export default function ServicesSection() {
           delay={0.1}
         >
           <h2
-            className="font-medium leading-[1.12] tracking-[-0.02em] text-gray-900"
+            className="font-medium leading-[1.12] tracking-[-0.02em] text-[#FAFAFA]"
             style={{ fontSize: "clamp(1.5rem, 4vw, 3.2rem)" }}
           >
             Three ways we get hired.
@@ -104,7 +104,7 @@ export default function ServicesSection() {
           className="px-5 sm:px-8 lg:px-12 mb-8 sm:mb-12"
           delay={0.15}
         >
-          <p className="text-[15px] sm:text-[17px] text-gray-600">
+          <p className="text-[15px] sm:text-[17px] text-white/60">
             Build it, run it, or make it fast. Often all three.
           </p>
         </ScrollReveal>
@@ -113,18 +113,18 @@ export default function ServicesSection() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-5 px-5 sm:px-8 lg:px-12">
           {offerings.map((o, i) => (
             <ScrollReveal key={o.buyer} delay={0.1 + i * 0.08} y={28}>
-              <div className="h-full rounded-2xl border border-gray-200 p-6 sm:p-7 hover:border-gray-300 transition-colors duration-300 flex flex-col">
+              <div className="h-full rounded-2xl border border-white/10 p-6 sm:p-7 hover:border-brand/40 transition-colors duration-300 flex flex-col">
                 <p className="text-[12px] sm:text-[13px] font-semibold uppercase tracking-wider text-brand mb-1.5">
                   {o.buyer}
                 </p>
-                <h3 className="text-[18px] sm:text-[20px] font-semibold text-gray-900 mb-3 leading-snug">
+                <h3 className="text-[18px] sm:text-[20px] font-semibold text-[#FAFAFA] mb-3 leading-snug">
                   {o.title}
                 </h3>
-                <p className="text-[14px] sm:text-[15px] text-gray-700 leading-[1.6] mb-6">
+                <p className="text-[14px] sm:text-[15px] text-white/64 leading-[1.6] mb-6">
                   {o.outcome}
                 </p>
-                <div className="mt-auto pt-5 border-t border-gray-100">
-                  <div className="flex items-center gap-3 text-gray-400 mb-3">
+                <div className="mt-auto pt-5 border-t border-white/10">
+                  <div className="flex items-center gap-3 text-white/40 mb-3">
                     {o.logos.map((Icon, idx) => (
                       <Icon
                         key={idx}
@@ -132,7 +132,7 @@ export default function ServicesSection() {
                       />
                     ))}
                   </div>
-                  <p className="text-[12.5px] sm:text-[13px] text-gray-500 leading-[1.55]">
+                  <p className="text-[12.5px] sm:text-[13px] text-white/50 leading-[1.55]">
                     {o.stack}
                   </p>
                 </div>
@@ -147,7 +147,7 @@ export default function ServicesSection() {
         >
           <Link
             to="/services"
-            className="inline-flex items-center gap-2 text-[14px] font-medium text-gray-900 hover:text-brand transition-colors duration-200"
+            className="inline-flex items-center gap-2 text-[14px] font-medium text-[#FAFAFA] hover:text-brand transition-colors duration-200"
           >
             View all services
             <ArrowRight size={14} />

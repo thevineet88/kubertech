@@ -6,7 +6,15 @@ import { openBooking } from "../booking";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 
-export default function ContactSection() {
+interface ContactSectionProps {
+  showIntro?: boolean;
+  showFooter?: boolean;
+}
+
+export default function ContactSection({
+  showIntro = true,
+  showFooter = true,
+}: ContactSectionProps) {
   const [state, setState] = useState<FormState>("idle");
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -37,52 +45,57 @@ export default function ContactSection() {
   return (
     <section
       id="contact"
-      className="bg-ink pt-12 sm:pt-16 lg:pt-20 pb-8 sm:pb-10 scroll-mt-4 md:scroll-mt-24"
+      className="relative z-10 pt-12 sm:pt-16 lg:pt-20 pb-8 sm:pb-10 scroll-mt-4 md:scroll-mt-24"
     >
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12">
-        {/* Badge row */}
-        <ScrollReveal
-          className="flex items-center gap-3 mb-6 sm:mb-8"
-          delay={0}
-        >
-          <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white flex items-center justify-center shrink-0">
-            <span
-              className="text-gray-900 font-semibold"
-              style={{ fontSize: "11px" }}
-            >
-              4
+        {showIntro && (
+          <ScrollReveal
+            className="flex items-center gap-3 mb-6 sm:mb-8"
+            delay={0}
+          >
+            <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white flex items-center justify-center shrink-0">
+              <span
+                className="text-gray-900 font-semibold"
+                style={{ fontSize: "11px" }}
+              >
+                4
+              </span>
+            </div>
+            <span className="text-[12px] sm:text-[13px] font-medium border border-white/20 rounded-full px-3 sm:px-4 py-1 sm:py-1.5 text-white/70">
+              Contact Us
             </span>
-          </div>
-          <span className="text-[12px] sm:text-[13px] font-medium border border-white/20 rounded-full px-3 sm:px-4 py-1 sm:py-1.5 text-white/70">
-            Contact Us
-          </span>
-        </ScrollReveal>
+          </ScrollReveal>
+        )}
 
         <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-16 items-start">
           {/* Left: heading + direct contact */}
           <ScrollReveal delay={0.1}>
-            <h2
-              className="font-medium leading-[1.1] tracking-[-0.02em] text-white"
-              style={{ fontSize: "clamp(1.75rem, 4.5vw, 3.4rem)" }}
-            >
-              Tell us what you're building,
-              <br className="hidden sm:block" />
-              <span className="sm:hidden"> </span>
-              or what's broken.
-            </h2>
-            <p className="text-[15px] sm:text-[16px] text-white/60 leading-[1.6] mt-5 max-w-md">
-              Whether you're starting from scratch, scaling up, or fixing what's
-              broken we scope it properly before we quote.
-            </p>
+            {showIntro && (
+              <>
+                <h2
+                  className="font-medium leading-[1.1] tracking-[-0.02em] text-white"
+                  style={{ fontSize: "clamp(1.75rem, 4.5vw, 3.4rem)" }}
+                >
+                  Tell us what you're building,
+                  <br className="hidden sm:block" />
+                  <span className="sm:hidden"> </span>
+                  or what's broken.
+                </h2>
+                <p className="text-[15px] sm:text-[16px] text-white/60 leading-[1.6] mt-5 max-w-md">
+                  Whether you're starting from scratch, scaling up, or fixing what's
+                  broken we scope it properly before we quote.
+                </p>
+              </>
+            )}
 
-            <div className="mt-8 space-y-4">
+            <div className={`${showIntro ? "mt-8" : "mt-0"} space-y-4`}>
               <div>
                 <p className="text-[12px] uppercase tracking-wider text-white/40 mb-1">
                   Email
                 </p>
                 <a
                   href="mailto:vinit@kubertechsolutions.in"
-                  className="text-[15px] text-white hover:text-brand transition-colors duration-200"
+                  className="text-[15px] text-white hover:text-[#8B5CF6] transition-colors duration-200"
                 >
                   vinit@kubertechsolutions.in
                 </a>
@@ -96,7 +109,7 @@ export default function ContactSection() {
                   href="https://wa.me/919028163126"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[15px] text-white hover:text-brand transition-colors duration-200"
+                  className="text-[15px] text-white hover:text-[#8B5CF6] transition-colors duration-200"
                 >
                   Let's talk
                 </a>
@@ -106,13 +119,13 @@ export default function ContactSection() {
             <button
               type="button"
               onClick={openBooking}
-              className="group mt-8 inline-flex items-center gap-2 bg-brand hover:bg-brand-dark text-white text-[14px] font-medium rounded-full pl-6 pr-2 py-2.5 transition-colors duration-200"
+              className="group mt-8 inline-flex items-center gap-2 bg-[var(--color-accent)] hover:bg-[var(--color-accent-blue)] text-white text-[14px] font-medium rounded-full pl-6 pr-2 py-2.5 transition-colors duration-200"
             >
               <span>Book a 30-minute call</span>
               <div className="w-7 h-7 bg-white rounded-full flex items-center justify-center shrink-0">
                 <ArrowRight
                   size={12}
-                  className="text-brand transition-transform duration-500 group-hover:-rotate-45"
+                  className="text-[color:var(--color-accent)] transition-transform duration-500 group-hover:-rotate-45"
                   style={{
                     transitionTimingFunction: "cubic-bezier(0.25,0.1,0.25,1)",
                   }}
@@ -125,7 +138,7 @@ export default function ContactSection() {
           <ScrollReveal delay={0.15}>
             {state === "success" ? (
               <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-8 text-center">
-                <p className="text-brand font-medium mb-2">Message sent.</p>
+                <p className="text-[#8B5CF6] font-medium mb-2">Message sent.</p>
                 <p className="text-sm text-white/60">
                   We will get back to you within one business day.
                 </p>
@@ -147,7 +160,7 @@ export default function ContactSection() {
                       required
                       autoComplete="name"
                       placeholder="Your name"
-                      className="w-full bg-white/[0.04] border border-white/10 rounded-lg px-4 py-3 text-[14px] text-white placeholder-white/30 focus:border-brand focus:outline-none transition-colors duration-200"
+                      className="w-full bg-white/[0.04] border border-white/10 rounded-lg px-4 py-3 text-[14px] text-white placeholder-white/30 focus:border-[#8B5CF6] focus:outline-none transition-colors duration-200"
                     />
                   </div>
                   <div>
@@ -164,7 +177,7 @@ export default function ContactSection() {
                       required
                       autoComplete="email"
                       placeholder="you@company.com"
-                      className="w-full bg-white/[0.04] border border-white/10 rounded-lg px-4 py-3 text-[14px] text-white placeholder-white/30 focus:border-brand focus:outline-none transition-colors duration-200"
+                      className="w-full bg-white/[0.04] border border-white/10 rounded-lg px-4 py-3 text-[14px] text-white placeholder-white/30 focus:border-[#8B5CF6] focus:outline-none transition-colors duration-200"
                     />
                   </div>
                 </div>
@@ -181,7 +194,7 @@ export default function ContactSection() {
                     type="tel"
                     autoComplete="tel"
                     placeholder="+91 98765 43210"
-                    className="w-full bg-white/[0.04] border border-white/10 rounded-lg px-4 py-3 text-[14px] text-white placeholder-white/30 focus:border-brand focus:outline-none transition-colors duration-200"
+                    className="w-full bg-white/[0.04] border border-white/10 rounded-lg px-4 py-3 text-[14px] text-white placeholder-white/30 focus:border-[#8B5CF6] focus:outline-none transition-colors duration-200"
                   />
                 </div>
 
@@ -197,7 +210,7 @@ export default function ContactSection() {
                     name="project-type"
                     required
                     defaultValue=""
-                    className="w-full bg-white/[0.04] border border-white/10 rounded-lg px-4 py-3 text-[14px] text-white focus:border-brand focus:outline-none transition-colors duration-200 appearance-none"
+                    className="w-full bg-white/[0.04] border border-white/10 rounded-lg px-4 py-3 text-[14px] text-white focus:border-[#8B5CF6] focus:outline-none transition-colors duration-200 appearance-none"
                   >
                     <option value="" disabled className="bg-ink">
                       Select one
@@ -236,7 +249,7 @@ export default function ContactSection() {
                     required
                     rows={4}
                     placeholder="What are you building, and what does done look like?"
-                    className="w-full bg-white/[0.04] border border-white/10 rounded-lg px-4 py-3 text-[14px] text-white placeholder-white/30 focus:border-brand focus:outline-none transition-colors duration-200 resize-none"
+                    className="w-full bg-white/[0.04] border border-white/10 rounded-lg px-4 py-3 text-[14px] text-white placeholder-white/30 focus:border-[#8B5CF6] focus:outline-none transition-colors duration-200 resize-none"
                   />
                 </div>
 
@@ -250,7 +263,7 @@ export default function ContactSection() {
                 <button
                   type="submit"
                   disabled={state === "submitting"}
-                  className="group flex items-center gap-2 bg-brand hover:bg-brand-dark text-white text-[14px] font-medium rounded-full pl-6 pr-2 py-2.5 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+                  className="group flex items-center gap-2 bg-[var(--color-accent)] hover:bg-[var(--color-accent-blue)] text-white text-[14px] font-medium rounded-full pl-6 pr-2 py-2.5 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
                 >
                   <span>
                     {state === "submitting" ? "Sending..." : "Send message"}
@@ -258,7 +271,7 @@ export default function ContactSection() {
                   <div className="w-7 h-7 bg-white rounded-full flex items-center justify-center shrink-0">
                     <ArrowRight
                       size={12}
-                      className="text-brand transition-transform duration-500 group-hover:-rotate-45"
+                      className="text-[color:var(--color-accent)] transition-transform duration-500 group-hover:-rotate-45"
                       style={{
                         transitionTimingFunction:
                           "cubic-bezier(0.25,0.1,0.25,1)",
@@ -271,7 +284,7 @@ export default function ContactSection() {
           </ScrollReveal>
         </div>
 
-        {/* Footer line */}
+        {showFooter && (
         <div className="mt-10 pt-6 border-t border-white/10 flex flex-col items-center gap-4">
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[13px] text-white/40">
             <Link to="/services" className="hover:text-white transition-colors duration-200">
@@ -341,6 +354,7 @@ export default function ContactSection() {
             </span>
           </div>
         </div>
+        )}
       </div>
     </section>
   );
