@@ -1,4 +1,5 @@
 import ScrollReveal from "./ScrollReveal";
+import ScrambleText from "./ScrambleText";
 
 const testimonials = [
   {
@@ -20,9 +21,11 @@ export default function TestimonialsSection() {
     <section className="relative z-10 border-t border-white/10 py-12 sm:py-16 lg:py-20">
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12">
         <ScrollReveal delay={0}>
-          <p className="text-[12px] sm:text-[13px] font-medium text-white/40 uppercase tracking-wider mb-8 sm:mb-12">
-            What clients say
-          </p>
+          <ScrambleText
+            as="p"
+            text="What clients say"
+            className="text-[12px] sm:text-[13px] font-medium text-white/40 uppercase tracking-wider mb-8 sm:mb-12"
+          />
         </ScrollReveal>
         <div className="grid sm:grid-cols-2 gap-6 sm:gap-8">
           {testimonials.map((t, i) => (

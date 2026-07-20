@@ -27,7 +27,7 @@ const navLinks: NavItem[] = [
       { label: "Newsletter", href: "/newsletter" },
     ],
   },
-  { label: "AI", href: "#ai" },
+  { label: "AI", href: "/#ai" },
   { label: "Work", href: "/case-studies" },
   { label: "Contact", href: "/contact" },
 ];
@@ -116,14 +116,22 @@ export default function Nav() {
               className="flex items-center gap-2.5 shrink-0"
               aria-label="Kuber Tech Solutions, back to top"
             >
-              <span className="w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center shrink-0 overflow-hidden rounded-full">
+              {/* Mobile only: full logo lockup */}
+              <img
+                src="/kuber_logo_cropped.png"
+                alt="Kuber Tech Solutions"
+                className="md:hidden h-10 w-auto object-contain rounded-lg bg-white p-1"
+              />
+
+              {/* Desktop: mark + separate text */}
+              <span className="hidden md:flex w-11 h-11 sm:w-12 sm:h-12 items-center justify-center shrink-0 overflow-hidden rounded-full">
                 <img
                   src="/kuber_icon.png"
                   alt="Kuber Tech Solutions"
                   className="w-full h-full object-cover"
                 />
               </span>
-              <span className="text-[15px] font-semibold tracking-tight text-white">
+              <span className="hidden md:inline text-[15px] font-semibold tracking-tight text-white">
                 Kuber Tech Solutions
               </span>
             </a>

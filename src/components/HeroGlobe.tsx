@@ -17,6 +17,8 @@ const POINT_VERT = `
   uniform float uHoverActive;
   uniform vec3 uRippleOrigin;
   uniform float uRippleTime;
+  uniform vec3 uCollOrigin[3];
+  uniform float uCollT[3];
   varying vec3 vColor;
   varying float vAlpha;
   varying float vGlow;
@@ -38,7 +40,21 @@ const POINT_VERT = `
       float rd = abs(distance(p, uRippleOrigin) - ringR);
       rippleGlow = smoothstep(0.35, 0.0, rd) * (1.0 - uRippleTime / 1.6);
     }
-    vGlow = hoverGlow * 0.9 + rippleGlow * 1.3;
+
+    // collision events: bright flash at the impact point, then an expanding
+    // shell of glow washing through nearby particles
+    float collGlow = 0.0;
+    for (int i = 0; i < 3; i++) {
+      float ct = uCollT[i];
+      if (ct >= 0.0 && ct < 1.4) {
+        float d = distance(p, uCollOrigin[i]);
+        float flash = smoothstep(0.55, 0.0, d) * smoothstep(0.45, 0.0, ct);
+        float shellR = ct * 2.2;
+        float shell = smoothstep(0.3, 0.0, abs(d - shellR)) * (1.0 - ct / 1.4);
+        collGlow += flash * 1.6 + shell * 0.9;
+      }
+    }
+    vGlow = hoverGlow * 0.9 + rippleGlow * 1.3 + collGlow;
 
     vec4 mv = modelViewMatrix * vec4(p, 1.0);
     gl_PointSize = aSize * uPixelRatio * (46.0 / -mv.z) * (1.0 + vGlow * 0.6);
@@ -59,16 +75,32 @@ const POINT_FRAG = `
     gl_FragColor = vec4(col, a * vAlpha);
   }`;
 const LINE_VERT = `
+  varying vec3 vPos;
   void main(){
+    vPos = position;
     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
   }`;
 const LINE_FRAG = `
   uniform float uBase;
   uniform float uGlow;
+  uniform vec3 uCollOrigin[3];
+  uniform float uCollT[3];
+  varying vec3 vPos;
   void main(){
     vec3 base = vec3(0.62, 0.72, 0.88);
-    float a = uBase + uGlow * 0.55;
-    gl_FragColor = vec4(base, a);
+
+    // skeleton lights up locally around each collision, then fades out
+    float local = 0.0;
+    for (int i = 0; i < 3; i++) {
+      float ct = uCollT[i];
+      if (ct >= 0.0 && ct < 1.4) {
+        float d = distance(vPos, uCollOrigin[i]);
+        local += smoothstep(1.5, 0.0, d) * sin(min(1.0, ct / 1.4) * 3.14159) ;
+      }
+    }
+    float a = uBase + uGlow * 0.55 + local * 0.5;
+    vec3 col = base + local * vec3(0.35, 0.28, 0.6);
+    gl_FragColor = vec4(col, a);
   }`;
 
 export default function HeroGlobe() {
@@ -99,10 +131,15 @@ export default function HeroGlobe() {
     const RADIUS = 2.3;
     const ico = new THREE.IcosahedronGeometry(RADIUS, 3);
     const wireGeo = new THREE.WireframeGeometry(ico);
+    const collOrigins = [new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()];
+    const collTimes = new Float32Array([-1, -1, -1]);
+
     const wireMat = new THREE.ShaderMaterial({
       uniforms: {
         uBase: { value: 0.05 },
         uGlow: { value: 0 },
+        uCollOrigin: { value: collOrigins },
+        uCollT: { value: collTimes },
       },
       vertexShader: LINE_VERT,
       fragmentShader: LINE_FRAG,
@@ -171,6 +208,8 @@ export default function HeroGlobe() {
         uHoverActive: { value: 0 },
         uRippleOrigin: { value: new THREE.Vector3() },
         uRippleTime: { value: -1 },
+        uCollOrigin: { value: collOrigins },
+        uCollT: { value: collTimes },
       },
       vertexShader: POINT_VERT,
       fragmentShader: POINT_FRAG,
@@ -179,6 +218,83 @@ export default function HeroGlobe() {
       blending: THREE.NormalBlending,
     });
     group.add(new THREE.Points(geo, pmat));
+
+    // Reusable expanding halo rings: camera-facing circles born at the globe's
+    // silhouette that sweep outward around the entire sphere and fade.
+    const RING_POOL = 4;
+    const ringPts: THREE.Vector3[] = [];
+    for (let i = 0; i <= 96; i++) {
+      const a = (i / 96) * Math.PI * 2;
+      ringPts.push(new THREE.Vector3(Math.cos(a), Math.sin(a), 0));
+    }
+    const ringGeo = new THREE.BufferGeometry().setFromPoints(ringPts);
+    interface Ring {
+      line: THREE.Line;
+      mat: THREE.LineBasicMaterial;
+      born: number;
+    }
+    const rings: Ring[] = [];
+    for (let i = 0; i < RING_POOL; i++) {
+      const mat = new THREE.LineBasicMaterial({
+        color: 0x9f7cf6,
+        transparent: true,
+        opacity: 0,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending,
+      });
+      const line = new THREE.Line(ringGeo, mat);
+      line.visible = false;
+      // rings live on the scene (not the rotating group) so they stay a clean
+      // halo around the whole globe regardless of its rotation
+      scene.add(line);
+      rings.push({ line, mat, born: -1 });
+    }
+    const RING_LIFE = 2.4;
+    let ringCursor = 0;
+    const emitRing = () => {
+      const r = rings[ringCursor];
+      ringCursor = (ringCursor + 1) % RING_POOL;
+      r.born = performance.now();
+      r.line.visible = true;
+    };
+
+    // Roamer particles: a handful of particles that genuinely travel through
+    // the globe. When two pass close to each other, that IS the collision —
+    // flash, local skeleton glow, halo ring. Nothing is on a timer.
+    const ROAMERS = 24;
+    const ROAM_R = RADIUS * 0.88;
+    const roamPos: THREE.Vector3[] = [];
+    const roamVel: THREE.Vector3[] = [];
+    for (let i = 0; i < ROAMERS; i++) {
+      roamPos.push(new THREE.Vector3().randomDirection().multiplyScalar(ROAM_R * Math.cbrt(Math.random())));
+      roamVel.push(new THREE.Vector3().randomDirection().multiplyScalar(0.55 + Math.random() * 0.5));
+    }
+    const COLLIDE_DIST = 0.24;
+    const collStarts = new Float32Array([-1, -1, -1]);
+    let collCursor = 0;
+    const registerCollision = (at: THREE.Vector3) => {
+      collOrigins[collCursor].copy(at);
+      collStarts[collCursor] = performance.now();
+      collCursor = (collCursor + 1) % 3;
+      emitRing();
+    };
+    const tmpV = new THREE.Vector3();
+    let nextCollAllowedAt = performance.now() + 1500;
+
+    // roamers ride the tail of the particle buffer: bigger, brighter points
+    for (let i = 0; i < ROAMERS; i++) {
+      const idx = N - ROAMERS + i;
+      siz[idx] = 1.5 + Math.random() * 0.7;
+      col[idx * 3] = 0.85;
+      col[idx * 3 + 1] = 0.78;
+      col[idx * 3 + 2] = 1.0;
+      pos[idx * 3] = roamPos[i].x;
+      pos[idx * 3 + 1] = roamPos[i].y;
+      pos[idx * 3 + 2] = roamPos[i].z;
+    }
+    geo.attributes.aSize.needsUpdate = true;
+    geo.attributes.aColor.needsUpdate = true;
+    geo.attributes.position.needsUpdate = true;
 
     // invisible sphere used purely for raycasting hover/click against the globe
     const hitSphere = new THREE.Mesh(
@@ -242,6 +358,7 @@ export default function HeroGlobe() {
     let lastT = start;
     let rotY = 0;
     let rotAngle = 0;
+    let flowTime = 0;
     let wireGlow = 0;
     let clickBoostUntil = -1;
     let nextAutoPulse = performance.now() + 3000 + Math.random() * 2500;
@@ -253,8 +370,6 @@ export default function HeroGlobe() {
       const now = performance.now();
       const dt = (now - lastT) / 1000;
       lastT = now;
-      const t = (now - start) / 1000;
-      const tt = reduced ? 0 : t;
 
       const scrollProgress = Math.min(1, Math.max(0, window.scrollY / SCROLL_SPAN()));
       const scale = 1 + scrollProgress * (isMobile ? 1.05 : 2.4);
@@ -272,7 +387,70 @@ export default function HeroGlobe() {
       const parallaxX = reduced || isMobile ? 0 : -pointerNDC.y * 0.05;
       group.rotation.y = rotY + parallaxY;
       group.rotation.x = Math.sin(rotAngle) * 0.06 + parallaxX;
-      pmat.uniforms.uTime.value = tt;
+
+      if (!reduced) flowTime += dt * 1.15;
+      pmat.uniforms.uTime.value = reduced ? 0 : flowTime;
+
+      // roamer physics: free flight inside the sphere, bounce off the shell —
+      // constant natural speed, never altered by collision events
+      if (!reduced) {
+        const step = Math.min(dt, 0.05) * 0.85;
+        for (let i = 0; i < ROAMERS; i++) {
+          roamPos[i].addScaledVector(roamVel[i], step);
+          const len = roamPos[i].length();
+          if (len > ROAM_R) {
+            tmpV.copy(roamPos[i]).divideScalar(len);
+            roamVel[i].addScaledVector(tmpV, -2 * roamVel[i].dot(tmpV));
+            roamPos[i].setLength(ROAM_R);
+          }
+        }
+        // Detect a crossing only to trigger the visual — never touch position
+        // or velocity here. Roamers keep drifting exactly as they were; the
+        // "collision" is purely an observed event, not a physics response.
+        // Gated to one collision globally every ~2-3s so effects never overlap.
+        if (now >= nextCollAllowedAt && pmat.uniforms.uPointFade.value > 0.15) {
+          outer: for (let i = 0; i < ROAMERS; i++) {
+            for (let j = i + 1; j < ROAMERS; j++) {
+              tmpV.subVectors(roamPos[i], roamPos[j]);
+              if (tmpV.length() < COLLIDE_DIST) {
+                registerCollision(tmpV.copy(roamPos[i]).add(roamPos[j]).multiplyScalar(0.5));
+                nextCollAllowedAt = now + 2000 + Math.random() * 1000;
+                break outer;
+              }
+            }
+          }
+        }
+        // roamers are the tail of the particle buffer — write their positions back
+        const posAttr = geo.attributes.position as THREE.BufferAttribute;
+        for (let i = 0; i < ROAMERS; i++) {
+          const idx = N - ROAMERS + i;
+          posAttr.setXYZ(idx, roamPos[i].x, roamPos[i].y, roamPos[i].z);
+        }
+        posAttr.needsUpdate = true;
+      }
+      for (let i = 0; i < 3; i++) {
+        collTimes[i] = collStarts[i] < 0 ? -1 : (now - collStarts[i]) / 1000;
+        if (collTimes[i] > 1.4) {
+          collStarts[i] = -1;
+          collTimes[i] = -1;
+        }
+      }
+
+      // expanding rings emitted at each collision
+      for (const r of rings) {
+        if (r.born < 0) continue;
+        const life = (now - r.born) / 1000 / RING_LIFE;
+        if (life >= 1) {
+          r.born = -1;
+          r.line.visible = false;
+          r.mat.opacity = 0;
+          continue;
+        }
+        const eased = 1 - Math.pow(1 - life, 2.2);
+        // halo spans the whole globe: born at the silhouette, sweeps outward
+        r.line.scale.setScalar((RADIUS + eased * RADIUS * 1.35) * group.scale.x);
+        r.mat.opacity = 0.35 * (1 - life) * pmat.uniforms.uPointFade.value;
+      }
 
       if (hoverLocal) {
         pmat.uniforms.uHover.value.copy(hoverLocal);
@@ -335,6 +513,8 @@ export default function HeroGlobe() {
         window.removeEventListener("click", onClick);
       }
       renderer.dispose();
+      ringGeo.dispose();
+      for (const r of rings) r.mat.dispose();
       geo.dispose();
       wireGeo.dispose();
       pmat.dispose();

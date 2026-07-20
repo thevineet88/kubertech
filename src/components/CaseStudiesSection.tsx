@@ -25,6 +25,7 @@ import {
 } from "react-icons/si";
 import { FaAws } from "react-icons/fa";
 import ScrollReveal from "./ScrollReveal";
+import ScrambleText from "./ScrambleText";
 
 type IconCmp = ComponentType<{ className?: string }>;
 
@@ -116,13 +117,12 @@ export default function CaseStudiesSection() {
             className="font-medium leading-[1.08] tracking-[-0.03em] text-[#FAFAFA]"
             style={{ fontSize: "clamp(1.75rem, 7vw, 4.2rem)" }}
           >
-            <span className="sm:hidden">Our projects</span>
-            <span
+            <ScrambleText text="Our projects" className="sm:hidden" />
+            <ScrambleText
+              text="Our projects"
               className="hidden sm:block"
               style={{ fontSize: "clamp(2.5rem, 5vw, 4.2rem)" }}
-            >
-              Our projects
-            </span>
+            />
           </h2>
         </ScrollReveal>
 

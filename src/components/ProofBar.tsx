@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import ScrollReveal from './ScrollReveal'
+import ScrambleText from './ScrambleText'
 
 const stats = [
   { end: 8, suffix: '+ yrs', label: 'Full-cycle product delivery, design to deploy' },
@@ -55,8 +56,16 @@ function StatItem({ end, suffix, label, delay }: typeof stats[0] & { delay: numb
 
 export default function ProofBar() {
   return (
-    <section className="bg-paper border-y border-white/10 py-10 sm:py-12 lg:py-14">
+    <section className="relative z-10 border-t border-white/10 py-10 sm:py-12 lg:py-14">
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12">
+        <ScrollReveal>
+          <ScrambleText
+            as="p"
+            text="Proof, not promises"
+            className="text-xs uppercase mb-8 sm:mb-10"
+            style={{ color: '#A1A1AA', fontFamily: 'ui-monospace, Menlo, monospace', letterSpacing: '0.3em' }}
+          />
+        </ScrollReveal>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-8 sm:gap-y-10">
           {stats.map((s, i) => (
             <StatItem key={s.suffix} {...s} delay={0.06 * i} />

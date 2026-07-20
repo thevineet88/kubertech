@@ -5,13 +5,17 @@ import Nav from "./components/Nav";
 import HeroSection from "./components/HeroSection";
 import AmbientMeshBackground from "./components/AmbientMeshBackground";
 import CapabilitiesOrbit from "./components/CapabilitiesOrbit";
+import LiveSection from "./components/LiveSection";
 import TestimonialsSection from "./components/TestimonialsSection";
+import ClosingCTA from "./components/ClosingCTA";
 import CaseStudiesSection from "./components/CaseStudiesSection";
+import ProofBar from "./components/ProofBar";
 import ClientsSection from "./components/ClientsSection";
 import Footer from "./components/Footer";
 import BookingModal from "./components/BookingModal";
 import Seo from "./components/Seo";
 import Preloader from "./components/Preloader";
+import ScrollToHash from "./components/ScrollToHash";
 
 const RivianCaseStudy = lazy(() => import("./pages/RivianCaseStudy"));
 const CustomPrintPlatformCaseStudy = lazy(
@@ -65,9 +69,12 @@ function Home() {
       <div className="relative isolate overflow-hidden bg-[#0A0A0B]">
         <AmbientMeshBackground />
         <CapabilitiesOrbit />
+        <LiveSection />
         <CaseStudiesSection />
+        <ProofBar />
         <ClientsSection />
         <TestimonialsSection />
+        <ClosingCTA />
         <Footer />
       </div>
       <BookingModal />
@@ -79,6 +86,7 @@ function App() {
   return (
     <>
       <Preloader />
+      <ScrollToHash />
       <Suspense fallback={null}>
         <Routes>
           <Route path="/" element={<Home />} />

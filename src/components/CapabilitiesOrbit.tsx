@@ -1,4 +1,4 @@
-import type { ComponentType } from "react";
+import { useEffect, useRef, useState, type ComponentType } from "react";
 import {
   SiReact,
   SiNextdotjs,
@@ -15,6 +15,7 @@ import {
 } from "react-icons/si";
 import { FaAws } from "react-icons/fa";
 import ScrollReveal from "./ScrollReveal";
+import ScrambleText from "./ScrambleText";
 
 const MUTED = "#A1A1AA";
 const FG = "#FAFAFA";
@@ -88,6 +89,35 @@ const PANELS: Panel[] = [
 ];
 
 export default function CapabilitiesOrbit() {
+  const panelRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [activeIdx, setActiveIdx] = useState(0);
+
+  // Track which panel currently crosses the vertical middle of the viewport
+  useEffect(() => {
+    let raf = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const mid = window.innerHeight * 0.5;
+        let idx = 0;
+        panelRefs.current.forEach((el, i) => {
+          if (el && el.getBoundingClientRect().top <= mid) idx = i;
+        });
+        setActiveIdx(idx);
+      });
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
+
+  const scrollToPanel = (i: number) => {
+    panelRefs.current[i]?.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
+
   return (
     <section
       style={{ paddingTop: "38vh" }}
@@ -97,21 +127,56 @@ export default function CapabilitiesOrbit() {
         {/* Static left column, stays put while panels scroll past on the right */}
         <div className="md:sticky md:top-32 md:self-start">
           <ScrollReveal>
-            <p
+            <ScrambleText
+              as="p"
+              text="What we do"
               className="text-xs uppercase mb-4"
               style={{ color: MUTED, fontFamily: "ui-monospace, Menlo, monospace", letterSpacing: "0.3em" }}
-            >
-              What we do
-            </p>
-            <h2
+            />
+            <ScrambleText
+              as="h2"
+              text="Our capabilities."
+              delay={0.15}
               className="font-semibold mb-4"
               style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)", letterSpacing: "-0.02em", lineHeight: 1.1, color: FG }}
-            >
-              Our capabilities.
-            </h2>
+            />
             <p style={{ color: MUTED, fontSize: "15px", lineHeight: 1.6, maxWidth: "22rem" }}>
               Build it, run it, or make it fast. Often all three.
             </p>
+
+            {/* Progress rail: highlights the panel currently in view */}
+            <nav aria-label="Capabilities" className="mt-10 hidden md:flex flex-col gap-1">
+              {PANELS.map((p, i) => {
+                const active = i === activeIdx;
+                return (
+                  <button
+                    key={p.num}
+                    type="button"
+                    onClick={() => scrollToPanel(i)}
+                    aria-current={active ? "true" : undefined}
+                    className="group flex items-center gap-3 py-2 text-left"
+                  >
+                    <span
+                      className="h-px transition-all duration-500 ease-out"
+                      style={{
+                        width: active ? 28 : 12,
+                        background: active ? p.accent : "#3F3F46",
+                      }}
+                    />
+                    <span
+                      className="text-xs uppercase transition-colors duration-300"
+                      style={{
+                        fontFamily: "ui-monospace, Menlo, monospace",
+                        letterSpacing: "0.2em",
+                        color: active ? "#FAFAFA" : "#52525B",
+                      }}
+                    >
+                      {p.num} / {p.label}
+                    </span>
+                  </button>
+                );
+              })}
+            </nav>
           </ScrollReveal>
         </div>
 
@@ -120,9 +185,12 @@ export default function CapabilitiesOrbit() {
           {PANELS.map((p, i) => (
             <ScrollReveal key={p.num} delay={0.05} y={28}>
               <div
-                id={i === 0 ? "ai" : undefined}
-                className="pb-10 sm:pb-14"
-                style={{ borderBottom: i < PANELS.length - 1 ? "1px solid #1F1F23" : "none" }}
+                ref={(el) => { panelRefs.current[i] = el; }}
+                className="pb-10 sm:pb-14 transition-opacity duration-500"
+                style={{
+                  borderBottom: i < PANELS.length - 1 ? "1px solid #1F1F23" : "none",
+                  opacity: i === activeIdx ? 1 : 0.45,
+                }}
               >
                 <p
                   className="text-xs uppercase mb-3"
