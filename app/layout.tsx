@@ -22,13 +22,9 @@ export const metadata: Metadata = {
     "Full-stack, AI, cloud, and IoT engineering for funded startups in the US, UK, and UAE. We build fast, scalable products and the infrastructure behind them.",
   authors: [{ name: "Kuber Tech Solutions" }],
   robots: { index: true, follow: true },
-  icons: {
-    icon: [
-      { url: "/kuber_favicon_v2.png", sizes: "32x32", type: "image/png" },
-      { url: "/kuber_favicon_v2.png", sizes: "16x16", type: "image/png" },
-    ],
-    apple: [{ url: "/kuber_favicon_v2.png", sizes: "180x180" }],
-  },
+  // Icons come from app/favicon.ico, app/icon.png and app/apple-icon.png.
+  // Next generates the link tags and serves /favicon.ico at the root, which is
+  // the path iOS requests by convention.
   openGraph: {
     type: "website",
     siteName: "Kuber Tech Solutions",
