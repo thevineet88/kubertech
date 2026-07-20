@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
@@ -6,6 +8,11 @@ import { BOOKING_URL } from "../booking";
 
 export default function BookingModal() {
   const [open, setOpen] = useState(false);
+  // document.body doesn't exist during SSR, so the portal can only mount
+  // after hydration.
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     const onOpen = () => setOpen(true);
@@ -24,6 +31,8 @@ export default function BookingModal() {
       window.removeEventListener("keydown", onKey);
     };
   }, [open]);
+
+  if (!mounted) return null;
 
   return createPortal(
     <AnimatePresence>

@@ -1,3 +1,5 @@
+"use client";
+
 import { motion, useScroll, useTransform, useReducedMotion, type Variants } from "framer-motion";
 import HeroGlobe from "./HeroGlobe";
 

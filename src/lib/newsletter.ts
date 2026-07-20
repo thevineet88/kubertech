@@ -1,14 +1,11 @@
+import fs from "node:fs";
+import nodePath from "node:path";
 import matter from "gray-matter";
 import { marked } from "marked";
 import { z } from "zod";
+import type { NewsletterIssue } from "./newsletter-format";
 
-export interface NewsletterIssue {
-  title: string;
-  date: string;
-  slug: string;
-  summary: string;
-  html: string;
-}
+export type { NewsletterIssue };
 
 const frontmatterSchema = z.object({
   title: z.string().min(1, "title is required"),
@@ -21,28 +18,32 @@ const frontmatterSchema = z.object({
   summary: z.string().min(1, "summary is required"),
 });
 
-const modules = import.meta.glob("/content/newsletter/*.md", {
-  query: "?raw",
-  import: "default",
-  eager: true,
-}) as Record<string, string>;
+// Read on the server at build time. The Vite app did this in the browser via
+// import.meta.glob, which is why it needed a Buffer polyfill for gray-matter.
+const CONTENT_DIR = nodePath.join(process.cwd(), "content", "newsletter");
 
-const issues: NewsletterIssue[] = Object.entries(modules).map(([path, raw]) => {
-  const { data, content } = matter(raw);
-  const result = frontmatterSchema.safeParse(data);
+const issues: NewsletterIssue[] = fs
+  .readdirSync(CONTENT_DIR)
+  .filter((file) => file.endsWith(".md"))
+  .map((file) => {
+    const raw = fs.readFileSync(nodePath.join(CONTENT_DIR, file), "utf8");
+    const { data, content } = matter(raw);
+    const result = frontmatterSchema.safeParse(data);
 
-  if (!result.success) {
-    const issues = result.error.issues
-      .map((issue) => `  - ${issue.path.join(".")}: ${issue.message}`)
-      .join("\n");
-    throw new Error(`Invalid newsletter frontmatter in ${path}:\n${issues}`);
-  }
+    if (!result.success) {
+      const problems = result.error.issues
+        .map((issue) => `  - ${issue.path.join(".")}: ${issue.message}`)
+        .join("\n");
+      throw new Error(
+        `Invalid newsletter frontmatter in content/newsletter/${file}:\n${problems}`,
+      );
+    }
 
-  return {
-    ...result.data,
-    html: marked.parse(content.trim(), { async: false }) as string,
-  };
-});
+    return {
+      ...result.data,
+      html: marked.parse(content.trim(), { async: false }) as string,
+    };
+  });
 
 const slugCounts = new Map<string, number>();
 for (const issue of issues) {
@@ -77,39 +78,9 @@ export function getAdjacentIssues(slug: string): {
   };
 }
 
-export function formatIssueDate(date: string): string {
-  const [year, month] = date.split("-").map(Number);
-  if (!year || !month) return date;
-  return new Date(Date.UTC(year, month - 1, 1)).toLocaleDateString("en-US", {
-    month: "long",
-    year: "numeric",
-    timeZone: "UTC",
-  });
-}
-
-export function formatIssueMonth(date: string): string {
-  const [year, month] = date.split("-").map(Number);
-  if (!year || !month) return date;
-  return new Date(Date.UTC(year, month - 1, 1)).toLocaleDateString("en-US", {
-    month: "long",
-    timeZone: "UTC",
-  });
-}
-
-export function groupIssuesByYear(
-  issuesToGroup: NewsletterIssue[],
-): { year: string; issues: NewsletterIssue[] }[] {
-  const groups: { year: string; issues: NewsletterIssue[] }[] = [];
-
-  for (const issue of issuesToGroup) {
-    const year = issue.date.slice(0, 4);
-    const lastGroup = groups[groups.length - 1];
-    if (lastGroup && lastGroup.year === year) {
-      lastGroup.issues.push(issue);
-    } else {
-      groups.push({ year, issues: [issue] });
-    }
-  }
-
-  return groups;
-}
+// Re-exported so server code can pull loading + formatting from one place.
+export {
+  formatIssueDate,
+  formatIssueMonth,
+  groupIssuesByYear,
+} from "./newsletter-format";

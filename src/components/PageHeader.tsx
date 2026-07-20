@@ -1,15 +1,11 @@
 import type { ReactNode } from "react";
-import Seo from "./Seo";
+import { BACK_LINK_MUTED_CLASS } from "../lib/layout";
+import JsonLd from "./JsonLd";
 import BackLink from "./BackLink";
 
 interface PageHeaderProps {
-  seo: {
-    title: string;
-    description: string;
-    path: string;
-    jsonLd?: object | object[];
-    ogType?: "website" | "article";
-  };
+  /** Title/description/canonical now come from each route's generateMetadata. */
+  jsonLd?: object | object[];
   backTo: { fallback: string; label: string; alwaysFallback?: boolean };
   eyebrow: string;
   title: ReactNode;
@@ -42,7 +38,7 @@ const variants = {
 } as const;
 
 export default function PageHeader({
-  seo,
+  jsonLd,
   backTo,
   eyebrow,
   title,
@@ -54,14 +50,14 @@ export default function PageHeader({
 
   return (
     <>
-      <Seo {...seo} />
+      {jsonLd && <JsonLd data={jsonLd} />}
 
       <div className={`relative z-10 ${v.maxWidth} mx-auto ${v.containerPadding} ${v.backTopPad}`}>
         <BackLink
           fallback={backTo.fallback}
           label={backTo.label}
           alwaysFallback={backTo.alwaysFallback}
-          className="inline-flex items-center gap-2 text-[color:var(--color-text-subtle)] hover:text-white text-[14px] transition-colors duration-200"
+          className={BACK_LINK_MUTED_CLASS}
         />
       </div>
 

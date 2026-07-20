@@ -1,0 +1,52 @@
+# Kuber Tech Solutions
+
+> An engineering team building high-performance full-stack applications, cloud
+> infrastructure, IoT systems, and production AI for funded startups. Based in
+> India (IST, UTC+5:30), working with clients in the US, UK, and UAE.
+
+Kuber Tech Solutions is an engineering partner, not a staffing agency. Engagements
+are scoped before quoting. The team works async-first with deliberate US Eastern
+and UK timezone overlap.
+
+## Services
+
+- **AI engineering** — RAG systems, LLM integration, retrieval pipelines, evaluation
+  and observability for production AI.
+- **Cloud infrastructure** — AWS (EKS, Terraform), autoscaling, cost optimization.
+- **IoT and connected hardware** — fleet management, AWS IoT Greengrass, edge devices.
+- **Frontend engineering and performance** — Core Web Vitals, rendering strategy,
+  Largest Contentful Paint optimization.
+- **Design systems** — token-based component libraries governed across product squads.
+- **Full-stack development** — React, Next.js, TypeScript, Ruby on Rails, real-time
+  systems.
+
+## Case studies
+
+- [Marks & Spencer performance](https://kubertechsolutions.in/case-studies/marks-and-spencer-performance):
+  Largest Contentful Paint reduced from 4.1s to 1.8s across 2M+ monthly product
+  pages; checkout conversion doubled from 2% to 4%; 50–60 component design system.
+- [Rivian RAG knowledge engine](https://kubertechsolutions.in/case-studies/rag-knowledge-engine):
+  Hybrid dense + sparse retrieval over 500,000+ technical documents at sub-200ms
+  query latency, 35% lower cloud cost than the initial spec, 99.9% uptime on EKS.
+- [Custom print platform](https://kubertechsolutions.in/case-studies/custom-print-platform):
+  Real-time canvas design tool on Konva.js with WebSockets, six months of iteration
+  with zero regressions, green Core Web Vitals.
+- [IoT device management](https://kubertechsolutions.in/case-studies/iot-xponent):
+  Secure IoT fleet management with AWS IoT Greengrass and Raspberry Pi edge
+  infrastructure.
+
+## Key pages
+
+- [Home](https://kubertechsolutions.in/)
+- [Services](https://kubertechsolutions.in/services)
+- [Case studies](https://kubertechsolutions.in/case-studies)
+- [Remote engineering from India](https://kubertechsolutions.in/remote-engineering-india)
+- [Newsletter](https://kubertechsolutions.in/newsletter) — monthly notes on
+  engineering decisions and trade-offs from active engagements.
+- [About](https://kubertechsolutions.in/about) — Vinit Brahmankar, founder.
+- [Contact](https://kubertechsolutions.in/contact)
+
+## Contact
+
+Scoping happens before quoting. Book a 30-minute call or send project details via
+the contact page.

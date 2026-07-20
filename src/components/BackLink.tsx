@@ -1,5 +1,7 @@
+"use client";
+
 import { ArrowLeft } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 
 interface BackLinkProps {
   fallback: string;
@@ -9,18 +11,19 @@ interface BackLinkProps {
 }
 
 export default function BackLink({ fallback, label, className, alwaysFallback = false }: BackLinkProps) {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const handleBack = () => {
     if (alwaysFallback) {
-      navigate(fallback);
+      router.push(fallback);
       return;
     }
-    const state = window.history.state as { idx?: number } | null;
-    if (state && typeof state.idx === "number" && state.idx > 0) {
-      navigate(-1);
+    // react-router tracked its own stack position via history.state.idx.
+    // Next has no equivalent, so fall back to whether there's history at all.
+    if (typeof window !== "undefined" && window.history.length > 1) {
+      router.back();
     } else {
-      navigate(fallback);
+      router.push(fallback);
     }
   };
 

@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useRef, useState } from 'react'
 import ScrollReveal from './ScrollReveal'
 import ScrambleText from './ScrambleText'

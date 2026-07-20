@@ -1,4 +1,6 @@
-import { Link } from "react-router-dom";
+"use client";
+
+import Link from "next/link";
 import { openBooking } from "../booking";
 import ScrollReveal from "./ScrollReveal";
 
@@ -46,7 +48,7 @@ function FooterColumn({ title, links }: { title: string; links: FooterLink[] }) 
               </button>
             ) : link.href?.startsWith("/") ? (
               <Link
-                to={link.href}
+                href={link.href}
                 className="text-[11px] uppercase tracking-[0.18em] text-[#E4E4E7] transition-colors duration-200 hover:text-white"
               >
                 {link.label}

@@ -1,6 +1,8 @@
+"use client";
+
 import { type ComponentType } from "react";
 import { ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   SiReact,
@@ -142,7 +144,7 @@ export default function CaseStudiesSection() {
                   </span>
                   {p.slug && (
                     <Link
-                      to={p.slug}
+                      href={p.slug}
                       className="group/btn inline-flex items-center gap-2 bg-white/15 hover:bg-white/25 text-white text-[12px] sm:text-[13px] font-medium rounded-full pl-4 pr-1.5 py-1.5 transition-colors duration-200 shrink-0"
                     >
                       <span>Case study</span>
@@ -177,7 +179,7 @@ export default function CaseStudiesSection() {
 
         <ScrollReveal className="px-5 sm:px-8 lg:px-12 mt-8 sm:mt-10" delay={0.3}>
           <Link
-            to="/case-studies"
+            href="/case-studies"
             className="inline-flex items-center gap-2 text-[14px] font-medium text-[#FAFAFA] hover:text-[#8B5CF6] transition-colors duration-200"
           >
             More projects
