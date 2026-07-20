@@ -1,3 +1,5 @@
+"use client";
+
 import { ArrowRight, Cpu, FileSearch, Bot } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
 import { openBooking } from "../booking";

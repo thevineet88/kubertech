@@ -1,9 +1,11 @@
+"use client";
+
 import { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 
 import { ArrowRight, ChevronDown, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { openBooking } from "../booking";
 
 interface NavChild {
@@ -49,7 +51,7 @@ function NavLink({ label, href }: NavChild) {
 
   return isInternalRoute(href) ? (
     <Link
-      to={href}
+      href={href}
       className="text-[14px] text-white/85 hover:text-white transition-colors duration-300"
     >
       {label}
@@ -67,6 +69,9 @@ function NavLink({ label, href }: NavChild) {
 export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  // document.body doesn't exist during SSR, so the portal can only mount
+  // after hydration.
+  const [mounted, setMounted] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [openMobileGroup, setOpenMobileGroup] = useState<string | null>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -78,6 +83,8 @@ export default function Nav() {
       document.body.style.overflow = "";
     };
   }, [menuOpen]);
+
+  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -178,7 +185,7 @@ export default function Nav() {
                             {children.map((c) => (
                               <Link
                                 key={c.href}
-                                to={c.href}
+                                href={c.href}
                                 onClick={() => setOpenDropdown(null)}
                                 className="block px-4 py-2.5 text-[13.5px] text-white/70 hover:text-white hover:bg-white/5 transition-colors duration-150"
                               >
@@ -210,7 +217,7 @@ export default function Nav() {
       </motion.div>
 
       {/* Mobile menu, portaled to body so its z-50 escapes the hero stacking context */}
-      {createPortal(
+      {mounted && createPortal(
         <>
           <AnimatePresence>
         {menuOpen && (
@@ -278,7 +285,7 @@ export default function Nav() {
                                 {children.map((c) => (
                                   <Link
                                     key={c.href}
-                                    to={c.href}
+                                    href={c.href}
                                     onClick={() => setMenuOpen(false)}
                                     className="block text-[16px] text-white/60 hover:text-white transition-colors"
                                   >
@@ -303,7 +310,7 @@ export default function Nav() {
                       </button>
                     ) : isInternalRoute(href) ? (
                       <Link
-                        to={href}
+                        href={href}
                         className="text-[28px] font-medium text-white leading-[32px] hover:text-white/60 transition-colors"
                         onClick={() => setMenuOpen(false)}
                       >

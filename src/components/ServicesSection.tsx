@@ -1,5 +1,5 @@
 import type { ComponentType } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import {
   SiReact,
@@ -146,7 +146,7 @@ export default function ServicesSection() {
           delay={0.3}
         >
           <Link
-            to="/services"
+            href="/services"
             className="inline-flex items-center gap-2 text-[14px] font-medium text-[#FAFAFA] hover:text-[color:var(--color-accent)] transition-colors duration-200"
           >
             View all services

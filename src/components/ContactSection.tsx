@@ -1,6 +1,8 @@
+"use client";
+
 import { useState } from "react";
 import { ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import ScrollReveal from "./ScrollReveal";
 import { openBooking } from "../booking";
 
@@ -268,16 +270,16 @@ export default function ContactSection({
         {showFooter && (
         <div className="mt-10 pt-6 border-t border-white/10 flex flex-col items-center gap-4">
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[13px] text-white/40">
-            <Link to="/services" className="hover:text-white transition-colors duration-200">
+            <Link href="/services" className="hover:text-white transition-colors duration-200">
               Services
             </Link>
             <Link
-              to="/remote-engineering-india"
+              href="/remote-engineering-india"
               className="hover:text-white transition-colors duration-200"
             >
               Remote engineering, India
             </Link>
-            <Link to="/newsletter" className="hover:text-white transition-colors duration-200">
+            <Link href="/newsletter" className="hover:text-white transition-colors duration-200">
               Newsletter
             </Link>
           </div>

@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useRef, useState, type ElementType } from "react";
 
 const CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#$%&@";
