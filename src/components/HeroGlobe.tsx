@@ -3,18 +3,31 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
-/* Wireframe icosphere + particle globe. Ambient rotation only, no pointer
-   interaction. Grows and fades into a persistent ambient wireframe border
-   as the user scrolls past the hero, then holds. Fixed full-viewport
-   canvas that stays behind every later section. */
+/* Wireframe icosphere + particle globe. On load, a big-bang intro: every
+   particle detonates from a single
+   bright center point, overshoots outward, then curves back into orbit and
+   settles as the sphere; the wireframe draws itself in and ignites with
+   shockwave rings at lock-in (skipped for reduced motion / mid-page loads).
+   Afterwards subtle satellite dots with trailing arcs orbit on tilted
+   rings. As the user scrolls into
+   services the globe deconstructs — particles burst apart and re-assemble
+   into a screen-aligned network lattice behind the later sections; scrolling
+   back re-forms the globe. Fixed full-viewport canvas. */
 
 const POINT_VERT = `
   attribute float aSize;
   attribute vec3 aColor;
   attribute float aSeed;
+  attribute vec3 aTarget;
+  attribute vec3 aBurst;
+  attribute float aDelay;
   uniform float uPixelRatio;
   uniform float uTime;
+  uniform float uForm;
   uniform float uPointFade;
+  uniform float uMorph;
+  uniform float uScaleInv;
+  uniform mat3 uInvRot;
   uniform vec3 uHover;
   uniform float uHoverActive;
   uniform vec3 uRippleOrigin;
@@ -31,9 +44,36 @@ const POINT_VERT = `
       sin(uTime * 0.31 + aSeed * 5.3)
     ) * 0.045;
     vec3 p = position + flow;
+
+    // Big-bang intro: every particle is born at the center as one bright
+    // point, blasts outward past its final shell (per-particle overshoot),
+    // then curves back into orbit — an unwinding Y rotation bends the return
+    // path — and settles at its resting position. When uForm is past the
+    // timeline (or set large to skip), this collapses to p exactly.
+    float ft = clamp((uForm - aDelay) / 3.45, 0.0, 1.0);
+    float rise = 1.0 - pow(1.0 - min(ft / 0.35, 1.0), 3.0);
+    float fall = smoothstep(0.35, 1.0, ft);
+    float bm = mix(rise * (1.35 + aSeed * 0.85), 1.0, fall);
+    float bang = (1.0 - fall) * (1.8 + aSeed * 2.4);
+    vec3 pf = p * bm;
+    float bca = cos(bang);
+    float bsa = sin(bang);
+    p = vec3(pf.x * bca - pf.z * bsa, pf.y, pf.x * bsa + pf.z * bca);
+
+    // Scroll morph: the globe deconstructs — every particle bursts along its
+    // own random vector mid-transition — then re-assembles into a screen-
+    // aligned network lattice. aTarget/aBurst are authored in world space;
+    // uInvRot and uScaleInv cancel the group's rotation and scale so the
+    // lattice holds steady while the group keeps rotating and growing.
+    if (uMorph > 0.0) {
+      vec3 tgt = uInvRot * (aTarget * uScaleInv);
+      vec3 kick = uInvRot * (aBurst * uScaleInv) * sin(uMorph * 3.14159);
+      p = mix(p, tgt, uMorph) + kick + flow * 0.35 * uMorph;
+    }
+
     float twinkle = 0.85 + 0.2 * sin(uTime * 1.6 + position.x * 4.0 + position.y * 3.0);
     vColor = aColor;
-    vAlpha = twinkle * uPointFade;
+    vAlpha = twinkle * uPointFade * smoothstep(0.0, 0.8, uForm);
 
     float hoverGlow = uHoverActive * smoothstep(0.9, 0.0, distance(p, uHover));
     float rippleGlow = 0.0;
@@ -56,7 +96,8 @@ const POINT_VERT = `
         collGlow += flash * 1.6 + shell * 0.9;
       }
     }
-    vGlow = hoverGlow * 0.9 + rippleGlow * 1.3 + collGlow;
+    // debris glows white-hot at the blast and cools as it settles into orbit
+    vGlow = hoverGlow * 0.9 + rippleGlow * 1.3 + collGlow + (1.0 - ft) * (1.0 - ft) * 1.5 * step(0.001, uForm);
 
     vec4 mv = modelViewMatrix * vec4(p, 1.0);
     gl_PointSize = aSize * uPixelRatio * (46.0 / -mv.z) * (1.0 + vGlow * 0.6);
@@ -105,6 +146,7 @@ const LINE_FRAG = `
     gl_FragColor = vec4(col, a);
   }`;
 
+
 export default function HeroGlobe() {
   const hostRef = useRef<HTMLDivElement>(null);
 
@@ -115,6 +157,14 @@ export default function HeroGlobe() {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const isMobile = window.matchMedia("(max-width: 767px)").matches;
     const POINT_COUNT = isMobile ? 1400 : 9000;
+
+    // Big-bang intro plays on load unless the user prefers reduced motion or
+    // arrived mid-page (e.g. reload while scrolled): then the globe starts
+    // formed. The site preloader covers the page for ~1.5s + 0.6s fade; the
+    // blast fires as the loader lifts, debris settles ~3.7s later.
+    const skipForm = reduced || window.scrollY > 60;
+    const FORM_START = 1.35;
+    const FORM_FINALE = 3.5;
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
@@ -171,6 +221,7 @@ export default function HeroGlobe() {
     const col = new Float32Array(N * 3);
     const siz = new Float32Array(N);
     const seed = new Float32Array(N);
+    const delay = new Float32Array(N);
     const bright = new THREE.Color(0xffffff);
     const mid = new THREE.Color(0xf1f1f4);
     const v = new THREE.Vector3();
@@ -195,17 +246,49 @@ export default function HeroGlobe() {
       col[i * 3 + 2] = c.b;
       siz[i] = isSparkle ? 1.0 + Math.random() * 0.85 : 0.35 + Math.random() * 0.45;
       seed[i] = Math.random();
+      // near-simultaneous detonation, just enough jitter to feel organic
+      delay[i] = Math.random() * 0.25;
+    }
+
+    // Deconstruct-on-scroll targets: a fine dot lattice sized to the viewport
+    // (world half-height at the globe's plane is ~3.7 units), plus a random
+    // burst vector per particle for the mid-transition break-apart.
+    const latAspect = window.innerWidth / Math.max(1, window.innerHeight);
+    const latHalfH = 3.4;
+    const latHalfW = Math.min(8.5, latHalfH * latAspect);
+    const latCols = Math.max(8, Math.round(Math.sqrt(N * (latHalfW / latHalfH))));
+    const latRows = Math.max(2, Math.ceil(N / latCols));
+    const tgt = new Float32Array(N * 3);
+    const burst = new Float32Array(N * 3);
+    const bv = new THREE.Vector3();
+    for (let i = 0; i < N; i++) {
+      const cx = i % latCols;
+      const cy = Math.floor(i / latCols);
+      tgt[i * 3] = ((cx / (latCols - 1)) * 2 - 1) * latHalfW + (Math.random() - 0.5) * 0.05;
+      tgt[i * 3 + 1] = ((cy / (latRows - 1)) * 2 - 1) * latHalfH + (Math.random() - 0.5) * 0.05;
+      tgt[i * 3 + 2] = (Math.random() - 0.5) * 0.3;
+      bv.randomDirection().multiplyScalar(0.7 + Math.random() * 1.5);
+      burst[i * 3] = bv.x;
+      burst[i * 3 + 1] = bv.y;
+      burst[i * 3 + 2] = bv.z;
     }
     const geo = new THREE.BufferGeometry();
     geo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
     geo.setAttribute("aColor", new THREE.BufferAttribute(col, 3));
     geo.setAttribute("aSize", new THREE.BufferAttribute(siz, 1));
     geo.setAttribute("aSeed", new THREE.BufferAttribute(seed, 1));
+    geo.setAttribute("aTarget", new THREE.BufferAttribute(tgt, 3));
+    geo.setAttribute("aBurst", new THREE.BufferAttribute(burst, 3));
+    geo.setAttribute("aDelay", new THREE.BufferAttribute(delay, 1));
     const pmat = new THREE.ShaderMaterial({
       uniforms: {
         uPixelRatio: { value: pr },
         uTime: { value: 0 },
+        uForm: { value: skipForm ? 100 : 0 },
         uPointFade: { value: 1 },
+        uMorph: { value: 0 },
+        uScaleInv: { value: 1 },
+        uInvRot: { value: new THREE.Matrix3() },
         uHover: { value: new THREE.Vector3() },
         uHoverActive: { value: 0 },
         uRippleOrigin: { value: new THREE.Vector3() },
@@ -220,6 +303,75 @@ export default function HeroGlobe() {
       blending: THREE.NormalBlending,
     });
     group.add(new THREE.Points(geo, pmat));
+
+    // Orbiting satellites: bright dots circling the globe on tilted rings,
+    // each with a trailing arc that fades to black (additive blending makes
+    // the dark tail vanish). Deliberately punchy — sized and lit to be seen.
+    const SAT_DEFS = [
+      { r: 2.95, speed: 0.28, tiltX: 0.9, tiltZ: 0.35, phase: 0.0, color: 0xcfeaff },
+      { r: 3.25, speed: -0.2, tiltX: -0.55, tiltZ: 0.8, phase: 2.1, color: 0xd6c6ff },
+      { r: 3.55, speed: 0.16, tiltX: 0.25, tiltZ: -0.95, phase: 4.4, color: 0xffb8de },
+    ];
+    const TRAIL_N = 56;
+    const TRAIL_SPAN = 1.35;
+    interface Sat {
+      dot: THREE.Mesh;
+      dotMat: THREE.MeshBasicMaterial;
+      glow: THREE.Mesh;
+      glowMat: THREE.MeshBasicMaterial;
+      trailGeo: THREE.BufferGeometry;
+      trailMat: THREE.LineBasicMaterial;
+      trailPos: Float32Array;
+      angle: number;
+      r: number;
+      speed: number;
+    }
+    const sats: Sat[] = [];
+    for (const s of SAT_DEFS) {
+      const pivot = new THREE.Group();
+      pivot.rotation.set(s.tiltX, 0, s.tiltZ);
+      group.add(pivot);
+      const dotMat = new THREE.MeshBasicMaterial({
+        color: s.color,
+        transparent: true,
+        opacity: 0,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+      });
+      const dot = new THREE.Mesh(new THREE.SphereGeometry(0.045, 12, 12), dotMat);
+      pivot.add(dot);
+      // soft halo around the dot so it reads even against bright particles
+      const glowMat = new THREE.MeshBasicMaterial({
+        color: s.color,
+        transparent: true,
+        opacity: 0,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+      });
+      const glow = new THREE.Mesh(new THREE.SphereGeometry(0.09, 12, 12), glowMat);
+      dot.add(glow);
+      const trailPos = new Float32Array(TRAIL_N * 3);
+      const trailCol = new Float32Array(TRAIL_N * 3);
+      const tc = new THREE.Color(s.color);
+      for (let k = 0; k < TRAIL_N; k++) {
+        const f = 1 - k / (TRAIL_N - 1);
+        trailCol[k * 3] = tc.r * f * f;
+        trailCol[k * 3 + 1] = tc.g * f * f;
+        trailCol[k * 3 + 2] = tc.b * f * f;
+      }
+      const trailGeo = new THREE.BufferGeometry();
+      trailGeo.setAttribute("position", new THREE.BufferAttribute(trailPos, 3));
+      trailGeo.setAttribute("color", new THREE.BufferAttribute(trailCol, 3));
+      const trailMat = new THREE.LineBasicMaterial({
+        vertexColors: true,
+        transparent: true,
+        opacity: 0,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+      });
+      pivot.add(new THREE.Line(trailGeo, trailMat));
+      sats.push({ dot, dotMat, glow, glowMat, trailGeo, trailMat, trailPos, angle: s.phase, r: s.r, speed: s.speed });
+    }
 
     // Reusable expanding halo rings: camera-facing circles born at the globe's
     // silhouette that sweep outward around the entire sphere and fade.
@@ -281,7 +433,7 @@ export default function HeroGlobe() {
       emitRing();
     };
     const tmpV = new THREE.Vector3();
-    let nextCollAllowedAt = performance.now() + 1500;
+    let nextCollAllowedAt = performance.now() + (skipForm ? 1500 : 6300);
 
     // roamers ride the tail of the particle buffer: bigger, brighter points
     for (let i = 0; i < ROAMERS; i++) {
@@ -354,6 +506,7 @@ export default function HeroGlobe() {
     document.addEventListener("visibilitychange", onVisibility);
 
     const SCROLL_SPAN = () => window.innerHeight * 1.3;
+    const invRotM4 = new THREE.Matrix4();
     const start = performance.now();
     let raf = 0;
     let settled = false;
@@ -363,7 +516,12 @@ export default function HeroGlobe() {
     let flowTime = 0;
     let wireGlow = 0;
     let clickBoostUntil = -1;
-    let nextAutoPulse = performance.now() + 3000 + Math.random() * 2500;
+    let finaleFired = skipForm;
+    let pendingRingAt = -1;
+    const wireCount = (wireGeo.attributes.position as THREE.BufferAttribute).count;
+    if (!skipForm) wireGeo.setDrawRange(0, 0);
+    let wireDrawn = skipForm;
+    let nextAutoPulse = performance.now() + (skipForm ? 3000 : 7300) + Math.random() * 2500;
     let autoPulseStart = -1;
     const AUTO_PULSE_DURATION = 2200;
     const AUTO_PULSE_PEAK = 0.4;
@@ -373,10 +531,40 @@ export default function HeroGlobe() {
       const dt = (now - lastT) / 1000;
       lastT = now;
 
+      // ---- big-bang timeline (negative while the preloader still covers the page) ----
+      const formT = (now - start) / 1000 - FORM_START;
+      if (!skipForm) pmat.uniforms.uForm.value = formT;
+      // wireframe skeleton draws itself in over the last stretch of the settle
+      if (!wireDrawn) {
+        const wp = Math.min(1, Math.max(0, (formT - 2.75) / 0.7));
+        wireGeo.setDrawRange(0, Math.floor(wireCount * wp));
+        if (wp >= 1) wireDrawn = true;
+      }
+      // finale: shockwave rings sweep out and the skeleton ignites, then cools
+      if (!finaleFired && formT >= FORM_FINALE) {
+        finaleFired = true;
+        emitRing();
+        pendingRingAt = now + 170;
+        clickBoostUntil = now + 850;
+      }
+      if (pendingRingAt > 0 && now >= pendingRingAt) {
+        emitRing();
+        pendingRingAt = -1;
+      }
+
       const scrollProgress = Math.min(1, Math.max(0, window.scrollY / SCROLL_SPAN()));
       const scale = 1 + scrollProgress * (isMobile ? 1.05 : 2.4);
       group.scale.setScalar(scale);
-      pmat.uniforms.uPointFade.value = Math.max(0, 1 - scrollProgress * 1.05);
+
+      // deconstruct → lattice morph, driven purely by scroll position
+      const mLin = Math.min(1, Math.max(0, (scrollProgress - 0.15) / 0.8));
+      const morphE = mLin * mLin * (3 - 2 * mLin);
+      pmat.uniforms.uMorph.value = morphE;
+      pmat.uniforms.uScaleInv.value = 1 / scale;
+
+      // particles never vanish on scroll now — they dim while breaking apart,
+      // then hold as a subtle lattice backdrop behind the later sections
+      pmat.uniforms.uPointFade.value = Math.max(Math.max(0, 1 - scrollProgress * 1.05), morphE * 0.42);
       wireMat.uniforms.uBase.value = 0.04 + scrollProgress * 0.06;
 
       // rotation slows to near-still as the globe settles into its ambient skeleton state
@@ -389,9 +577,35 @@ export default function HeroGlobe() {
       const parallaxX = reduced || isMobile ? 0 : -pointerNDC.y * 0.05;
       group.rotation.y = rotY + parallaxY;
       group.rotation.x = Math.sin(rotAngle) * 0.06 + parallaxX;
+      // lattice targets are world-aligned: cancel whatever rotation the group
+      // carries this frame (orthonormal, so transpose == inverse)
+      invRotM4.makeRotationFromEuler(group.rotation);
+      (pmat.uniforms.uInvRot.value as THREE.Matrix3).setFromMatrix4(invRotM4).transpose();
 
       if (!reduced) flowTime += dt * 1.15;
       pmat.uniforms.uTime.value = reduced ? 0 : flowTime;
+
+      // arrival ramp for the post-bang satellites
+      const arriveFade = skipForm ? 1 : Math.min(1, Math.max(0, (formT - FORM_FINALE - 0.4) / 1.2));
+
+      // satellites: constant gentle orbit, trail arc redrawn behind each dot;
+      // they belong to the globe, so they dissolve as it deconstructs
+      const satFade = arriveFade * (1 - morphE) * Math.max(0, 1 - scrollProgress * 1.05);
+      for (const s of sats) {
+        if (!reduced) s.angle += dt * s.speed;
+        s.dot.position.set(Math.cos(s.angle) * s.r, 0, Math.sin(s.angle) * s.r);
+        const dir = s.speed >= 0 ? 1 : -1;
+        for (let k = 0; k < TRAIL_N; k++) {
+          const a = s.angle - dir * (k / (TRAIL_N - 1)) * TRAIL_SPAN;
+          s.trailPos[k * 3] = Math.cos(a) * s.r;
+          s.trailPos[k * 3 + 1] = 0;
+          s.trailPos[k * 3 + 2] = Math.sin(a) * s.r;
+        }
+        (s.trailGeo.attributes.position as THREE.BufferAttribute).needsUpdate = true;
+        s.dotMat.opacity = satFade * 0.8;
+        s.glowMat.opacity = satFade * 0.18;
+        s.trailMat.opacity = satFade * 0.55;
+      }
 
       // roamer physics: free flight inside the sphere, bounce off the shell —
       // constant natural speed, never altered by collision events
@@ -410,7 +624,7 @@ export default function HeroGlobe() {
         // or velocity here. Roamers keep drifting exactly as they were; the
         // "collision" is purely an observed event, not a physics response.
         // Gated to one collision globally every ~2-3s so effects never overlap.
-        if (now >= nextCollAllowedAt && pmat.uniforms.uPointFade.value > 0.15) {
+        if (now >= nextCollAllowedAt && pmat.uniforms.uPointFade.value > 0.15 && morphE < 0.2) {
           outer: for (let i = 0; i < ROAMERS; i++) {
             for (let j = i + 1; j < ROAMERS; j++) {
               tmpV.subVectors(roamPos[i], roamPos[j]);
@@ -517,6 +731,14 @@ export default function HeroGlobe() {
       renderer.dispose();
       ringGeo.dispose();
       for (const r of rings) r.mat.dispose();
+      for (const s of sats) {
+        s.trailGeo.dispose();
+        s.trailMat.dispose();
+        s.dot.geometry.dispose();
+        s.dotMat.dispose();
+        s.glow.geometry.dispose();
+        s.glowMat.dispose();
+      }
       geo.dispose();
       wireGeo.dispose();
       pmat.dispose();
