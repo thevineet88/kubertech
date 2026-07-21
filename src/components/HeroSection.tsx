@@ -13,13 +13,21 @@ export default function HeroSection() {
   const { scrollY } = useScroll();
   const cueOpacity = useTransform(scrollY, [0, 120], [1, 0]);
 
+  // Choreographed with the globe's big-bang intro: the preloader lifts at
+  // ~1.5s, the blast debris curves back into the sphere until lock-in at
+  // ~4.85s. Headline words ride the settle, the subhead follows, and
+  // everything has landed by the shockwave finale.
   const heroContainer: Variants = {
     hidden: {},
-    show: { transition: { staggerChildren: reduced ? 0 : 0.07, delayChildren: 0.2 } },
+    show: { transition: { staggerChildren: reduced ? 0 : 0.1, delayChildren: reduced ? 0.2 : 2.4 } },
+  };
+  const subContainer: Variants = {
+    hidden: {},
+    show: { transition: { delayChildren: reduced ? 0.3 : 3.3 } },
   };
   const heroWord: Variants = {
     hidden: { opacity: 0, y: reduced ? 0 : "0.7em" },
-    show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
+    show: { opacity: 1, y: 0, transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] } },
   };
 
   return (
@@ -39,9 +47,13 @@ export default function HeroSection() {
 
       <HeroGlobe />
 
-      {/* Small, subtle glow just outside the wireframe mesh's outer edge */}
-      <div
+      {/* Small, subtle glow just outside the wireframe mesh's outer edge —
+          blooms in at the moment the blast debris locks into the globe */}
+      <motion.div
         aria-hidden="true"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: reduced ? 0 : 4.35, duration: 1.1, ease: "easeOut" }}
         className="absolute left-1/2 top-1/2 z-[1] -translate-x-1/2 -translate-y-1/2 rounded-full"
         style={{
           width: "min(70vw, 48vh)",
@@ -116,7 +128,7 @@ export default function HeroSection() {
       </motion.div>
 
       <motion.div
-        variants={heroContainer}
+        variants={subContainer}
         initial="hidden"
         animate="show"
         className="absolute bottom-28 sm:bottom-36 left-0 right-0 z-10 mx-auto flex max-w-5xl justify-center px-6"
@@ -134,6 +146,12 @@ export default function HeroSection() {
         style={{ opacity: cueOpacity }}
         className="absolute bottom-8 sm:bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-3"
       >
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: reduced ? 0.4 : 5.0, duration: 0.9 }}
+          className="flex flex-col items-center gap-3"
+        >
         <span
           className="text-[10px] uppercase"
           style={{ color: MUTED, fontFamily: "ui-monospace, Menlo, monospace", letterSpacing: "0.3em" }}
@@ -148,6 +166,7 @@ export default function HeroSection() {
             transition={reduced ? undefined : { duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
           />
         </div>
+        </motion.div>
       </motion.div>
     </section>
   );
