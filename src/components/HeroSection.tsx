@@ -1,7 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import { motion, useScroll, useTransform, useReducedMotion, type Variants } from "framer-motion";
 import HeroGlobe from "./HeroGlobe";
+import { introState } from "./Preloader";
 
 const MUTED = "#A1A1AA";
 const FG = "#FAFAFA";
@@ -13,17 +15,32 @@ export default function HeroSection() {
   const { scrollY } = useScroll();
   const cueOpacity = useTransform(scrollY, [0, 120], [1, 0]);
 
+  // HeroGlobe's big-bang intro plays on every genuine page load, but only
+  // once per that run — see introState / skipForm in HeroGlobe.tsx. Any
+  // later mount of this page (nav back from Work/Contact/anywhere via
+  // client-side routing) shows the globe already formed with no replay, so
+  // the text should reveal right away too instead of waiting out a
+  // formation that isn't happening.
+  const [instant] = useState(() => introState.seen);
+
   // Choreographed with the globe's big-bang intro: the preloader lifts at
   // ~1.5s, the blast debris curves back into the sphere until lock-in at
   // ~4.85s. Headline words ride the settle, the subhead follows, and
-  // everything has landed by the shockwave finale.
+  // everything has landed by the shockwave finale. On repeat visits (globe
+  // already formed) this collapses to the same near-instant reveal reduced
+  // motion uses.
   const heroContainer: Variants = {
     hidden: {},
-    show: { transition: { staggerChildren: reduced ? 0 : 0.1, delayChildren: reduced ? 0.2 : 2.4 } },
+    show: {
+      transition: {
+        staggerChildren: reduced || instant ? 0 : 0.1,
+        delayChildren: reduced || instant ? 0.2 : 2.4,
+      },
+    },
   };
   const subContainer: Variants = {
     hidden: {},
-    show: { transition: { delayChildren: reduced ? 0.3 : 3.3 } },
+    show: { transition: { delayChildren: reduced || instant ? 0.3 : 3.3 } },
   };
   const heroWord: Variants = {
     hidden: { opacity: 0, y: reduced ? 0 : "0.7em" },
@@ -53,7 +70,7 @@ export default function HeroSection() {
         aria-hidden="true"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: reduced ? 0 : 4.35, duration: 1.1, ease: "easeOut" }}
+        transition={{ delay: reduced || instant ? 0 : 4.35, duration: 1.1, ease: "easeOut" }}
         className="absolute left-1/2 top-1/2 z-[1] -translate-x-1/2 -translate-y-1/2 rounded-full"
         style={{
           width: "min(70vw, 48vh)",
@@ -149,7 +166,7 @@ export default function HeroSection() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: reduced ? 0.4 : 5.0, duration: 0.9 }}
+          transition={{ delay: reduced || instant ? 0.4 : 5.0, duration: 0.9 }}
           className="flex flex-col items-center gap-3"
         >
         <span

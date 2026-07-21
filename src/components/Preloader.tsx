@@ -3,6 +3,18 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
+// Preloader lives once in the root layout and never remounts on client-side
+// navigation. HeroGlobe, by contrast, remounts every time the home page is
+// revisited, so it reads this flag to know whether the logo loader is
+// actually covering the screen right now (first load) or not (nav back) —
+// see usage in HeroGlobe.tsx / HeroSection.tsx.
+//
+// This is a plain in-memory flag, not sessionStorage: it must reset on every
+// genuine page load/reload (fresh JS execution) so the big-bang intro always
+// replays then, while surviving client-side navigation within that same run
+// (same JS module instance) so a nav back to home doesn't replay it.
+export const introState = { seen: false };
+
 export default function Preloader() {
   const [visible, setVisible] = useState(true);
 
@@ -13,7 +25,10 @@ export default function Preloader() {
     document.body.style.left = "0";
     document.body.style.right = "0";
 
-    const timer = setTimeout(() => setVisible(false), 1500);
+    const timer = setTimeout(() => {
+      setVisible(false);
+      introState.seen = true;
+    }, 1500);
     return () => clearTimeout(timer);
   }, []);
 

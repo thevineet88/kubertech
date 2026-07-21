@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
+import { introState } from "./Preloader";
 
 /* Wireframe icosphere + particle globe. On load, a big-bang intro: every
    particle detonates from a single
@@ -158,11 +159,13 @@ export default function HeroGlobe() {
     const isMobile = window.matchMedia("(max-width: 767px)").matches;
     const POINT_COUNT = isMobile ? 1400 : 9000;
 
-    // Big-bang intro plays on load unless the user prefers reduced motion or
-    // arrived mid-page (e.g. reload while scrolled): then the globe starts
-    // formed. The site preloader covers the page for ~1.5s + 0.6s fade; the
-    // blast fires as the loader lifts, debris settles ~3.7s later.
-    const skipForm = reduced || window.scrollY > 60;
+    // The big-bang intro plays on every genuine page load (fresh JS
+    // execution resets introState.seen) while the logo preloader actually
+    // covers the screen. Any later mount of the home page within that same
+    // run — nav back from Work/Contact/anywhere via client-side routing —
+    // skips straight to the already-formed globe: no delay, no replay.
+    // Reduced motion or a mid-page load (e.g. reload while scrolled) also skip.
+    const skipForm = reduced || window.scrollY > 60 || introState.seen;
     const FORM_START = 1.35;
     const FORM_FINALE = 3.5;
 
