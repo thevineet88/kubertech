@@ -4,7 +4,6 @@ To use the official brand logos in the Clients section, save each logo here
 with the exact filename below (PNG or SVG, ideally transparent background):
 
 - `siemens.png`
-- `tarana.png`
 - `jiffy.png`
 - `cigora.png`
 - `samyati.png`

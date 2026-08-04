@@ -28,7 +28,7 @@ export default function NewsletterIndex({
       <PageHeader
         variant="article"
         jsonLd={hubJsonLd}
-        backTo={{ fallback: "/", label: "Back to Kuber Tech", alwaysFallback: true }}
+        backTo={{ to: "/", label: "Back to Kuber Tech" }}
         eyebrow="Newsletter"
         title="Notes from the build."
         description="One issue a month on what we shipped, what broke, and what we'd do differently, straight from the engagements we're running."

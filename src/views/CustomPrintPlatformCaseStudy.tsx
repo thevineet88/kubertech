@@ -105,7 +105,7 @@ export default function CustomPrintPlatformCaseStudy() {
       {/* Nav strip */}
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 pt-6 sm:pt-8">
         <BackLink
-          fallback="/case-studies"
+          to="/case-studies"
           label="Back"
           className={BACK_LINK_CLASS}
         />

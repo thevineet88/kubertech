@@ -191,50 +191,55 @@ export function CloudSim() {
   );
 }
 
-/* 03 — IoT: fleet telemetry over MQTT */
-export function IoTSim() {
+/* 03 — Custom Print Platform: live design sessions */
+export function PrintSim() {
   const [rows, setRows] = useState([
-    { id: "KT-0142", name: "Solar controller", temp: 41.2, battery: 87, signal: -52 },
-    { id: "KT-0287", name: "Battery gateway", temp: 38.6, battery: 64, signal: -61 },
-    { id: "KT-0311", name: "Awning unit", temp: 35.9, battery: 92, signal: -47 },
+    { id: "DES-1024", action: "artwork uploaded", size: "4.2 MB", status: "done" },
+    { id: "DES-1024", action: "canvas reposition", size: "3.1 MB", status: "done" },
+    { id: "DES-1087", action: "checkout started", size: "—", status: "live" },
   ]);
-  const [msgRate, setMsgRate] = useState(126);
-  const [uptime, setUptime] = useState(99.94);
+  const [sessions, setSessions] = useState(23);
+  const [latency, setLatency] = useState(18);
 
   const ref = useLiveSim(() => {
     setRows((prev) =>
-      prev.map((d) => ({
-        ...d,
-        temp: jitter(d.temp, 0.8, 30, 55),
-        battery: jitter(d.battery, 0.6, 40, 100),
-        signal: jitter(d.signal, 2, -75, -40),
+      prev.map((r) => ({
+        ...r,
+        size: r.size === "—" ? "—" : `${(parseFloat(r.size) + (Math.random() - 0.5) * 1.5).toFixed(1)} MB`,
+        status: Math.random() < 0.15 ? (r.status === "live" ? "syncing" : "live") : r.status,
       })),
     );
-    setMsgRate((v) => Math.round(jitter(v, 14, 90, 180)));
-    setUptime((v) => jitter(v, 0.02, 99.9, 99.99));
+    setSessions((v) => Math.round(jitter(v, 4, 12, 45)));
+    setLatency((v) => Math.round(jitter(v, 3, 8, 35)));
   });
 
   return (
     <PanelShell
       simRef={ref}
-      title="Fleet telemetry — live"
-      accent="#6B94CC"
-      meta="MQTT · AWS IoT Core"
+      title="Print platform — live"
+      accent="#8B5CF6"
+      meta="Konva · WebSocket · Rails"
       footer={[
-        ["Msg/s", <span className="text-[#6B94CC]">{msgRate}</span>],
-        ["OTA", <span className="text-white/70">v2.4.1 ✓</span>],
-        ["Uptime", <span className="text-white/70">{uptime.toFixed(2)}%</span>],
+        ["Sessions", <span className="text-[#8B5CF6]">{sessions}</span>],
+        ["Sync", <span className="text-white/70">{latency}ms</span>],
+        ["Uptime", <span className="text-white/70">99.98%</span>],
       ]}
     >
-      {rows.map((d) => (
-        <div key={d.id} className={rowCls}>
+      {rows.map((r) => (
+        <div key={r.id + r.action} className={rowCls}>
           <div className="min-w-0">
-            <span className="text-[#6B94CC]">{d.id}</span>
-            <span className="ml-2 hidden sm:inline text-white/45">{d.name}</span>
+            <span className="text-[#8B5CF6]">{r.id}</span>
+            <span className="ml-2 hidden sm:inline text-white/45">{r.action}</span>
           </div>
-          <span className="tabular-nums text-white/70">{d.temp.toFixed(1)}°C</span>
-          <span className="tabular-nums text-white/70">{d.battery.toFixed(0)}%</span>
-          <span className="tabular-nums text-white/40">{d.signal.toFixed(0)}dBm</span>
+          <span className="tabular-nums text-white/70 truncate">{r.size}</span>
+          <span
+            className="tabular-nums"
+            style={{
+              color: r.status === "live" ? "#10B981" : r.status === "syncing" ? "#06B6D4" : "#52525B",
+            }}
+          >
+            {r.status}
+          </span>
         </div>
       ))}
     </PanelShell>

@@ -3,9 +3,7 @@ import { getAllIssues } from "@/lib/newsletter";
 import { SITE_URL } from "@/lib/seo";
 
 /**
- * Generated from the real route list, so pages can't silently go missing the
- * way /about, /contact and /case-studies/iot-xponent did in the hand-written
- * sitemap.xml.
+ * Generated from the real route list.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: { path: string; priority: number }[] = [
@@ -15,7 +13,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/case-studies/marks-and-spencer-performance", priority: 0.8 },
     { path: "/case-studies/custom-print-platform", priority: 0.8 },
     { path: "/case-studies/rag-knowledge-engine", priority: 0.8 },
-    { path: "/case-studies/iot-xponent", priority: 0.8 },
     { path: "/remote-engineering-india", priority: 0.8 },
     { path: "/about", priority: 0.7 },
     { path: "/contact", priority: 0.7 },

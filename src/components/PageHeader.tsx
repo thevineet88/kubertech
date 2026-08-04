@@ -6,7 +6,7 @@ import BackLink from "./BackLink";
 interface PageHeaderProps {
   /** Title/description/canonical now come from each route's generateMetadata. */
   jsonLd?: object | object[];
-  backTo: { fallback: string; label: string; alwaysFallback?: boolean };
+  backTo: { to: string; label: string };
   eyebrow: string;
   title: ReactNode;
   description?: ReactNode;
@@ -53,12 +53,7 @@ export default function PageHeader({
       {jsonLd && <JsonLd data={jsonLd} />}
 
       <div className={`relative z-10 ${v.maxWidth} mx-auto ${v.containerPadding} ${v.backTopPad}`}>
-        <BackLink
-          fallback={backTo.fallback}
-          label={backTo.label}
-          alwaysFallback={backTo.alwaysFallback}
-          className={BACK_LINK_MUTED_CLASS}
-        />
+        <BackLink to={backTo.to} label={backTo.label} className={BACK_LINK_MUTED_CLASS} />
       </div>
 
       <div className={`relative z-10 ${v.maxWidth} mx-auto ${v.containerPadding} ${v.heroTopPad} ${v.heroBottomPad}`}>

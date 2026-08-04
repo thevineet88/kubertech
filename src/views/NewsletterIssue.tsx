@@ -41,7 +41,7 @@ export default function NewsletterIssue({
       <PageHeader
         variant="article"
         jsonLd={articleJsonLd}
-        backTo={{ fallback: "/newsletter", label: "Back to newsletter", alwaysFallback: true }}
+        backTo={{ to: "/newsletter", label: "Back to newsletter" }}
         eyebrow={formatIssueDate(issue.date)}
         title={issue.title}
       >

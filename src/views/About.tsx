@@ -19,7 +19,7 @@ export default function About({
 
       <div className="relative z-10 mx-auto max-w-[1440px] px-5 pb-16 pt-6 sm:px-8 sm:pb-24 lg:px-12">
         <BackLink
-          fallback="/"
+          to="/"
           label="Back to Kuber Tech"
           className={BACK_LINK_MUTED_CLASS}
         />
@@ -31,25 +31,25 @@ export default function About({
               About
             </p>
             <h1 className="text-[34px] font-medium leading-[1.05] tracking-[-0.03em] text-[#FAFAFA] sm:text-[48px]">
-              I build systems that make product teams faster.
+              Engineering partner for product teams that ship fast.
             </h1>
 
             <div className="mt-10 space-y-6 text-[15px] leading-[1.7] text-[color:var(--color-text-muted)] sm:text-[16px]">
               <p>
-                I’m Vinit Brahmankar, founder of Kuber Tech Solutions. My work
-                sits across full-stack product engineering, cloud infrastructure,
-                frontend performance, and practical AI systems.
+                Kuber Tech Solutions is an engineering partner working with funded
+                startups and enterprise teams on full-stack product engineering,
+                cloud infrastructure, frontend performance, and practical AI systems.
               </p>
               <p>
-                I started Kuber Tech because the best software teams rarely need
-                more handoffs. They need someone who can understand the product,
-                build the interface, shape the backend, and keep the system
-                reliable once real users arrive.
+                The team was built around a simple observation: the best product
+                teams rarely need more handoffs. They need someone who can
+                understand the product, build the interface, shape the backend,
+                and keep the system reliable once real users arrive.
               </p>
               <p>
-                We stay intentionally focused: clear scope, short reviewable
-                cycles, production-grade code, and infrastructure that teams can
-                actually operate after launch.
+                Work is scoped and delivered in short, reviewable cycles. The
+                focus stays on production-grade code and infrastructure that
+                teams can actually operate after launch.
               </p>
             </div>
 
@@ -73,11 +73,10 @@ export default function About({
                   </div>
                 </div>
                 <p className="mt-5 text-[14.5px] leading-[1.7] text-[color:var(--color-text-muted)]">
-                  Vinit leads product and platform architecture across custom
-                  software, cloud infrastructure, IoT systems, and practical AI.
-                  He is strongest where frontend, backend, device workflows, and
-                  production operations need to come together as one reliable
-                  system.
+                  Leads product and platform architecture across custom software,
+                  cloud infrastructure, IoT systems, and practical AI. Strongest
+                  where frontend, backend, device workflows, and production
+                  operations need to come together as one reliable system.
                 </p>
               </article>
 

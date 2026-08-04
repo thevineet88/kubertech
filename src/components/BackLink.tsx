@@ -1,36 +1,24 @@
-"use client";
-
 import { ArrowLeft } from "lucide-react";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface BackLinkProps {
-  fallback: string;
+  to: string;
   label: string;
   className: string;
-  alwaysFallback?: boolean;
 }
 
-export default function BackLink({ fallback, label, className, alwaysFallback = false }: BackLinkProps) {
-  const router = useRouter();
-
-  const handleBack = () => {
-    if (alwaysFallback) {
-      router.push(fallback);
-      return;
-    }
-    // react-router tracked its own stack position via history.state.idx.
-    // Next has no equivalent, so fall back to whether there's history at all.
-    if (typeof window !== "undefined" && window.history.length > 1) {
-      router.back();
-    } else {
-      router.push(fallback);
-    }
-  };
-
+/* The label always names a destination ("Back to Kuber Tech", "Back to
+   newsletter"), so this always navigates there. It used to call router.back()
+   whenever any browser history existed, which meant it behaved as a browser
+   back button and landed wherever the visitor happened to come from — e.g.
+   "Back to Kuber Tech" on /contact returned to the previous site instead of
+   the homepage. A real <Link> also restores middle-click, open-in-new-tab
+   and crawlable markup, which the <button> lost. */
+export default function BackLink({ to, label, className }: BackLinkProps) {
   return (
-    <button type="button" onClick={handleBack} className={className}>
+    <Link href={to} className={className}>
       <ArrowLeft size={16} />
       {label}
-    </button>
+    </Link>
   );
 }

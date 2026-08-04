@@ -149,7 +149,7 @@ export default function Services() {
       <AmbientMeshBackground />
       <PageHeader
         jsonLd={[servicesJsonLd, buildFaqSchema(faqs)]}
-        backTo={{ fallback: "/", label: "Back to Kuber Tech" }}
+        backTo={{ to: "/", label: "Back to Kuber Tech" }}
         eyebrow="Services"
         title="AI, cloud, IoT, and product engineering, under one team."
         description="Our team partners with funded startups and hardware-enabled products across AI, HealthTech, FinTech, EdTech, and connected devices, engaged for one of these areas, or several of them together."

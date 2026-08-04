@@ -1,6 +1,6 @@
 import ScrollReveal from "./ScrollReveal";
 import ScrambleText from "./ScrambleText";
-import { AISim, IoTSim } from "./CapabilitySims";
+import { AISim, PrintSim } from "./CapabilitySims";
 
 export default function LiveSection() {
   return (
@@ -33,7 +33,7 @@ export default function LiveSection() {
           </h2>
           <p className="text-[15px] leading-relaxed max-w-xl" style={{ color: "#A1A1AA" }}>
             A feel for what our work looks like in the wild — a RAG pipeline
-            answering queries and an IoT fleet reporting home.
+            answering queries and a design platform shipping in real time.
           </p>
         </ScrollReveal>
 
@@ -42,7 +42,7 @@ export default function LiveSection() {
             <AISim />
           </ScrollReveal>
           <ScrollReveal delay={0.2} y={24}>
-            <IoTSim />
+            <PrintSim />
           </ScrollReveal>
         </div>
       </div>

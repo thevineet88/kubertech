@@ -64,7 +64,7 @@ export default function RemoteEngineeringIndia() {
       <AmbientMeshBackground />
       <PageHeader
         jsonLd={faqJsonLd}
-        backTo={{ fallback: "/", label: "Back to Kuber Tech" }}
+        backTo={{ to: "/", label: "Back to Kuber Tech" }}
         eyebrow="Remote engineering, India"
         title="A remote engineering team in India, built for US and UK overlap."
         description="We're an India-based engineering team (IST, UTC+5:30) delivering frontend performance, design systems, and full-stack work for funded startups in the US, UK, and UAE, with deliberate timezone overlap and an async-first workflow, not a generic outsourcing arrangement."

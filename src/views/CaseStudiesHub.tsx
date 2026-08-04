@@ -15,16 +15,6 @@ const caseStudies = [
     gradient: "linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%)",
   },
   {
-    title: "Smart IoT Device Management Platform",
-    tag: "Full-stack IoT platform",
-    metric: "Edge → Cloud",
-    metricLabel: "Secure provisioning, OTA deployments & fleet management",
-    description:
-      "A cloud-connected IoT platform managing Raspberry Pi devices through AWS IoT Greengrass, MQTT, secure provisioning, automated deployments and reliable offline operation across the entire hardware fleet.",
-    href: "/case-studies/iot-xponent",
-    gradient: "linear-gradient(135deg, #0B5D5B 0%, #0F172A 100%)",
-  },
-  {
     title: "Custom Print Platform",
     tag: "Full-stack real-time app",
     metric: "Full funnel",
@@ -66,15 +56,6 @@ const moreProjects = [
     gradient: "linear-gradient(135deg, #1f2a5a 0%, #3b4ba0 100%)",
   },
   {
-    title: "Cloud: 5G telecom platform",
-    tag: "Cloud platform",
-    metric: "-50%",
-    metricLabel: "Deployment cycle time",
-    description:
-      "Fully automated, cost-optimised AWS infrastructure with reusable Terraform modules and Jenkins CI/CD for a production 5G platform.",
-    gradient: "linear-gradient(135deg, #102a43 0%, #486581 100%)",
-  },
-  {
     title: "Siemens Teamcenter: Data grid",
     tag: "Full-stack app",
     metric: "Excel-like",
@@ -109,7 +90,7 @@ export default function CaseStudiesHub() {
       <AmbientMeshBackground />
       <PageHeader
         jsonLd={hubJsonLd}
-        backTo={{ fallback: "/", label: "Back to Kuber Tech" }}
+        backTo={{ to: "/", label: "Back to Kuber Tech" }}
         eyebrow="Case studies"
         title="Engagements where the numbers moved."
         description="Frontend performance, full-stack commerce, and AI engineering work our team has delivered for funded startups and enterprise platforms."

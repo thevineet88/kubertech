@@ -3,7 +3,6 @@ import HeroSection from "../components/HeroSection";
 import AmbientMeshBackground from "../components/AmbientMeshBackground";
 import CapabilitiesOrbit from "../components/CapabilitiesOrbit";
 import LiveSection from "../components/LiveSection";
-import TestimonialsSection from "../components/TestimonialsSection";
 import ClosingCTA from "../components/ClosingCTA";
 import CaseStudiesSection from "../components/CaseStudiesSection";
 import ProofBar from "../components/ProofBar";
@@ -44,7 +43,7 @@ export default function Home() {
         <CaseStudiesSection />
         <ProofBar />
         <ClientsSection />
-        <TestimonialsSection />
+        {/* <TestimonialsSection /> */}
         <ClosingCTA />
         <Footer />
       </div>

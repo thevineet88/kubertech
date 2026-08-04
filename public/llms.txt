@@ -31,9 +31,6 @@ and UK timezone overlap.
 - [Custom print platform](https://kubertechsolutions.in/case-studies/custom-print-platform):
   Real-time canvas design tool on Konva.js with WebSockets, six months of iteration
   with zero regressions, green Core Web Vitals.
-- [IoT device management](https://kubertechsolutions.in/case-studies/iot-xponent):
-  Secure IoT fleet management with AWS IoT Greengrass and Raspberry Pi edge
-  infrastructure.
 
 ## Key pages
 

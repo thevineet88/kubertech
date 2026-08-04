@@ -91,15 +91,15 @@ const featured: Project[] = [
     slug: "/case-studies/rag-knowledge-engine",
   },
   {
-    title: "Smart IoT Device Management Platform",
-    tag: "IoT & connected devices",
-    metric: "AWS IoT",
-    metricLabel: "Secure fleet provisioning, OTA updates, real-time telemetry",
+    title: "Custom Print Platform",
+    tag: "Full-stack real-time app",
+    metric: "Full funnel",
+    metricLabel: "Upload, customise, checkout, owned end to end",
     description:
-      "A cloud-connected IoT platform managing Raspberry Pi powered devices end to end: secure provisioning over Tailscale, automated over-the-air deployments via AWS IoT Greengrass, and live MQTT telemetry between edge devices and AWS IoT Core.",
-    logos: ["aws", "node", "ts"],
-    gradient: "linear-gradient(135deg, #F59E0B 0%, #b5421a 100%)",
-    slug: "/case-studies/iot-xponent",
+      "Canvas-based design tool for real-time artwork placement and print ordering, built on Konva.js with WebSockets throughout. Six months of iteration with zero regressions and green Core Web Vitals in production.",
+    logos: ["konva", "socketio", "rails", "ts"],
+    gradient: "linear-gradient(135deg, #8B5CF6 0%, #6B94CC 100%)",
+    slug: "/case-studies/custom-print-platform",
   },
 ];
 
