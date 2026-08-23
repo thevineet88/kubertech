@@ -80,7 +80,6 @@ export default function About({
                 </p>
               </article>
 
-              {/* ─── Tanmay Tiwari's profile card (commented out) ───
               <article className="rounded-2xl border border-[color:var(--color-border)] bg-[var(--color-surface)] p-5">
                 <div className="flex items-center gap-4">
                   <div className="h-16 w-16 overflow-hidden rounded-xl border border-white/10 bg-white/[0.04]">
@@ -106,7 +105,6 @@ export default function About({
                   distributed telemetry, and resilient device-to-cloud systems.
                 </p>
               </article>
-              ─── End Tanmay's profile card ─── */}
             </div>
           </section>
 
